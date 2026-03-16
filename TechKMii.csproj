@@ -33,8 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=3.3.0.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>packages\log4net.3.3.0\lib\net462\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,16 +51,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Layers\UI\frmMenúPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Layers\UI\frmMenúPrincipal.Designer.cs">
+      <DependentUpon>frmMenúPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Login\frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Login\frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Login\frmSeguridad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Login\frmSeguridad.Designer.cs">
+      <DependentUpon>frmSeguridad.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Layers\UI\frmMenúPrincipal.resx">
+      <DependentUpon>frmMenúPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Login\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Login\frmSeguridad.resx">
+      <DependentUpon>frmSeguridad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +89,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -78,6 +102,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Documents\" />
+    <Folder Include="Enumeraciones\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Layers\BLL\" />
+    <Folder Include="Layers\DAL\" />
+    <Folder Include="Layers\Entities\DTO\" />
+    <Folder Include="Layers\Interfaces\" />
+    <Folder Include="Layers\Persistencia\" />
+    <Folder Include="Layers\UI\Filtros\" />
+    <Folder Include="Layers\UI\Mantenimientos\" />
+    <Folder Include="Layers\UI\Procesos\" />
+    <Folder Include="Layers\UI\Reportes\" />
+    <Folder Include="Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
