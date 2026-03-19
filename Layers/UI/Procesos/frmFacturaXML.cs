@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TechKMii.Layers.UI.Mantenimientos
+namespace TechKMii.Layers.UI.Procesos
 {
-    public partial class TipoDispositivoMantenimiento : Form
+    public partial class frmFacturaXML : Form
     {
-        public TipoDispositivoMantenimiento()
+        public frmFacturaXML()
         {
             InitializeComponent();
-        }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

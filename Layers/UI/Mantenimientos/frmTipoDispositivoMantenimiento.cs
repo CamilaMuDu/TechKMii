@@ -8,21 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TechKMii.Layers.UI.Procesos
+namespace TechKMii.Layers.UI.Mantenimientos
 {
-    public partial class frmFacturacion : Form
+    public partial class frmTipoDispositivoMantenimiento : Form
     {
-        public frmFacturacion()
+        public frmTipoDispositivoMantenimiento()
         {
             InitializeComponent();
         }
 
-        private void frmFacturacion_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tlpAgrupamiento_Paint(object sender, PaintEventArgs e)
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

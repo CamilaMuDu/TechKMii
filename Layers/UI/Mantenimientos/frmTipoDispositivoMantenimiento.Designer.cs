@@ -1,6 +1,6 @@
 ﻿namespace TechKMii.Layers.UI.Mantenimientos
 {
-    partial class TipoDispositivoMantenimiento
+    partial class frmTipoDispositivoMantenimiento
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TipoDispositivoMantenimiento));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTipoDispositivoMantenimiento));
             this.btnCancelar = new System.Windows.Forms.Button();
             this.chkEstado = new System.Windows.Forms.CheckBox();
             this.dgvDatos = new System.Windows.Forms.DataGridView();

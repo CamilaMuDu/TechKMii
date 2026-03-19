@@ -51,8 +51,8 @@ namespace TechKMii
 
         private void tipoDeDispositivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmTipoDispositivo tipoDispositivo = new frmTipoDispositivo();
-            tipoDispositivo.ShowDialog();
+            frmTipoDispositivoMantenimiento tipoDispositivo = new frmTipoDispositivoMantenimiento();
+            tipoDispositivo.ShowDialog();   
         }
 
         private void frmMenúPrincipal_Load(object sender, EventArgs e)

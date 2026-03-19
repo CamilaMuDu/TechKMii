@@ -93,17 +93,23 @@
     <Compile Include="Layers\UI\Mantenimientos\frmProveedorMantenimiento.Designer.cs">
       <DependentUpon>frmProveedorMantenimiento.cs</DependentUpon>
     </Compile>
-    <Compile Include="Layers\UI\Mantenimientos\TipoDispositivoMantenimiento.cs">
+    <Compile Include="Layers\UI\Mantenimientos\frmTipoDispositivoMantenimiento.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Layers\UI\Mantenimientos\TipoDispositivoMantenimiento.Designer.cs">
-      <DependentUpon>TipoDispositivoMantenimiento.cs</DependentUpon>
+    <Compile Include="Layers\UI\Mantenimientos\frmTipoDispositivoMantenimiento.Designer.cs">
+      <DependentUpon>frmTipoDispositivoMantenimiento.cs</DependentUpon>
     </Compile>
     <Compile Include="Layers\UI\Procesos\frmFacturacion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Layers\UI\Procesos\frmFacturacion.Designer.cs">
       <DependentUpon>frmFacturacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Procesos\frmFacturaXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Procesos\frmFacturaXML.Designer.cs">
+      <DependentUpon>frmFacturaXML.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,11 +134,14 @@
     <EmbeddedResource Include="Layers\UI\Mantenimientos\frmProveedorMantenimiento.resx">
       <DependentUpon>frmProveedorMantenimiento.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Layers\UI\Mantenimientos\TipoDispositivoMantenimiento.resx">
-      <DependentUpon>TipoDispositivoMantenimiento.cs</DependentUpon>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\frmTipoDispositivoMantenimiento.resx">
+      <DependentUpon>frmTipoDispositivoMantenimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Layers\UI\Procesos\frmFacturacion.resx">
       <DependentUpon>frmFacturacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Procesos\frmFacturaXML.resx">
+      <DependentUpon>frmFacturaXML.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
