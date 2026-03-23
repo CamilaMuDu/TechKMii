@@ -51,6 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Layers\Entities\Cliente.cs" />
+    <Compile Include="Layers\Entities\Factura.cs" />
+    <Compile Include="Layers\Entities\FacturaDetalle.cs" />
+    <Compile Include="Layers\Entities\Inventario.cs" />
+    <Compile Include="Layers\Entities\Marca.cs" />
+    <Compile Include="Layers\Entities\Producto.cs" />
+    <Compile Include="Layers\Entities\Proveedor.cs" />
+    <Compile Include="Layers\Entities\Provincia.cs" />
+    <Compile Include="Layers\Entities\Rol.cs" />
+    <Compile Include="Layers\Entities\TipoDispositivo.cs" />
+    <Compile Include="Layers\Entities\Usuario.cs" />
     <Compile Include="Layers\UI\frmMenúPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
