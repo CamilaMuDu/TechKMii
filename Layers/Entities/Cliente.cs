@@ -11,14 +11,14 @@ namespace TechKMii.Layers.Entities
         public int ClienteID { set; get; }
         public string Nombre { set; get; }
         public string Apellidos { set; get; }
-        public string Sexo { set; get; }
+        public Sexo Sexo { set; get; }
         public string Telefono { set; get; }
         public string Correo { set; get; }
         public string Direccion { set; get; }
-        public string TipoIdentificacion { set; get; }
-        public int ProvinciaID { set; get; }
+        public TipoIdentificacion TipoIdentificacion { set; get; }
+        public Provincia ProvinciaID { set; get; }
         public byte[] Fotografia { set; get; }
-        public bool Estado { set; get; }
+        public EstadoCatalogos Estado { set; get; }
 
     }
 }

@@ -11,7 +11,7 @@ namespace TechKMii.Layers.Entities
         public int UsuarioID { set; get; }
         public string Nombre { set; get; }
         public string Contrasenna { set; get; }
-        public int RolID { set; get; }
-        public bool Estado { set; get; }
+        public Rol RolID { set; get; }
+        public EstadoCatalogos Estado { set; get; }
     }
 }

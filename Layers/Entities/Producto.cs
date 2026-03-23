@@ -11,9 +11,9 @@ namespace TechKMii.Layers.Entities
         public int ProductoID { set; get; }
         public string Nombre { set; get; }
         public byte[] CodigoBarras { set; get; }
-        public int TipoID { set; get; }
-        public int ProveedorID { set; get; }
-        public int MarcaID { set; get; }
+        public TipoDispositivo TipoID { set; get; }
+        public Proveedor ProveedorID { set; get; }
+        public Marca MarcaID { set; get; }
         public string Modelo { set; get; }
         public double Precio { set; get; }
         public int CantidadStock { set; get; }
@@ -22,7 +22,6 @@ namespace TechKMii.Layers.Entities
         public byte[] DocEspecificaciones { set; get; }
         public string Extras { set; get; }
         public byte[] Fotografia { set; get; }
-        public bool Estado { set; get; }
-
+        public EstadoCatalogos Estado { set; get; }
     }
 }

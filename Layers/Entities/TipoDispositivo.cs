@@ -10,6 +10,6 @@ namespace TechKMii.Layers.Entities
     {
         public int TipoID { set; get; }
         public string Nombre { set; get; }
-        public bool Estado { set; get; }
+        public EstadoCatalogos Estado { set; get; }
     }
 }

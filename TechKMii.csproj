@@ -51,6 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumeraciones\EstadoCatalogos.cs" />
+    <Compile Include="Enumeraciones\EstadoFactura.cs" />
+    <Compile Include="Enumeraciones\Sexo.cs" />
+    <Compile Include="Enumeraciones\TipoEntradaSalida.cs" />
+    <Compile Include="Enumeraciones\TipoIdentificacion.cs" />
+    <Compile Include="Enumeraciones\TipoMetodoPago.cs" />
+    <Compile Include="Enumeraciones\TipoTarjeta.cs" />
     <Compile Include="Layers\Entities\Cliente.cs" />
     <Compile Include="Layers\Entities\Factura.cs" />
     <Compile Include="Layers\Entities\FacturaDetalle.cs" />
@@ -179,7 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Documents\" />
-    <Folder Include="Enumeraciones\" />
     <Folder Include="Factories\" />
     <Folder Include="Layers\BLL\" />
     <Folder Include="Layers\DAL\" />
