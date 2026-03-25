@@ -33,8 +33,8 @@
             this.toolStripPbBarra = new System.Windows.Forms.ToolStripProgressBar();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblContrasenna = new System.Windows.Forms.Label();
-            this.txtLogin = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtContrasenna = new System.Windows.Forms.TextBox();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.epError = new System.Windows.Forms.ErrorProvider(this.components);
@@ -51,10 +51,10 @@
             this.sttBarraInferior.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.sttBarraInferior.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripPbBarra});
-            this.sttBarraInferior.Location = new System.Drawing.Point(0, 793);
+            this.sttBarraInferior.Location = new System.Drawing.Point(0, 809);
             this.sttBarraInferior.Name = "sttBarraInferior";
             this.sttBarraInferior.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
-            this.sttBarraInferior.Size = new System.Drawing.Size(863, 38);
+            this.sttBarraInferior.Size = new System.Drawing.Size(863, 22);
             this.sttBarraInferior.TabIndex = 5;
             this.sttBarraInferior.Text = "statusStrip1";
             // 
@@ -87,25 +87,25 @@
             this.lblContrasenna.TabIndex = 1;
             this.lblContrasenna.Text = "Contraseña";
             // 
-            // txtLogin
+            // txtNombre
             // 
-            this.txtLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLogin.Location = new System.Drawing.Point(253, 29);
-            this.txtLogin.Margin = new System.Windows.Forms.Padding(6);
-            this.txtLogin.Name = "txtLogin";
-            this.txtLogin.Size = new System.Drawing.Size(391, 44);
-            this.txtLogin.TabIndex = 2;
+            this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNombre.Location = new System.Drawing.Point(253, 29);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(6);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(391, 44);
+            this.txtNombre.TabIndex = 2;
             // 
-            // txtPassword
+            // txtContrasenna
             // 
-            this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(253, 131);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(6);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(391, 44);
-            this.txtPassword.TabIndex = 3;
-            this.txtPassword.Text = "123456";
+            this.txtContrasenna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtContrasenna.Location = new System.Drawing.Point(253, 131);
+            this.txtContrasenna.Margin = new System.Windows.Forms.Padding(6);
+            this.txtContrasenna.Name = "txtContrasenna";
+            this.txtContrasenna.PasswordChar = '*';
+            this.txtContrasenna.Size = new System.Drawing.Size(391, 44);
+            this.txtContrasenna.TabIndex = 3;
+            this.txtContrasenna.Text = "123456";
             // 
             // btnSalir
             // 
@@ -155,8 +155,8 @@
             this.tlpPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.89376F));
             this.tlpPanel.Controls.Add(this.lblUsuario, 0, 0);
             this.tlpPanel.Controls.Add(this.lblContrasenna, 0, 1);
-            this.tlpPanel.Controls.Add(this.txtLogin, 1, 0);
-            this.tlpPanel.Controls.Add(this.txtPassword, 1, 1);
+            this.tlpPanel.Controls.Add(this.txtNombre, 1, 0);
+            this.tlpPanel.Controls.Add(this.txtContrasenna, 1, 1);
             this.tlpPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tlpPanel.Location = new System.Drawing.Point(83, 432);
             this.tlpPanel.Margin = new System.Windows.Forms.Padding(6);
@@ -182,6 +182,7 @@
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.sttBarraInferior.ResumeLayout(false);
             this.sttBarraInferior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
@@ -199,8 +200,8 @@
         private System.Windows.Forms.ToolStripProgressBar toolStripPbBarra;
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblContrasenna;
-        private System.Windows.Forms.TextBox txtLogin;
-        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtContrasenna;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.ErrorProvider epError;

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TechKMii.Layers.UI.Login;
 using TechKMii.Layers.UI.Mantenimientos;
+using TechKMii.Layers.UI.Procesos;
 
 namespace TechKMii
 {
@@ -57,6 +58,13 @@ namespace TechKMii
 
         private void frmMenúPrincipal_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void facturacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmFacturacion facturacion = new frmFacturacion();
+            facturacion.ShowDialog();
 
         }
     }

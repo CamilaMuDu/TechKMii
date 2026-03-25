@@ -179,8 +179,8 @@
             // chkEstado
             // 
             this.chkEstado.AutoSize = true;
-            this.chkEstado.Location = new System.Drawing.Point(12, 244);
-            this.chkEstado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkEstado.Location = new System.Drawing.Point(12, 314);
+            this.chkEstado.Margin = new System.Windows.Forms.Padding(2);
             this.chkEstado.Name = "chkEstado";
             this.chkEstado.Size = new System.Drawing.Size(59, 17);
             this.chkEstado.TabIndex = 14;
@@ -189,8 +189,8 @@
             // 
             // btnFacturaXML
             // 
-            this.btnFacturaXML.Location = new System.Drawing.Point(12, 277);
-            this.btnFacturaXML.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnFacturaXML.Location = new System.Drawing.Point(12, 361);
+            this.btnFacturaXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnFacturaXML.Name = "btnFacturaXML";
             this.btnFacturaXML.Size = new System.Drawing.Size(100, 36);
             this.btnFacturaXML.TabIndex = 12;
@@ -332,7 +332,7 @@
             // dtpFecha
             // 
             this.dtpFecha.Location = new System.Drawing.Point(93, 82);
-            this.dtpFecha.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFecha.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(202, 19);
             this.dtpFecha.TabIndex = 20;
@@ -390,7 +390,7 @@
             // 
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatos.Location = new System.Drawing.Point(12, 29);
-            this.dgvDatos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvDatos.Margin = new System.Windows.Forms.Padding(2);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.RowHeadersWidth = 82;
             this.dgvDatos.RowTemplate.Height = 33;
@@ -404,7 +404,7 @@
             this.toolStripStatusLblDolar});
             this.sttBarraInferior.Location = new System.Drawing.Point(0, 479);
             this.sttBarraInferior.Name = "sttBarraInferior";
-            this.sttBarraInferior.Size = new System.Drawing.Size(962, 26);
+            this.sttBarraInferior.Size = new System.Drawing.Size(990, 26);
             this.sttBarraInferior.TabIndex = 10;
             this.sttBarraInferior.Text = "statusStrip1";
             // 
@@ -425,7 +425,7 @@
             this.tspBarraSuperior.Location = new System.Drawing.Point(0, 0);
             this.tspBarraSuperior.Name = "tspBarraSuperior";
             this.tspBarraSuperior.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.tspBarraSuperior.Size = new System.Drawing.Size(962, 25);
+            this.tspBarraSuperior.Size = new System.Drawing.Size(990, 25);
             this.tspBarraSuperior.TabIndex = 11;
             this.tspBarraSuperior.Text = "toolStrip1";
             // 
@@ -457,12 +457,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(962, 505);
+            this.ClientSize = new System.Drawing.Size(990, 505);
             this.Controls.Add(this.grbFacturacion);
             this.Controls.Add(this.grbDetalle);
             this.Controls.Add(this.sttBarraInferior);
             this.Controls.Add(this.tspBarraSuperior);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmFacturacion";
             this.Text = "frmFacturacion";
             this.Load += new System.EventHandler(this.frmFacturacion_Load);

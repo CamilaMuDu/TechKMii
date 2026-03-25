@@ -13,5 +13,10 @@ namespace TechKMii.Layers.Entities
         public string Contrasenna { set; get; }
         public Rol RolID { set; get; }
         public EstadoCatalogos Estado { set; get; }
+
+        public override string ToString()
+        {
+            return $"{UsuarioID} - {Nombre.Trim()}";
+        }
     }
 }
