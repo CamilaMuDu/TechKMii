@@ -61,18 +61,26 @@
     <Compile Include="Enumeraciones\TipoIdentificacion.cs" />
     <Compile Include="Enumeraciones\TipoMetodoPago.cs" />
     <Compile Include="Enumeraciones\TipoTarjeta.cs" />
+    <Compile Include="Layers\BLL\ClienteBLL.cs" />
     <Compile Include="Layers\BLL\UsuarioBLL.cs" />
+    <Compile Include="Layers\DAL\ClienteDAL.cs" />
     <Compile Include="Layers\DAL\UsuarioDAL.cs" />
     <Compile Include="Layers\Entities\Cliente.cs" />
     <Compile Include="Layers\Entities\Factura.cs" />
     <Compile Include="Layers\Entities\FacturaDetalle.cs" />
     <Compile Include="Layers\Entities\Inventario.cs" />
     <Compile Include="Layers\Entities\Marca.cs" />
+    <Compile Include="Layers\Entities\personahacienda\PersonaHaciendaActividad.cs" />
+    <Compile Include="Layers\Entities\personahacienda\PersonaHaciendaDatos.cs" />
+    <Compile Include="Layers\Entities\personahacienda\PersonaHaciendaRegimen.cs" />
+    <Compile Include="Layers\Entities\personahacienda\PersonaHaciendaSituacion.cs" />
     <Compile Include="Layers\Entities\Producto.cs" />
     <Compile Include="Layers\Entities\Proveedor.cs" />
     <Compile Include="Layers\Entities\Rol.cs" />
     <Compile Include="Layers\Entities\TipoDispositivo.cs" />
     <Compile Include="Layers\Entities\Usuario.cs" />
+    <Compile Include="Layers\Interfaces\IClienteBLL.cs" />
+    <Compile Include="Layers\Interfaces\IClienteDAL.cs" />
     <Compile Include="Layers\Interfaces\IUsuarioBLL.cs" />
     <Compile Include="Layers\Interfaces\IUsuarioDAL.cs" />
     <Compile Include="Layers\UI\frmMenúPrincipal.cs">
@@ -212,7 +220,6 @@
   <ItemGroup>
     <Folder Include="Documents\" />
     <Folder Include="Factories\" />
-    <Folder Include="Layers\Entities\DTO\" />
     <Folder Include="Layers\UI\Filtros\" />
     <Folder Include="Layers\UI\Reportes\" />
   </ItemGroup>

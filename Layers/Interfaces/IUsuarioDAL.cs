@@ -13,7 +13,7 @@ namespace TechKMii.Layers.Interfaces
         IEnumerable<Usuario> GetAll();
         Usuario Save(Usuario pUsuario);
         Usuario Update(Usuario pUsuario);
-        Usuario GetById(int usuarioID );
-        bool Delete(int usuarioID);
+        Usuario GetById(string nombre );
+        bool Delete(string nombre);
     }
 }

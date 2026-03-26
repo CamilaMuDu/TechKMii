@@ -16,7 +16,7 @@ namespace TechKMii.Layers.Entities
         public string Correo { set; get; }
         public string Direccion { set; get; }
         public TipoIdentificacion TipoIdentificacion { set; get; }
-        public Provincia ProvinciaID { set; get; }
+        public string Provincia { set; get; }
         public byte[] Fotografia { set; get; }
         public EstadoCatalogos Estado { set; get; }
 

@@ -11,8 +11,8 @@ namespace TechKMii.Layers.Interfaces
     {
         Usuario Login(string Nombre, string contrasenna);
         IEnumerable<Usuario> GetAll();
-        Usuario GetById(int usuarioID);
+        Usuario GetById(string nombre);
         Usuario Save(Usuario pUsuario);
-        bool Delete(int usuarioID);
+        bool Delete(string nombre);
     }
 }

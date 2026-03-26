@@ -11,10 +11,10 @@ namespace TechKMii.Layers.BLL
 {
     public class UsuarioBLL : IUsuarioBLL
     {
-        public bool Delete(int usuarioID)
+        public bool Delete(string nombre)
         {
             IUsuarioDAL dalUsuario = new UsuarioDAL();
-            return dalUsuario.Delete(usuarioID);
+            return dalUsuario.Delete(nombre);
         }
 
         public IEnumerable<Usuario> GetAll()
@@ -23,18 +23,18 @@ namespace TechKMii.Layers.BLL
             return dalUsuario.GetAll();
         }
 
-        public Usuario GetById(int usuarioID)
+        public Usuario GetById(string nombre)
         {
             IUsuarioDAL usuarioDAL = new UsuarioDAL();  
-            return usuarioDAL.GetById(usuarioID);
+            return usuarioDAL.GetById(nombre);
         }
 
-        public Usuario Login(int usuarioID, string contrasenna)
+        public Usuario Login(string nombre, string contrasenna)
         {
             IUsuarioDAL usuarioDAL = new UsuarioDAL();
             //para encriptar la contraseña
             string crytpPassword = Cryptography.EncrypthAES(contrasenna);
-            return usuarioDAL.Login(usuarioID, crytpPassword);
+            return usuarioDAL.Login(nombre, crytpPassword);
         }
 
         public Usuario Save(Usuario pUsuario)
@@ -51,7 +51,7 @@ namespace TechKMii.Layers.BLL
             // Encriptar la contraseña.
             pUsuario.Contrasenna = Cryptography.EncrypthAES(pUsuario.Contrasenna);
 
-            if (dalUsuario.GetById(pUsuario.UsuarioID) != null)
+            if (dalUsuario.GetById(pUsuario.Nombre) != null)
                 oUsuario = dalUsuario.Update(pUsuario);
             else
                 oUsuario = dalUsuario.Save(pUsuario);

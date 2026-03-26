@@ -17,14 +17,14 @@ namespace TechKMii.Layers.DAL
     {
         private static readonly ILog _myLogControlEventos = LogManager.GetLogger("MyControlEventos");
 
-        public bool Delete(int usuarioID)
+        public bool Delete(string nombre)
         {
             SqlCommand command = new SqlCommand();
             string msg = "";
             double row = 0;
             try
             {
-                command.Parameters.AddWithValue("@UsuarioID", usuarioID);
+                command.Parameters.AddWithValue("@Nombre", nombre);
 
                 command.CommandText = "dbo.usp_DELETE_Usuario_ByID";
                 command.CommandType = CommandType.StoredProcedure;
@@ -94,7 +94,7 @@ namespace TechKMii.Layers.DAL
             }
         }
 
-        public Usuario GetById(int usuarioID)
+        public Usuario GetById(string nombre)
         {
             SqlCommand command = new SqlCommand();
             IDataReader reader = null;
@@ -105,7 +105,7 @@ namespace TechKMii.Layers.DAL
             {
                 command.CommandText = "dbo.usp_SELECT_Usuario_ByID";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@UsuarioID", usuarioID);
+                command.Parameters.AddWithValue("@Nombre", nombre);
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
@@ -211,7 +211,7 @@ namespace TechKMii.Layers.DAL
                 }
 
                 if (row > 0)
-                    oUsuario = GetById(pUsuario.UsuarioID);
+                    oUsuario = GetById(pUsuario.Nombre);
 
                 return oUsuario;
             }
@@ -252,7 +252,7 @@ namespace TechKMii.Layers.DAL
                 }
 
                 if (row > 0)
-                    oUsuario = GetById(pUsuario.UsuarioID);
+                    oUsuario = GetById(pUsuario.Nombre);
 
                 return oUsuario;
             }
