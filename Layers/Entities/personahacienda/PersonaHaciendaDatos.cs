@@ -10,9 +10,6 @@ namespace UTNLeccion8B.Layer.Entities.PersonaHacienda
     {
         public string nombre { set; get; }
         public string tipoIdentificacion { set; get; }
-        public PersonaHaciendaRegimen regimen { set; get; }
-        public PersonaHaciendaSituacion situacion { set; get; }
-        public List<PersonaHaciendaActividad> actividades { set; get; }
 
     }
 }

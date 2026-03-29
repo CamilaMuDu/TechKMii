@@ -167,16 +167,154 @@ namespace TechKMii.Layers.DAL
         public Cliente GetById(int clienteID)
         {
 
+            Cliente oCliente = null;
+            SqlCommand command = new SqlCommand();
+            string msg = "";
+            try
+            {
+                command.CommandText = "dbo.usp_SELECT_Cliente_ByID";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@ClienteID", clienteID);
+
+                using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
+                {
+                    using (IDataReader dr = db.ExecuteReader(command))
+                    {
+
+                        while (dr.Read())
+                        {
+                            oCliente = new Cliente();
+
+                            oCliente.ClienteID = Convert.ToInt32(dr["IdCliente"]);
+                            oCliente.Nombre = dr["Nombre"].ToString();
+                            oCliente.Apellidos = dr["Apellidos"].ToString();
+                            oCliente.Sexo = (Sexo)dr["Sexo"];
+                            oCliente.Telefono = dr["Telefono"].ToString();
+                            oCliente.Correo = dr["Correo"].ToString();
+                            oCliente.Direccion = dr["Direccion"].ToString();
+                            oCliente.TipoIdentificacion = (TipoIdentificacion)dr["TipoIdentificacion"];
+                            oCliente.Provincia = dr["ProvinciaID"].ToString();
+
+                            if (dr["Fotografia"] != DBNull.Value)
+                                oCliente.Fotografia = (byte[])dr["Fotografia"];
+                            oCliente.Estado = (EstadoCatalogos)dr["Estado"];
+                        }
+                    }
+                }
+                return oCliente;
+            }
+            catch (SqlException er)
+            {
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
+                throw new CustomException(msg.ToSqlServerDetailError(er));
+            }
+            catch (Exception er)
+            {
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToString());
+                throw;
+            }
         }
 
-        public Task<Cliente> Save(Cliente pCliente)
+        public async Task<Cliente> Save(Cliente pCliente)
         {
-            throw new NotImplementedException();
+            string msg = "";
+            Cliente oCliente = null;
+            SqlCommand command = new SqlCommand();
+ 
+            try
+            {
+                command.CommandText = "dbo.usp_INSERT_Cliente";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Nombre", pCliente.Nombre);
+                command.Parameters.AddWithValue("@Apellidos", pCliente.Apellidos);
+                command.Parameters.AddWithValue("@Sexo", pCliente.Sexo);
+                command.Parameters.AddWithValue("@Telefono", pCliente.Telefono);
+                command.Parameters.AddWithValue("@Correo", pCliente.Correo);
+                command.Parameters.AddWithValue("@Direccion", pCliente.Direccion);
+                command.Parameters.AddWithValue("@TipoIdentificacion", pCliente.TipoIdentificacion);
+                command.Parameters.AddWithValue("@Provincia", pCliente.Provincia);
+
+                if (pCliente.Fotografia != null)
+                    command.Parameters.AddWithValue("@Fotografia", pCliente.Fotografia);
+                else
+                    command.Parameters.AddWithValue("@Fotografia", DBNull.Value);
+
+                command.Parameters.AddWithValue("@Estado", pCliente.Estado);
+
+                using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
+                {
+                    var rows = await db.ExecuteNonQueryAsync(command, IsolationLevel.ReadCommitted);
+
+                    if (rows > 0)
+                        oCliente = this.GetById(pCliente.ClienteID);
+                }
+                return oCliente;
+            }
+            catch (SqlException er)
+            {
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
+                throw new CustomException(msg.ToSqlServerDetailError(er));
+            }
+            catch (Exception er)
+            {
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToString());
+                throw;
+            }
         }
 
-        public Task<Cliente> Update(Cliente pCliente)
+        public async Task<Cliente> Update(Cliente pCliente)
         {
-            throw new NotImplementedException();
+
+            string msg = "";
+            int rows = 0;
+            SqlCommand command = new SqlCommand();
+            Cliente oCliente = null;
+            try
+            {
+                command.CommandText = "dbo.usp_UPDATE_Cliente";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Nombre", pCliente.Nombre);
+                command.Parameters.AddWithValue("@Apellidos", pCliente.Apellidos);
+                command.Parameters.AddWithValue("@Sexo", pCliente.Sexo);
+                command.Parameters.AddWithValue("@Telefono", pCliente.Telefono);
+                command.Parameters.AddWithValue("@Correo", pCliente.Correo);
+                command.Parameters.AddWithValue("@Direccion", pCliente.Direccion);
+                command.Parameters.AddWithValue("@TipoIdentificacion", pCliente.TipoIdentificacion);
+                command.Parameters.AddWithValue("@Provincia", pCliente.Provincia);
+
+                if (pCliente.Fotografia != null)
+                    command.Parameters.AddWithValue("@Fotografia", pCliente.Fotografia);
+                else
+                    command.Parameters.AddWithValue("@Fotografia", DBNull.Value);
+
+                command.Parameters.AddWithValue("@Estado", pCliente.Estado);
+
+                using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
+                {
+                    rows = await db.ExecuteNonQueryAsync(command, IsolationLevel.ReadCommitted);
+                }
+
+                if (rows > 0)
+                    oCliente = this.GetById(pCliente.ClienteID);
+
+                return oCliente;
+            }
+            catch (SqlException er)
+            {
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
+                throw new CustomException(msg.ToSqlServerDetailError(er));
+            }
+            catch (Exception er)
+            {
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToString());
+                throw;
+            }
         }
     }
 }

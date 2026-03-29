@@ -64,6 +64,8 @@
             this.toolStripBtnNuevo = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnFacturar = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnSalir = new System.Windows.Forms.ToolStripButton();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StpVentaDolar = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.erpError)).BeginInit();
             this.tlbPanelTotalPagar.SuspendLayout();
             this.grbFacturacion.SuspendLayout();
@@ -401,7 +403,9 @@
             // 
             this.sttBarraInferior.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.sttBarraInferior.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLblDolar});
+            this.toolStripStatusLblDolar,
+            this.toolStripStatusLabel1,
+            this.StpVentaDolar});
             this.sttBarraInferior.Location = new System.Drawing.Point(0, 479);
             this.sttBarraInferior.Name = "sttBarraInferior";
             this.sttBarraInferior.Size = new System.Drawing.Size(990, 26);
@@ -452,6 +456,17 @@
             this.toolStripBtnSalir.Name = "toolStripBtnSalir";
             this.toolStripBtnSalir.Size = new System.Drawing.Size(33, 22);
             this.toolStripBtnSalir.Text = "Salir";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 21);
+            // 
+            // StpVentaDolar
+            // 
+            this.StpVentaDolar.Name = "StpVentaDolar";
+            this.StpVentaDolar.Size = new System.Drawing.Size(67, 21);
+            this.StpVentaDolar.Text = "Venta Dolar";
             // 
             // frmFacturacion
             // 
@@ -521,5 +536,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.DataGridView dgvDatos;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel StpVentaDolar;
     }
 }

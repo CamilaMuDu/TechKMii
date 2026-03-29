@@ -19,6 +19,5 @@ namespace TechKMii.Layers.Entities
         public string Provincia { set; get; }
         public byte[] Fotografia { set; get; }
         public EstadoCatalogos Estado { set; get; }
-
     }
 }
