@@ -37,9 +37,9 @@ namespace TechKMii.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Usuario {
+        public string Usuario {
             get {
-                return ((int)(this["Usuario"]));
+                return ((string)(this["Usuario"]));
             }
             set {
                 this["Usuario"] = value;

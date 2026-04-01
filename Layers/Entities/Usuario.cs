@@ -8,7 +8,7 @@ namespace TechKMii.Layers.Entities
 {
     public class Usuario
     {
-        public int UsuarioID { set; get; }
+        public String UsuarioID { set; get; }
         public string Nombre { set; get; }
         public string Contrasenna { set; get; }
         public Rol RolID { set; get; }

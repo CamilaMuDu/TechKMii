@@ -1,6 +1,6 @@
 ﻿public enum EstadoCatalogos
 {
-    Activo,
-    Inactivo,
-    Eliminado
+    Activo = 1,
+    Inactivo = 2,
+    Eliminado = 3
 }

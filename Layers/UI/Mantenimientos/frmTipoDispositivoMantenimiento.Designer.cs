@@ -101,7 +101,7 @@
             this.tsbSalir});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1891, 50);
+            this.toolStrip1.Size = new System.Drawing.Size(1891, 42);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -110,7 +110,7 @@
             this.tsbNuevo.Image = ((System.Drawing.Image)(resources.GetObject("tsbNuevo.Image")));
             this.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNuevo.Name = "tsbNuevo";
-            this.tsbNuevo.Size = new System.Drawing.Size(121, 44);
+            this.tsbNuevo.Size = new System.Drawing.Size(121, 36);
             this.tsbNuevo.Text = "Nuevo";
             // 
             // tsbEditar
@@ -118,7 +118,7 @@
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
             this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(110, 44);
+            this.tsbEditar.Size = new System.Drawing.Size(110, 36);
             this.tsbEditar.Text = "Editar";
             // 
             // tsbBorrar
@@ -126,7 +126,7 @@
             this.tsbBorrar.Image = ((System.Drawing.Image)(resources.GetObject("tsbBorrar.Image")));
             this.tsbBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBorrar.Name = "tsbBorrar";
-            this.tsbBorrar.Size = new System.Drawing.Size(114, 44);
+            this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
             this.tsbBorrar.Text = "Borrar";
             // 
             // tsbSalir
@@ -134,7 +134,7 @@
             this.tsbSalir.Image = ((System.Drawing.Image)(resources.GetObject("tsbSalir.Image")));
             this.tsbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSalir.Name = "tsbSalir";
-            this.tsbSalir.Size = new System.Drawing.Size(95, 44);
+            this.tsbSalir.Size = new System.Drawing.Size(95, 36);
             this.tsbSalir.Text = "Salir";
             // 
             // statusStrip1
@@ -149,7 +149,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 50);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 42);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -162,7 +162,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatos);
-            this.splitContainer1.Size = new System.Drawing.Size(1891, 612);
+            this.splitContainer1.Size = new System.Drawing.Size(1891, 620);
             this.splitContainer1.SplitterDistance = 808;
             this.splitContainer1.TabIndex = 8;
             // 
@@ -214,7 +214,7 @@
             this.btnBuscarCliente.Text = "Buscar";
             this.btnBuscarCliente.UseVisualStyleBackColor = true;
             // 
-            // TipoDispositivoMantenimiento
+            // frmTipoDispositivoMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -222,8 +222,9 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.Name = "TipoDispositivoMantenimiento";
+            this.Name = "frmTipoDispositivoMantenimiento";
             this.Text = "TipoDispositivoMantenimiento";
+            this.Load += new System.EventHandler(this.frmTipoDispositivoMantenimiento_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

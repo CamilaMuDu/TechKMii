@@ -9,11 +9,11 @@ namespace TechKMii.Layers.Interfaces
 {
     public interface IUsuarioDAL
     {
-        Usuario Login(string nombre, string contrasenna);
+        Usuario Login(string UsuarioID, string contrasenna);
         IEnumerable<Usuario> GetAll();
         Usuario Save(Usuario pUsuario);
         Usuario Update(Usuario pUsuario);
-        Usuario GetById(string nombre );
-        bool Delete(string nombre);
+        Usuario GetById(String UsuarioID );
+        bool Delete(String UsuarioID);
     }
 }

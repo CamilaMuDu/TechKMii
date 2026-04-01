@@ -235,6 +235,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmProveedorMantenimiento";
             this.Text = "frmProveedorMantenimiento";
+            this.Load += new System.EventHandler(this.frmProveedorMantenimiento_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

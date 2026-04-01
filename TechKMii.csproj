@@ -104,8 +104,10 @@
     <Compile Include="Layers\BLL\ClienteBLL.cs" />
     <Compile Include="Layers\BLL\DolarBLL.cs" />
     <Compile Include="Layers\BLL\ProvinciaBLL.cs" />
+    <Compile Include="Layers\BLL\RolBLL.cs" />
     <Compile Include="Layers\BLL\UsuarioBLL.cs" />
     <Compile Include="Layers\DAL\ClienteDAL.cs" />
+    <Compile Include="Layers\DAL\RolDAL.cs" />
     <Compile Include="Layers\DAL\UsuarioDAL.cs" />
     <Compile Include="Layers\Entities\BCCR\Dolar.cs" />
     <Compile Include="Layers\Entities\BCCR\ServicesBCCR.cs" />
@@ -125,8 +127,16 @@
     <Compile Include="Layers\Interfaces\IClienteDAL.cs" />
     <Compile Include="Layers\Interfaces\IDolarBLL.cs" />
     <Compile Include="Layers\Interfaces\IProvinciaBLL.cs" />
+    <Compile Include="Layers\Interfaces\IRolBLL.cs" />
+    <Compile Include="Layers\Interfaces\IRolDAL.cs" />
     <Compile Include="Layers\Interfaces\IUsuarioBLL.cs" />
     <Compile Include="Layers\Interfaces\IUsuarioDAL.cs" />
+    <Compile Include="Layers\UI\frmAcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\frmAcercaDe.Designer.cs">
+      <DependentUpon>frmAcercaDe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layers\UI\frmMenúPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +215,9 @@
     <Compile Include="Util\QuickResponse.cs" />
     <Compile Include="Util\UtilError.cs" />
     <Compile Include="Util\Utils.cs" />
+    <EmbeddedResource Include="Layers\UI\frmAcercaDe.resx">
+      <DependentUpon>frmAcercaDe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Layers\UI\frmMenúPrincipal.resx">
       <DependentUpon>frmMenúPrincipal.cs</DependentUpon>
     </EmbeddedResource>

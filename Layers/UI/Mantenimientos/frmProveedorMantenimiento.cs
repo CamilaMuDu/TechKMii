@@ -21,5 +21,10 @@ namespace TechKMii.Layers.UI.Mantenimientos
         {
 
         }
+
+        private void frmProveedorMantenimiento_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.sttBarraInferior = new System.Windows.Forms.StatusStrip();
-            this.toolStripPbBarra = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblContrasenna = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -50,19 +50,18 @@
             // 
             this.sttBarraInferior.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.sttBarraInferior.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripPbBarra});
-            this.sttBarraInferior.Location = new System.Drawing.Point(0, 809);
+            this.toolStripProgressBar1});
+            this.sttBarraInferior.Location = new System.Drawing.Point(0, 793);
             this.sttBarraInferior.Name = "sttBarraInferior";
             this.sttBarraInferior.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
-            this.sttBarraInferior.Size = new System.Drawing.Size(863, 22);
+            this.sttBarraInferior.Size = new System.Drawing.Size(863, 38);
             this.sttBarraInferior.TabIndex = 5;
             this.sttBarraInferior.Text = "statusStrip1";
             // 
-            // toolStripPbBarra
+            // toolStripProgressBar1
             // 
-            this.toolStripPbBarra.Name = "toolStripPbBarra";
-            this.toolStripPbBarra.Size = new System.Drawing.Size(200, 26);
-            this.toolStripPbBarra.Visible = false;
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 26);
             // 
             // lblUsuario
             // 
@@ -197,7 +196,6 @@
         #endregion
 
         private System.Windows.Forms.StatusStrip sttBarraInferior;
-        private System.Windows.Forms.ToolStripProgressBar toolStripPbBarra;
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblContrasenna;
         private System.Windows.Forms.TextBox txtNombre;
@@ -207,5 +205,6 @@
         private System.Windows.Forms.ErrorProvider epError;
         private System.Windows.Forms.PictureBox pcbLogin;
         private System.Windows.Forms.TableLayoutPanel tlpPanel;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }

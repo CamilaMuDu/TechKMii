@@ -30,114 +30,99 @@ namespace TechKMii.Layers.UI.Login
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            Close();
         }
 
         private async void btnAceptar_Click(object sender, EventArgs e)
         {
-            frmMenúPrincipal frmMenúPrincipal = new frmMenúPrincipal();
-            frmMenúPrincipal.Show();
+            frmMenúPrincipal frmMenuPrincipal = new frmMenúPrincipal();
+            frmMenuPrincipal.ShowDialog();
 
-            //IUsuarioBLL usuariobll = new UsuarioBLL();
-            //epError.Clear();
-            //Usuario oUsuario = null;
-            //try
-            //{
-            //    if (string.IsNullOrEmpty(this.txtNombre.Text))
-            //    {
-            //        epError.SetError(txtNombre, " El usuario es requerido");
-            //        this.txtNombre.Focus();
-            //        return;
-            //    }
-            //    if (string.IsNullOrEmpty(this.txtContrasenna.Text))
-            //    {
-            //        epError.SetError(txtContrasenna, "La contraseña es requerida");
-            //        this.txtContrasenna.Focus();
-            //        return;
-            //    }
+            IUsuarioBLL usuariobll = new UsuarioBLL();
+            epError.Clear();
+            Usuario oUsuario = null;
+            try
+            {
+                //Validacion de datos 
+                if (string.IsNullOrEmpty(this.txtNombre.Text))
+                {
+                    epError.SetError(txtNombre, " El usuario es requerido");
+                    this.txtNombre.Focus();
+                    return;
+                }
+                if (string.IsNullOrEmpty(this.txtContrasenna.Text))
+                {
+                    epError.SetError(txtContrasenna, "La contraseña es requerida");
+                    this.txtContrasenna.Focus();
+                    return;
+                }
 
-            //    oUsuario = usuariobll.Login(this.txtNombre.Text, this.txtContrasenna.Text);
+                //Creacion de instancia con los datos 
+                oUsuario = usuariobll.Login(this.txtNombre.Text, this.txtContrasenna.Text);
 
-            //    if (oUsuario == null)
-            //    {
-            //        ++contador;
-            //        MessageBox.Show("Error en el acceso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        // Si el contador es 3 cierre la aplicación
-            //        if (contador == 3)
-            //        {
+                if (oUsuario == null)
+                {
+                    //validacion contador de intentos fallidos
+                    ++contador;
+                    MessageBox.Show("Error en el acceso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            //            MessageBox.Show("Se equivocó en 3 ocasiones, el Sistema se Cerrará por seguridad", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            _myLogControlEventos.WarnFormat("Se equivocó + de 3 ocasiones Login: {0}", this.txtNombre.Text);
-            //            this.DialogResult = DialogResult.Cancel;
-            //            Application.Exit();
-            //        }
-            //    }
-            //    else
-            //    {
+                    if (contador == 3)
+                    {
 
-            //        Settings.Default.Usuario = oUsuario.UsuarioID;
-            //        Settings.Default.Nombre = oUsuario.Nombre.Trim();
-            //        Settings.Default.Rol = oUsuario.RolID.RolID.ToString();
+                        MessageBox.Show("Se equivocó en 3 ocasiones, el Sistema se Cerrará por seguridad", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        _myLogControlEventos.WarnFormat("Se equivocó + de 3 ocasiones Login: {0}", this.txtNombre.Text);
+                        this.DialogResult = DialogResult.Cancel;
+                        Application.Exit();
+                    }
+                }
+                else
+                {
+                    //valida configuracion del default en el app.config
+                    Settings.Default.Usuario = oUsuario.UsuarioID;
+                    Settings.Default.Nombre = oUsuario.Nombre.Trim();
+                    Settings.Default.Rol = oUsuario.RolID.RolID.ToString();
 
-            //        //EfectoConexionNoAsync();
-            //        bool respuesta = await EfectoConexion();
+                    //conexion no async
+                    bool respuesta = await EfectoConexion();
 
-            //        // Log de errores
-            //        _myLogControlEventos.InfoFormat("Accedió a la aplicación :{0}", Settings.Default.Nombre);
-            //        this.DialogResult = DialogResult.OK;
-            //    }
-            //}
-            //catch (Exception er)
-            //{
-            //    string msg = "";
-            //    _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
-            //    MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+                    _myLogControlEventos.InfoFormat("Accedió a la aplicación :{0}", Settings.Default.Nombre);
+                    this.DialogResult = DialogResult.OK;
+                }
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        //metodo para que se llene el progressbar.
         private async Task<bool> EfectoConexion()
         {
-            //Efecto en la barra de entrada.
-            toolStripPbBarra.Visible = true;
+            toolStripProgressBar1.Visible = true;
             for (int i = 0; i < 10; i++)
             {
                 await Task.Delay(150);
-                //Thread.Sleep(100);
-                this.toolStripPbBarra.Value += 10;
+                this.toolStripProgressBar1.Value += 10;
                 this.sttBarraInferior.Refresh();
             }
             return true;
-
         }
-
-        private void EfectoConexionNoAsync()
-        {
-            //Efecto en la barra de entrada.
-            toolStripPbBarra.Visible = true;
-            for (int i = 0; i < 10; i++)
-            {
-                System.Threading.Thread.Sleep(1000);
-                //Thread.Sleep(100);
-                this.toolStripPbBarra.Value += 10;
-                this.sttBarraInferior.Refresh();
-            }
-        }
-        Random random = new Random();
 
         private void frmLogin_Load(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    this.Text = $"{this.Text}. Versión Electronics : {Application.ProductVersion}";            
-            //    _myLogControlEventos.InfoFormat("Inicio Login");
-            //}
-            //catch (Exception er)
-            //{
-            //    string msg = "";
-            //    _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
-            //    MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-
+        {          
+            try
+            {
+                this.Text = $"{this.Text}. Versión TechKMii : {Application.ProductVersion}";
+                _myLogControlEventos.InfoFormat("Inicio Login");
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

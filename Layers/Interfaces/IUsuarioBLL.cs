@@ -9,10 +9,10 @@ namespace TechKMii.Layers.Interfaces
 {
     public interface IUsuarioBLL
     {
-        Usuario Login(string Nombre, string contrasenna);
+        Usuario Login(string UsuarioID, string contrasenna);
         IEnumerable<Usuario> GetAll();
-        Usuario GetById(string nombre);
+        Usuario GetById(String UsuarioID);
         Usuario Save(Usuario pUsuario);
-        bool Delete(string nombre);
+        bool Delete(String UsuarioID);
     }
 }

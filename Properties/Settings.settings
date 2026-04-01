@@ -10,7 +10,7 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=DESKTOP-SB0IICF;Initial Catalog=BD_TechKMii;Persist Security Info=True;User ID=sa;Password=123456;TrustServerCertificate=True</Value>
     </Setting>
-    <Setting Name="Usuario" Type="System.Int32" Scope="User">
+    <Setting Name="Usuario" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Nombre" Type="System.String" Scope="User">

@@ -17,22 +17,25 @@ namespace TechKMii.Layers.DAL
     {
         private static readonly ILog _myLogControlEventos = LogManager.GetLogger("MyControlEventos");
 
-        public bool Delete(string nombre)
+        public bool Delete(string UsuarioID)
         {
+            StringBuilder conexion = new StringBuilder();
             SqlCommand command = new SqlCommand();
             string msg = "";
             double row = 0;
             try
             {
-                command.Parameters.AddWithValue("@Nombre", nombre);
-
                 command.CommandText = "dbo.usp_DELETE_Usuario_ByID";
                 command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@UsuarioID", UsuarioID);
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
                     row = db.ExecuteNonQuery(command, IsolationLevel.ReadCommitted);
                 }
+
+
                 return row > 0 ? true : false;
             }
             catch (SqlException er)
@@ -50,35 +53,44 @@ namespace TechKMii.Layers.DAL
 
         public IEnumerable<Usuario> GetAll()
         {
-            string msg = "";
+            List<Usuario> lista = new List<Usuario>();
             SqlCommand command = new SqlCommand();
-            IDataReader reader = null;
-            Usuario oUsuario = null;
-            IList<Usuario> lista = new List<Usuario>();
+            string msg = "";
+
+            command.CommandText = "dbo.usp_SELECT_Usuario_All";
+            command.CommandType = CommandType.StoredProcedure;
+
             try
             {
-                command.CommandText = "dbo.usp_SELECT_Usuario_All";
-                command.CommandType = CommandType.StoredProcedure;
-
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
-                    reader = db.ExecuteReader(command);
-
-                    while (reader.Read())
+                    using (IDataReader reader = db.ExecuteReader(command))
                     {
-                        oUsuario = new Usuario();
-                        oUsuario.UsuarioID = int.Parse(reader["UsuarioID"].ToString());
-                        oUsuario.Nombre = reader["Nombre"].ToString();
-                        oUsuario.Contrasenna = reader["Contrasenna"].ToString();
-                        oUsuario.RolID = new Rol
+                        while (reader.Read())
                         {
-                            RolID = int.Parse(reader["RolID"].ToString())
-                        };
-                        oUsuario.Estado = bool.Parse(reader["Estado"].ToString())? EstadoCatalogos.Activo : EstadoCatalogos.Inactivo;
+                            Usuario oUsuario = new Usuario
+                            {
+                                UsuarioID = reader["UsuarioID"].ToString(),
+                                Nombre = reader["Nombre"].ToString(),
+                                Contrasenna = reader["Contrasenna"].ToString(),
+                                Estado = Convert.ToInt32(reader["Estado"]) == 1
+                                    ? EstadoCatalogos.Activo
+                                    : EstadoCatalogos.Inactivo,
+                                RolID = new Rol
+                                {
+                                    RolID = Convert.ToInt32(reader["RolID"]),
+                                    Descripcion = reader["Descripcion"].ToString(),
+                                    Estado = Convert.ToInt32(reader["RolEstado"]) == 1
+                                        ? EstadoCatalogos.Activo
+                                        : EstadoCatalogos.Inactivo
+                                }
+                            };
 
-                        lista.Add(oUsuario);
+                            lista.Add(oUsuario);
+                        }
                     }
                 }
+
                 return lista;
             }
             catch (SqlException er)
@@ -94,38 +106,43 @@ namespace TechKMii.Layers.DAL
             }
         }
 
-        public Usuario GetById(string nombre)
+        public Usuario GetById(string UsuarioID)
         {
-            SqlCommand command = new SqlCommand();
-            IDataReader reader = null;
             Usuario oUsuario = null;
+            SqlCommand command = new SqlCommand();
             string msg = "";
+
+            command.CommandText = "dbo.usp_SELECT_Usuario_ByID";
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@UsuarioID", UsuarioID);
 
             try
             {
-                command.CommandText = "dbo.usp_SELECT_Usuario_ByID";
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Nombre", nombre);
-
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
-                    reader = db.ExecuteReader(command);
-
-                    if (reader.Read())
+                    using (IDataReader reader = db.ExecuteReader(command))
                     {
-
-                        oUsuario = new Usuario();
-                        oUsuario.UsuarioID = int.Parse(reader["UsuarioID"].ToString());
-                        oUsuario.Nombre = reader["Nombre"].ToString();
-                        oUsuario.Contrasenna = reader["Contrasenna"].ToString();
-                        oUsuario.RolID = new Rol
+                        if (reader.Read())
                         {
-                            RolID = int.Parse(reader["RolID"].ToString())
-                        };
-                        oUsuario.Estado = bool.Parse(reader["Estado"].ToString()) ? EstadoCatalogos.Activo : EstadoCatalogos.Inactivo;
+                            oUsuario = new Usuario();
+                            oUsuario.UsuarioID = reader["UsuarioID"].ToString();
+                            oUsuario.Nombre = reader["Nombre"].ToString();
+                            oUsuario.Contrasenna = reader["Contrasenna"].ToString();
+                            oUsuario.Estado = Convert.ToInt32(reader["Estado"]) == 1
+                                ? EstadoCatalogos.Activo
+                                : EstadoCatalogos.Inactivo;
+
+                            oUsuario.RolID = new Rol
+                            {
+                                RolID = Convert.ToInt32(reader["RolID"]),
+                                Descripcion = reader["Descripcion"].ToString(),
+                                Estado = Convert.ToInt32(reader["RolEstado"]) == 1
+                                    ? EstadoCatalogos.Activo
+                                    : EstadoCatalogos.Inactivo
+                            };
+                        }
                     }
                 }
-
                 return oUsuario;
             }
             catch (SqlException er)
@@ -141,7 +158,7 @@ namespace TechKMii.Layers.DAL
             }
         }
 
-        public Usuario Login(string nombre, string Contrasenna) 
+        public Usuario Login(string UsuarioID, string contrasenna)
         {
             SqlCommand command = new SqlCommand();
             IDataReader reader = null;
@@ -149,29 +166,30 @@ namespace TechKMii.Layers.DAL
             string msg = "";
             try
             {
-                command.CommandText = "dbo.usp_SELECT_Usuario_Login";
+                command.CommandText = "dbo.sp_LoginUsuario";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@Nombre", nombre);
-                command.Parameters.AddWithValue("@Contrasenna", Contrasenna);
+
+                command.Parameters.AddWithValue("@UsuariioID", UsuarioID);
+                command.Parameters.AddWithValue("@Contrasenna", contrasenna);
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
                     reader = db.ExecuteReader(command);
-
                     while (reader.Read())
                     {
                         oUsuario = new Usuario();
-                        oUsuario.UsuarioID = int.Parse(reader["UsuarioID"].ToString());
+                        oUsuario.UsuarioID = reader["UsuarioID"].ToString();
                         oUsuario.Nombre = reader["Nombre"].ToString();
                         oUsuario.Contrasenna = reader["Contrasenna"].ToString();
                         oUsuario.RolID = new Rol
                         {
-                            RolID = int.Parse(reader["RolID"].ToString())
+                            RolID = int.Parse(reader["RolID"].ToString()),
+                            Descripcion = reader["Descripcion"].ToString(),
+                            Estado = (EstadoCatalogos)Enum.Parse(typeof(EstadoCatalogos), reader["RolEstado"].ToString())
                         };
-                        oUsuario.Estado = bool.Parse(reader["Estado"].ToString()) ? EstadoCatalogos.Activo : EstadoCatalogos.Inactivo;
+                        oUsuario.Estado = (EstadoCatalogos)Enum.Parse(typeof(EstadoCatalogos), reader["Estado"].ToString());
                     }
                 }
-
                 return oUsuario;
             }
             catch (SqlException er)
@@ -189,29 +207,29 @@ namespace TechKMii.Layers.DAL
 
         public Usuario Save(Usuario pUsuario)
         {
-            string msg = "";
-            SqlCommand command = new SqlCommand();
             Usuario oUsuario = null;
-            double row = 0;
+            SqlCommand command = new SqlCommand();
+            int row = 0;
+            string msg = "";
+
+            command.CommandText = "dbo.usp_INSERT_Usuario";
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@UsuarioID", pUsuario.UsuarioID);
+            command.Parameters.AddWithValue("@Nombre", pUsuario.Nombre);
+            command.Parameters.AddWithValue("@Contrasenna", pUsuario.Contrasenna);
+            command.Parameters.AddWithValue("@RolID", pUsuario.RolID.RolID);
+            command.Parameters.AddWithValue("@Estado", (int)pUsuario.Estado);
+
             try
             {
-
-                command.CommandText = "dbo.usp_INSERT_Usuario";
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@Nombre", pUsuario.Nombre);
-                command.Parameters.AddWithValue("@Contrasenna", pUsuario.Contrasenna);
-                command.Parameters.AddWithValue("@RolID", pUsuario.RolID.RolID);
-                command.Parameters.AddWithValue("@Estado", pUsuario.Estado == EstadoCatalogos.Activo ? true : false);
-
-
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
-                    row = db.ExecuteNonQuery(command, IsolationLevel.ReadCommitted);
+                    row = Convert.ToInt32(db.ExecuteNonQuery(command));
                 }
 
                 if (row > 0)
-                    oUsuario = GetById(pUsuario.Nombre);
+                    oUsuario = GetById(pUsuario.UsuarioID);
 
                 return oUsuario;
             }
@@ -230,29 +248,29 @@ namespace TechKMii.Layers.DAL
 
         public Usuario Update(Usuario pUsuario)
         {
-            SqlCommand command = new SqlCommand();
             Usuario oUsuario = null;
-            double row = 0;
+            SqlCommand command = new SqlCommand();
+            int row = 0;
             string msg = "";
+
+            command.CommandText = "dbo.usp_UPDATE_Usuario";
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@UsuarioID", pUsuario.UsuarioID);
+            command.Parameters.AddWithValue("@Nombre", pUsuario.Nombre);
+            command.Parameters.AddWithValue("@Contrasenna", pUsuario.Contrasenna);
+            command.Parameters.AddWithValue("@RolID", pUsuario.RolID.RolID);
+            command.Parameters.AddWithValue("@Estado", (int)pUsuario.Estado);
+
             try
             {
-                command.CommandText = "dbo.usp_UPDATE_Usuario";
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@UsuarioID", pUsuario.UsuarioID);
-                command.Parameters.AddWithValue("@Nombre", pUsuario.Nombre);
-                command.Parameters.AddWithValue("@Contrasenna", pUsuario.Contrasenna);
-                command.Parameters.AddWithValue("@RolID", pUsuario.RolID.RolID);
-                command.Parameters.AddWithValue("@Estado", pUsuario.Estado == EstadoCatalogos.Activo ? true : false);
-
-
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
-                    row = db.ExecuteNonQuery(command, IsolationLevel.ReadCommitted);
+                    row = Convert.ToInt32(db.ExecuteNonQuery(command));
                 }
 
                 if (row > 0)
-                    oUsuario = GetById(pUsuario.Nombre);
+                    oUsuario = GetById(pUsuario.UsuarioID);
 
                 return oUsuario;
             }

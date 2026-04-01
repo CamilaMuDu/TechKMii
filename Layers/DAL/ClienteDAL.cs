@@ -230,11 +230,11 @@ namespace TechKMii.Layers.DAL
 
                 command.Parameters.AddWithValue("@Nombre", pCliente.Nombre);
                 command.Parameters.AddWithValue("@Apellidos", pCliente.Apellidos);
-                command.Parameters.AddWithValue("@Sexo", pCliente.Sexo);
+                command.Parameters.AddWithValue("@Sexo", pCliente.Sexo.ToString());
                 command.Parameters.AddWithValue("@Telefono", pCliente.Telefono);
                 command.Parameters.AddWithValue("@Correo", pCliente.Correo);
                 command.Parameters.AddWithValue("@Direccion", pCliente.Direccion);
-                command.Parameters.AddWithValue("@TipoIdentificacion", pCliente.TipoIdentificacion);
+                command.Parameters.AddWithValue("@TipoIdentificacion", pCliente.TipoIdentificacion.ToString());
                 command.Parameters.AddWithValue("@Provincia", pCliente.Provincia);
 
                 if (pCliente.Fotografia != null)
@@ -242,7 +242,7 @@ namespace TechKMii.Layers.DAL
                 else
                     command.Parameters.AddWithValue("@Fotografia", DBNull.Value);
 
-                command.Parameters.AddWithValue("@Estado", pCliente.Estado);
+                command.Parameters.AddWithValue("@Estado", int.Parse(pCliente.Estado.ToString()));
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {

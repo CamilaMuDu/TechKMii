@@ -42,13 +42,13 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblContrasena = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtContrasenna = new System.Windows.Forms.TextBox();
             this.lblRol = new System.Windows.Forms.Label();
             this.cmbRol = new System.Windows.Forms.ComboBox();
             this.spcContenedor = new System.Windows.Forms.SplitContainer();
             this.tplPanel = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripBtnSalir = new System.Windows.Forms.ToolStripButton();
-            this.toolStripBtnSalvarUsuario = new System.Windows.Forms.ToolStripButton();
+            this.toolStripBtnGuardarUsuario = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnNuevo = new System.Windows.Forms.ToolStripButton();
             this.tspBarraPrincipal = new System.Windows.Forms.ToolStrip();
             this.sttBarraInferior = new System.Windows.Forms.StatusStrip();
@@ -100,7 +100,7 @@
             this.trvUsuarios.Margin = new System.Windows.Forms.Padding(6);
             this.trvUsuarios.Name = "trvUsuarios";
             this.trvUsuarios.SelectedImageIndex = 0;
-            this.trvUsuarios.Size = new System.Drawing.Size(867, 614);
+            this.trvUsuarios.Size = new System.Drawing.Size(901, 606);
             this.trvUsuarios.TabIndex = 5;
             // 
             // epError
@@ -158,15 +158,15 @@
             this.lblContrasena.TabIndex = 1;
             this.lblContrasena.Text = "Contrasena";
             // 
-            // txtPassword
+            // txtContrasenna
             // 
-            this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(141, 92);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(6);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(440, 31);
-            this.txtPassword.TabIndex = 3;
+            this.txtContrasenna.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtContrasenna.Location = new System.Drawing.Point(141, 92);
+            this.txtContrasenna.Margin = new System.Windows.Forms.Padding(6);
+            this.txtContrasenna.Name = "txtContrasenna";
+            this.txtContrasenna.PasswordChar = '*';
+            this.txtContrasenna.Size = new System.Drawing.Size(440, 31);
+            this.txtContrasenna.TabIndex = 3;
             // 
             // lblRol
             // 
@@ -194,7 +194,7 @@
             // 
             this.spcContenedor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spcContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spcContenedor.Location = new System.Drawing.Point(0, 42);
+            this.spcContenedor.Location = new System.Drawing.Point(0, 50);
             this.spcContenedor.Margin = new System.Windows.Forms.Padding(6);
             this.spcContenedor.Name = "spcContenedor";
             // 
@@ -205,8 +205,8 @@
             // spcContenedor.Panel2
             // 
             this.spcContenedor.Panel2.Controls.Add(this.trvUsuarios);
-            this.spcContenedor.Size = new System.Drawing.Size(1509, 618);
-            this.spcContenedor.SplitterDistance = 630;
+            this.spcContenedor.Size = new System.Drawing.Size(1567, 610);
+            this.spcContenedor.SplitterDistance = 654;
             this.spcContenedor.SplitterWidth = 8;
             this.spcContenedor.TabIndex = 5;
             // 
@@ -220,7 +220,7 @@
             this.tplPanel.Controls.Add(this.txtNombre, 1, 1);
             this.tplPanel.Controls.Add(this.lblNombre, 0, 1);
             this.tplPanel.Controls.Add(this.lblContrasena, 0, 2);
-            this.tplPanel.Controls.Add(this.txtPassword, 1, 2);
+            this.tplPanel.Controls.Add(this.txtContrasenna, 1, 2);
             this.tplPanel.Controls.Add(this.lblRol, 0, 3);
             this.tplPanel.Controls.Add(this.cmbRol, 1, 3);
             this.tplPanel.Location = new System.Drawing.Point(20, 47);
@@ -239,37 +239,39 @@
             this.toolStripBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnSalir.Name = "toolStripBtnSalir";
-            this.toolStripBtnSalir.Size = new System.Drawing.Size(63, 36);
+            this.toolStripBtnSalir.Size = new System.Drawing.Size(63, 44);
             this.toolStripBtnSalir.Text = "Sa&lir";
             this.toolStripBtnSalir.Click += new System.EventHandler(this.toolStripBtnSalir_Click);
             // 
-            // toolStripBtnSalvarUsuario
+            // toolStripBtnGuardarUsuario
             // 
-            this.toolStripBtnSalvarUsuario.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripBtnSalvarUsuario.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripBtnSalvarUsuario.Name = "toolStripBtnSalvarUsuario";
-            this.toolStripBtnSalvarUsuario.Size = new System.Drawing.Size(81, 36);
-            this.toolStripBtnSalvarUsuario.Text = "&Salvar";
+            this.toolStripBtnGuardarUsuario.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripBtnGuardarUsuario.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBtnGuardarUsuario.Name = "toolStripBtnGuardarUsuario";
+            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(102, 44);
+            this.toolStripBtnGuardarUsuario.Text = "Guardar";
+            this.toolStripBtnGuardarUsuario.Click += new System.EventHandler(this.toolStripBtnGuardarUsuario_Click);
             // 
             // toolStripBtnNuevo
             // 
             this.toolStripBtnNuevo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnNuevo.Name = "toolStripBtnNuevo";
-            this.toolStripBtnNuevo.Size = new System.Drawing.Size(89, 36);
+            this.toolStripBtnNuevo.Size = new System.Drawing.Size(89, 44);
             this.toolStripBtnNuevo.Text = "&Nuevo";
+            this.toolStripBtnNuevo.Click += new System.EventHandler(this.toolStripBtnNuevo_Click);
             // 
             // tspBarraPrincipal
             // 
             this.tspBarraPrincipal.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tspBarraPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripBtnNuevo,
-            this.toolStripBtnSalvarUsuario,
+            this.toolStripBtnGuardarUsuario,
             this.toolStripBtnSalir});
             this.tspBarraPrincipal.Location = new System.Drawing.Point(0, 0);
             this.tspBarraPrincipal.Name = "tspBarraPrincipal";
             this.tspBarraPrincipal.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.tspBarraPrincipal.Size = new System.Drawing.Size(1509, 42);
+            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 50);
             this.tspBarraPrincipal.TabIndex = 4;
             this.tspBarraPrincipal.Text = "toolStrip1";
             // 
@@ -279,15 +281,16 @@
             this.sttBarraInferior.Location = new System.Drawing.Point(0, 660);
             this.sttBarraInferior.Name = "sttBarraInferior";
             this.sttBarraInferior.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
-            this.sttBarraInferior.Size = new System.Drawing.Size(1509, 22);
+            this.sttBarraInferior.Size = new System.Drawing.Size(1567, 22);
             this.sttBarraInferior.TabIndex = 3;
             this.sttBarraInferior.Text = "statusStrip1";
+            this.sttBarraInferior.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sttBarraInferior_ItemClicked);
             // 
             // frmSeguridad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1509, 682);
+            this.ClientSize = new System.Drawing.Size(1567, 682);
             this.Controls.Add(this.spcContenedor);
             this.Controls.Add(this.tspBarraPrincipal);
             this.Controls.Add(this.sttBarraInferior);
@@ -325,12 +328,12 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblContrasena;
-        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtContrasenna;
         private System.Windows.Forms.Label lblRol;
         private System.Windows.Forms.ComboBox cmbRol;
         private System.Windows.Forms.ToolStrip tspBarraPrincipal;
         private System.Windows.Forms.ToolStripButton toolStripBtnNuevo;
-        private System.Windows.Forms.ToolStripButton toolStripBtnSalvarUsuario;
+        private System.Windows.Forms.ToolStripButton toolStripBtnGuardarUsuario;
         private System.Windows.Forms.ToolStripButton toolStripBtnSalir;
         private System.Windows.Forms.StatusStrip sttBarraInferior;
     }

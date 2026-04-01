@@ -11,35 +11,36 @@ namespace TechKMii.Layers.BLL
 {
     public class UsuarioBLL : IUsuarioBLL
     {
-        public bool Delete(string nombre)
+        public bool Delete(string UsuarioID)
         {
-            IUsuarioDAL dalUsuario = new UsuarioDAL();
-            return dalUsuario.Delete(nombre);
+           IUsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.Delete(UsuarioID);
         }
 
         public IEnumerable<Usuario> GetAll()
         {
-            IUsuarioDAL dalUsuario = new UsuarioDAL();
-            return dalUsuario.GetAll();
+            IUsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.GetAll();
         }
 
-        public Usuario GetById(string nombre)
-        {
-            IUsuarioDAL usuarioDAL = new UsuarioDAL();  
-            return usuarioDAL.GetById(nombre);
-        }
-
-        public Usuario Login(string nombre, string contrasenna)
+        public Usuario GetById(string UsuarioID)
         {
             IUsuarioDAL usuarioDAL = new UsuarioDAL();
-            //para encriptar la contraseña
-            string crytpPassword = Cryptography.EncrypthAES(contrasenna);
-            return usuarioDAL.Login(nombre, crytpPassword);
+            return usuarioDAL.GetById(UsuarioID);
+        }
+
+        public Usuario Login(string UsuarioID, string contrasenna)
+        {
+            IUsuarioDAL usuarioDAL = new UsuarioDAL();
+
+            //Encriptar la contraseña
+            string cryptedPassword = Cryptography.EncrypthAES(contrasenna);
+            return usuarioDAL.Login(UsuarioID, cryptedPassword);
         }
 
         public Usuario Save(Usuario pUsuario)
         {
-            IUsuarioDAL dalUsuario = new UsuarioDAL();
+           IUsuarioDAL usuarioDAL = new UsuarioDAL();
             string mensaje = "";
             Usuario oUsuario = null;
 
@@ -48,30 +49,31 @@ namespace TechKMii.Layers.BLL
                 throw new Exception(mensaje);
             }
 
-            // Encriptar la contraseña.
+            //Encriptar la contraseña
             pUsuario.Contrasenna = Cryptography.EncrypthAES(pUsuario.Contrasenna);
 
-            if (dalUsuario.GetById(pUsuario.Nombre) != null)
-                oUsuario = dalUsuario.Update(pUsuario);
+            if (usuarioDAL.GetById(pUsuario.UsuarioID)!= null)
+            {
+                oUsuario = usuarioDAL.Update(pUsuario);
+            }
             else
-                oUsuario = dalUsuario.Save(pUsuario);
+            {
+                oUsuario = usuarioDAL.Save(pUsuario);
+            }
             return oUsuario;
         }
-
-        private bool IsValidPassword(string pPassword, ref string pMensaje)
+        private bool IsValidPassword(string pContrasenna, ref string pMensaje)
         {
-            if (pPassword.Trim().Length <= 6)
+            if (pContrasenna.Trim().Length < 6)
             {
                 pMensaje = "La contraseña debe ser mayor o igual a 6 caracteres";
                 return false;
             }
-
-            if (pPassword.Trim().Length > 10)
+            if (pContrasenna.Trim().Length > 10)
             {
                 pMensaje = "La contraseña debe ser mayor o igual a 6 caracteres y menor  o igual que 10";
                 return false;
             }
-
             return true;
         }
     }
