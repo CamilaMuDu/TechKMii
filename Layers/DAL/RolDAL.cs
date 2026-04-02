@@ -36,7 +36,7 @@ namespace TechKMii.Layers.DAL
                             {
                                RolID = Convert.ToInt32(reader["RolID"]),
                                Descripcion = reader["Descripcion"].ToString(),
-                               Estado = Convert.ToInt32(reader["Estado"]) == 1 ? EstadoCatalogos.Activo : EstadoCatalogos.Inactivo
+                               Estado = (EstadoCatalogos) Convert.ToInt32(reader["Estado"])
                             };
                             lista.Add(oRol);
                         }

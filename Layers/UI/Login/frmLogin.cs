@@ -35,9 +35,6 @@ namespace TechKMii.Layers.UI.Login
 
         private async void btnAceptar_Click(object sender, EventArgs e)
         {
-            frmMenúPrincipal frmMenuPrincipal = new frmMenúPrincipal();
-            frmMenuPrincipal.ShowDialog();
-
             IUsuarioBLL usuariobll = new UsuarioBLL();
             epError.Clear();
             Usuario oUsuario = null;
@@ -74,6 +71,7 @@ namespace TechKMii.Layers.UI.Login
                         this.DialogResult = DialogResult.Cancel;
                         Application.Exit();
                     }
+                    return;
                 }
                 else
                 {
@@ -87,6 +85,12 @@ namespace TechKMii.Layers.UI.Login
 
                     _myLogControlEventos.InfoFormat("Accedió a la aplicación :{0}", Settings.Default.Nombre);
                     this.DialogResult = DialogResult.OK;
+
+                    frmMenúPrincipal frmMenuPrincipal = new frmMenúPrincipal();
+                    this.Hide();
+                    frmMenuPrincipal.ShowDialog();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
             }
             catch (Exception er)

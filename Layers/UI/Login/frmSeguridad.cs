@@ -38,10 +38,7 @@ namespace TechKMii.Layers.UI.Login
                 cmbRol.DataSource = listaRol;
                 cmbRol.DisplayMember = "Descripcion";
                 cmbRol.ValueMember = "RolID";
-                //foreach (var item in listaRol)
-                //{
-                //    this.cmbRol.Items.Add(item);
-                //}
+              
                 if (cmbRol.Items.Count > 0)
                     this.cmbRol.SelectedIndex = 0;
 
@@ -140,11 +137,14 @@ namespace TechKMii.Layers.UI.Login
                 oUsuario.Nombre = txtNombre.Text;
                 oUsuario.Contrasenna = txtContrasenna.Text;
                 oUsuario.RolID = (Rol)cmbRol.SelectedItem;
+                oUsuario.Estado = EstadoCatalogos.Activo;
 
                 oUsuario = usuarioBll.Save(oUsuario);
 
-                Thread thread = new Thread(Paralelo);
-                thread.Start();
+                MessageBox.Show("Usuario guardado con éxito", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LlenarUsuarios();
+
 
                 this.txtContrasenna.Clear();
                 this.txtLogin.Clear();
@@ -199,6 +199,64 @@ namespace TechKMii.Layers.UI.Login
         private void sttBarraInferior_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void borrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (trvUsuarios.SelectedNode == null || trvUsuarios.SelectedNode.Tag == null)
+                    return;
+
+                if (trvUsuarios.SelectedNode.Level == 0)
+                    return;
+
+                Usuario oUsuario = trvUsuarios.SelectedNode.Tag as Usuario;
+
+                if (oUsuario == null)
+                    return;
+
+                DialogResult respuesta = MessageBox.Show(
+                    $"¿Desea eliminar el usuario {oUsuario.UsuarioID}?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                    return;
+
+                IUsuarioBLL usuarioBLL = new UsuarioBLL();
+                bool eliminado = usuarioBLL.Delete(oUsuario.UsuarioID);
+
+                if (eliminado)
+                {
+                    MessageBox.Show("Usuario eliminado con éxito",
+                        "Información",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    LlenarUsuarios();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar el usuario",
+                        "Atención",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void trvUsuarios_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            trvUsuarios.SelectedNode = e.Node;
         }
     }
 }

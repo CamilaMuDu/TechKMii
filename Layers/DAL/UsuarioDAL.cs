@@ -73,16 +73,12 @@ namespace TechKMii.Layers.DAL
                                 UsuarioID = reader["UsuarioID"].ToString(),
                                 Nombre = reader["Nombre"].ToString(),
                                 Contrasenna = reader["Contrasenna"].ToString(),
-                                Estado = Convert.ToInt32(reader["Estado"]) == 1
-                                    ? EstadoCatalogos.Activo
-                                    : EstadoCatalogos.Inactivo,
+                                Estado =(EstadoCatalogos) Convert.ToInt32(reader["Estado"]),
                                 RolID = new Rol
                                 {
                                     RolID = Convert.ToInt32(reader["RolID"]),
                                     Descripcion = reader["Descripcion"].ToString(),
-                                    Estado = Convert.ToInt32(reader["RolEstado"]) == 1
-                                        ? EstadoCatalogos.Activo
-                                        : EstadoCatalogos.Inactivo
+                                    Estado = (EstadoCatalogos) Convert.ToInt32(reader["Estado"])
                                 }
                             };
 
@@ -128,17 +124,12 @@ namespace TechKMii.Layers.DAL
                             oUsuario.UsuarioID = reader["UsuarioID"].ToString();
                             oUsuario.Nombre = reader["Nombre"].ToString();
                             oUsuario.Contrasenna = reader["Contrasenna"].ToString();
-                            oUsuario.Estado = Convert.ToInt32(reader["Estado"]) == 1
-                                ? EstadoCatalogos.Activo
-                                : EstadoCatalogos.Inactivo;
-
+                            oUsuario.Estado = (EstadoCatalogos) Convert.ToInt32(reader["Estado"]);
                             oUsuario.RolID = new Rol
                             {
                                 RolID = Convert.ToInt32(reader["RolID"]),
                                 Descripcion = reader["Descripcion"].ToString(),
-                                Estado = Convert.ToInt32(reader["RolEstado"]) == 1
-                                    ? EstadoCatalogos.Activo
-                                    : EstadoCatalogos.Inactivo
+                                Estado = (EstadoCatalogos) Convert.ToInt32(reader["Estado"])
                             };
                         }
                     }
@@ -160,36 +151,41 @@ namespace TechKMii.Layers.DAL
 
         public Usuario Login(string UsuarioID, string contrasenna)
         {
-            SqlCommand command = new SqlCommand();
-            IDataReader reader = null;
             Usuario oUsuario = null;
+            SqlCommand command = new SqlCommand();
             string msg = "";
+
+            command.CommandText = "dbo.sp_LoginUsuario";
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@UsuarioID", UsuarioID);
+            command.Parameters.AddWithValue("@Contrasenna", contrasenna);
+
             try
             {
-                command.CommandText = "dbo.sp_LoginUsuario";
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@UsuariioID", UsuarioID);
-                command.Parameters.AddWithValue("@Contrasenna", contrasenna);
-
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
-                    reader = db.ExecuteReader(command);
-                    while (reader.Read())
+                    using (IDataReader reader = db.ExecuteReader(command))
                     {
-                        oUsuario = new Usuario();
-                        oUsuario.UsuarioID = reader["UsuarioID"].ToString();
-                        oUsuario.Nombre = reader["Nombre"].ToString();
-                        oUsuario.Contrasenna = reader["Contrasenna"].ToString();
-                        oUsuario.RolID = new Rol
+                        if (reader.Read())
                         {
-                            RolID = int.Parse(reader["RolID"].ToString()),
-                            Descripcion = reader["Descripcion"].ToString(),
-                            Estado = (EstadoCatalogos)Enum.Parse(typeof(EstadoCatalogos), reader["RolEstado"].ToString())
-                        };
-                        oUsuario.Estado = (EstadoCatalogos)Enum.Parse(typeof(EstadoCatalogos), reader["Estado"].ToString());
+                            oUsuario = new Usuario
+                            {
+                                UsuarioID = reader["UsuarioID"].ToString(),
+                                Nombre = reader["Nombre"].ToString(),
+                                Contrasenna = reader["Contrasenna"].ToString(),
+                                Estado = (EstadoCatalogos) Convert.ToInt32(reader["Estado"]),
+                                RolID = new Rol
+                                {
+                                    RolID = Convert.ToInt32(reader["RolID"]),
+                                    Descripcion = reader["Descripcion"].ToString(),
+                                    Estado = (EstadoCatalogos)Convert.ToInt32(reader["Estado"])
+                                }
+                            };
+                        }
                     }
                 }
+
                 return oUsuario;
             }
             catch (SqlException er)

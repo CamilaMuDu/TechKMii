@@ -72,11 +72,13 @@ namespace TechKMii
                 Utils.CultureInfo();
                 this.Text = ConfigurationManager.AppSettings["TechKMii"] + " " + Application.ProductName + " Versión:  " + Application.ProductVersion;
                 toolStripStatusLabel1.Text = "Usuario Conectado: " + Settings.Default.Usuario + "/" + Settings.Default.Nombre;
+
                 if (!Directory.Exists(@"C:\temp"))
                     Directory.CreateDirectory(@"C:\temp");
+
                 _myLogControlEventos.InfoFormat("Conectado al Form Principal");
-                // Activar Seguridad
-                //Seguridad();
+
+                Seguridad(); // <- activar aquí
             }
             catch (Exception er)
             {
@@ -85,59 +87,65 @@ namespace TechKMii
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+            private void Seguridad()
+        {
+            List<string> menus = new List<string>();
 
-        //private void Seguridad()
-        //{
-        //    List<string> menus = new List<string>();
-        //    // Se deshabilita TODO primero
-        //    foreach (ToolStripItem opcionMenu in this.menuStrip1.Items) //para cada opción de la barra de menú
-        //    {
-        //        // deshabita todos !
-        //        ((ToolStripItem)(opcionMenu)).Enabled = false;
-        //    }
-        //    // Tabla Rol
-        //    // IdRol DescripcionRol
-        //    // 1   	Administrador
-        //    // 2   	Vendedor
-        //    // 3   	Reportes
-        //    // Siempre permitir el MENU Acercade para todos los usuarios y salir si se requiere 
-        //    menus.Add("toolStripMenuItemAcercaDe");
-        //   // Recordemos que los datos están en el usuario o bien son modificados en el Settings para mejor acceso al sistema
-        //    // Admin
-        //    if (Settings.Default.Rol.Equals("1"))
-        //    {
-        //        menus.Add("toolStripMenuItemMantenimientos");
-        //        menus.Add("toolStripMenuItemProcesos");
-        //        menus.Add("reportesToolStripMenuItemReportes");
-        //        menus.Add("administracionToolStripMenuItem");
-        //    }
+            // Deshabilitar todo primero
+            foreach (ToolStripItem opcionMenu in this.menuStrip1.Items)
+            {
+                opcionMenu.Enabled = false;
 
-        //    // Vendedor
-        //    if (Settings.Default.Rol.Equals("2"))
-        //    {
-        //        menus.Add("toolStripMenuItemMantenimientos");
-        //        menus.Add("toolStripMenuItemProcesos");
-        //    }
+                if (opcionMenu is ToolStripMenuItem menuPadre)
+                {
+                    foreach (ToolStripItem subItem in menuPadre.DropDownItems)
+                    {
+                        subItem.Enabled = false;
+                    }
+                }
+            }
 
-        //    // Reportes
-        //    if (Settings.Default.Rol.Equals("3"))
-        //    {
-        //        menus.Add("reportesToolStripMenuItemReportes");
-        ////    }
+            menus.Add("acercaDeToolStripMenuItem");
 
-        //    foreach (ToolStripItem opcionMenu in this.menuStrip1.Items) //para cada opción de la barra de menú
-        //    {
-        //        if (opcionMenu is ToolStripDropDownButton)
-        //        {
-        //            foreach (ToolStripMenuItem oToolStripMenuItem in ((ToolStripDropDownButton)opcionMenu).DropDownItems)
-        //            {
-        //                oToolStripMenuItem.Enabled = menus.Exists(p => p.Equals(oToolStripMenuItem.Name, StringComparison.InvariantCultureIgnoreCase));
-        //            }
-        //        }
-        //        // Habilita solo las opciones que se encuentrna en la lista "menu"
-        //        opcionMenu.Enabled = menus.Exists(p => p.Equals(opcionMenu.Name, StringComparison.InvariantCultureIgnoreCase));
-        //    }
-        //}
+            // Rol 1 = Administrador
+            if (Settings.Default.Rol.Equals("1"))
+            {
+                menus.Add("administraciónToolStripMenuItem");
+                menus.Add("mantenimientosToolStripMenuItem");
+                menus.Add("procesosToolStripMenuItem");
+                menus.Add("reportesToolStripMenuItem");
+            }
+
+            // Rol 2 = Vendedor
+            if (Settings.Default.Rol.Equals("2"))
+            {
+                menus.Add("procesosToolStripMenuItem");
+            }
+
+            // Rol 3 = Reportes
+            if (Settings.Default.Rol.Equals("3"))
+            {
+                menus.Add("reportesToolStripMenuItem");
+            }
+
+            // Habilitar solo lo permitido
+            foreach (ToolStripItem opcionMenu in this.menuStrip1.Items)
+            {
+                bool menuPermitido = menus.Exists(p =>
+                    p.Equals(opcionMenu.Name, StringComparison.InvariantCultureIgnoreCase));
+
+                opcionMenu.Enabled = menuPermitido;
+
+                if (opcionMenu is ToolStripMenuItem menuPadre)
+                {
+                    foreach (ToolStripItem subItem in menuPadre.DropDownItems)
+                    {
+                        // Si el menú padre está permitido, habilita también sus hijos
+                        subItem.Enabled = menuPermitido;
+                    }
+                }
+            }
+        }
 
         private void facturacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
