@@ -1,14 +1,15 @@
-﻿using log4net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using log4net;
 using TechKMii.Layers.BLL;
 using TechKMii.Layers.DAL;
 using TechKMii.Layers.Entities;
@@ -55,8 +56,74 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            Cliente cliente = new Cliente();
-            
+            try
+            {
+                IClienteBLL clienteBLL = new ClienteBLL();
+
+                Cliente cliente = new Cliente();
+
+                cliente.Nombre = txtNombre.Text.Trim();
+                cliente.Apellidos = txtApellidos.Text.Trim();
+
+                // Sexo
+                if (rdbFemenino.Checked)
+                    cliente.Sexo = Sexo.Femenino;
+                else
+                    cliente.Sexo = Sexo.Masculino;
+
+                cliente.Telefono = mskTelefono.Text.Trim();
+                cliente.Correo = txtCorreo.Text.Trim();
+                cliente.Direccion = txtDireccion.Text.Trim();
+
+                // Tipo Identificación
+                cliente.TipoIdentificacion = (TipoIdentificacion)cmbTipoIdentificacion.SelectedItem;
+
+                // Provincia
+                cliente.Provincia = cmbProvincia.Text;
+
+                // Estado
+                cliente.Estado = chkEstado.Checked ? EstadoCatalogos.Activo : EstadoCatalogos.Inactivo;
+
+                // Fotografía
+                if (pcbFotografia.Image != null)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        pcbFotografia.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        cliente.Fotografia = ms.ToArray();
+                    }
+                }
+
+                await clienteBLL.Save(cliente);
+
+                MessageBox.Show("Cliente guardado con éxito", "OK",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LimpiarFormulario();
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("Error: " + er.Message);
+            }
+        }
+
+        private void LimpiarFormulario()
+        {
+            txtNombre.Clear();
+            txtApellidos.Clear();
+            mskTelefono.Clear();
+            txtCorreo.Clear();
+            txtDireccion.Clear();
+
+            cmbProvincia.SelectedIndex = -1;
+            cmbTipoIdentificacion.SelectedIndex = -1;
+
+            rdbFemenino.Checked = false;
+            rdbMasculino.Checked = false;
+
+            chkEstado.Checked = false;
+
+            pcbFotografia.Image = null;
         }
 
         private void tsbEditar_Click(object sender, EventArgs e)

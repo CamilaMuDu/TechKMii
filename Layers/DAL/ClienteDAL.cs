@@ -74,7 +74,7 @@ namespace TechKMii.Layers.DAL
                         {
                             Cliente oCliente = new Cliente();
 
-                            oCliente.ClienteID = Convert.ToInt32(reader["IdCliente"]);
+                            oCliente.ClienteID = Convert.ToInt32(reader["ClienteID"]);
                             oCliente.Nombre = reader["Nombre"].ToString();
                             oCliente.Apellidos = reader["Apellidos"].ToString();
                             oCliente.Sexo = (Sexo)reader["Sexo"];
@@ -132,7 +132,7 @@ namespace TechKMii.Layers.DAL
                     {
                         Cliente oCliente = new Cliente();
 
-                        oCliente.ClienteID = Convert.ToInt32(dr["IdCliente"]);
+                        oCliente.ClienteID = Convert.ToInt32(dr["ClienteID"]);
                         oCliente.Nombre = dr["Nombre"].ToString();
                         oCliente.Apellidos = dr["Apellidos"].ToString();
                         oCliente.Sexo = (Sexo)dr["Sexo"];
@@ -186,7 +186,7 @@ namespace TechKMii.Layers.DAL
                         {
                             oCliente = new Cliente();
 
-                            oCliente.ClienteID = Convert.ToInt32(dr["IdCliente"]);
+                            oCliente.ClienteID = Convert.ToInt32(dr["ClienteID"]);
                             oCliente.Nombre = dr["Nombre"].ToString();
                             oCliente.Apellidos = dr["Apellidos"].ToString();
                             oCliente.Sexo = (Sexo)dr["Sexo"];
@@ -284,7 +284,7 @@ namespace TechKMii.Layers.DAL
                 command.Parameters.AddWithValue("@Telefono", pCliente.Telefono);
                 command.Parameters.AddWithValue("@Correo", pCliente.Correo);
                 command.Parameters.AddWithValue("@Direccion", pCliente.Direccion);
-                command.Parameters.AddWithValue("@TipoIdentificacion", pCliente.TipoIdentificacion);
+                command.Parameters.AddWithValue("@TipoIdentificacion", pCliente.TipoIdentificacion.ToString());
                 command.Parameters.AddWithValue("@Provincia", pCliente.Provincia);
 
                 if (pCliente.Fotografia != null)

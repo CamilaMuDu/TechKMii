@@ -103,10 +103,12 @@
     <Compile Include="Enumeraciones\TipoTarjeta.cs" />
     <Compile Include="Layers\BLL\ClienteBLL.cs" />
     <Compile Include="Layers\BLL\DolarBLL.cs" />
+    <Compile Include="Layers\BLL\MarcaBLL.cs" />
     <Compile Include="Layers\BLL\ProvinciaBLL.cs" />
     <Compile Include="Layers\BLL\RolBLL.cs" />
     <Compile Include="Layers\BLL\UsuarioBLL.cs" />
     <Compile Include="Layers\DAL\ClienteDAL.cs" />
+    <Compile Include="Layers\DAL\MarcaDAL.cs" />
     <Compile Include="Layers\DAL\RolDAL.cs" />
     <Compile Include="Layers\DAL\UsuarioDAL.cs" />
     <Compile Include="Layers\Entities\BCCR\Dolar.cs" />
@@ -126,6 +128,8 @@
     <Compile Include="Layers\Interfaces\IClienteBLL.cs" />
     <Compile Include="Layers\Interfaces\IClienteDAL.cs" />
     <Compile Include="Layers\Interfaces\IDolarBLL.cs" />
+    <Compile Include="Layers\Interfaces\IMarcaBLL.cs" />
+    <Compile Include="Layers\Interfaces\IMarcaDAL.cs" />
     <Compile Include="Layers\Interfaces\IProvinciaBLL.cs" />
     <Compile Include="Layers\Interfaces\IRolBLL.cs" />
     <Compile Include="Layers\Interfaces\IRolDAL.cs" />
@@ -154,6 +158,12 @@
     </Compile>
     <Compile Include="Layers\UI\Login\frmSeguridad.Designer.cs">
       <DependentUpon>frmSeguridad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\Filtros\frmClienteFiltro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\Filtros\frmClienteFiltro.Designer.cs">
+      <DependentUpon>frmClienteFiltro.cs</DependentUpon>
     </Compile>
     <Compile Include="Layers\UI\Mantenimientos\frmClienteMantenimiento.cs">
       <SubType>Form</SubType>
@@ -226,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Layers\UI\Login\frmSeguridad.resx">
       <DependentUpon>frmSeguridad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\Filtros\frmClienteFiltro.resx">
+      <DependentUpon>frmClienteFiltro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Layers\UI\Mantenimientos\frmClienteMantenimiento.resx">
       <DependentUpon>frmClienteMantenimiento.cs</DependentUpon>
