@@ -68,16 +68,14 @@ namespace TechKMii.Layers.DAL
                         {
                             Marca oMarca = new Marca
                             {
-                                MarcaID = int.Parse(reader["MarcaID"].ToString()),
+                                MarcaID = Convert.ToInt32(reader["MarcaID"]),
                                 Nombre = reader["Nombre"].ToString(),
                                 Estado = (EstadoCatalogos)Convert.ToInt32(reader["Estado"])
                             };
-
                             lista.Add(oMarca);
                         }
                     }
                 }
-
                 return lista;
             }
             catch (SqlException er)
@@ -113,7 +111,7 @@ namespace TechKMii.Layers.DAL
                         {
                             oMarca = new Marca
                             {
-                                MarcaID = int.Parse(reader["MarcaID"].ToString()),
+                                MarcaID = Convert.ToInt32(reader["MarcaID"]),
                                 Nombre = reader["Nombre"].ToString(),
                                 Estado = (EstadoCatalogos)Convert.ToInt32(reader["Estado"])
                             };
@@ -145,19 +143,17 @@ namespace TechKMii.Layers.DAL
             command.CommandText = "dbo.usp_INSERT_Marca";
             command.CommandType = CommandType.StoredProcedure;
 
-            command.Parameters.AddWithValue("@MarcaID", pMarca.MarcaID);
             command.Parameters.AddWithValue("@Nombre", pMarca.Nombre);
             command.Parameters.AddWithValue("@Estado", (int)pMarca.Estado);
             try
             {
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
-                    row = Convert.ToInt32(db.ExecuteNonQuery(command));
+                    object result = db.ExecuteScalar(command);
+                    int nuevoId = Convert.ToInt32(result);
+
+                    oMarca = GetById(nuevoId);
                 }
-
-                if (row > 0)
-                    oMarca = GetById(pMarca.MarcaID);
-
                 return oMarca;
             }
             catch (SqlException er)

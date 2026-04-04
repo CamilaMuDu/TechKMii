@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMarcaMantenimiento));
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,6 +46,9 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label9 = new System.Windows.Forms.Label();
+            this.MarcaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.tlpPanel.SuspendLayout();
@@ -56,29 +58,24 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Location = new System.Drawing.Point(375, 375);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(202, 55);
-            this.btnCancelar.TabIndex = 16;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            // 
             // dgvDatos
             // 
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatos.Location = new System.Drawing.Point(18, 15);
+            this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MarcaID,
+            this.Nombre,
+            this.Estado});
+            this.dgvDatos.Location = new System.Drawing.Point(18, 45);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.RowHeadersWidth = 82;
             this.dgvDatos.RowTemplate.Height = 33;
-            this.dgvDatos.Size = new System.Drawing.Size(1042, 518);
+            this.dgvDatos.Size = new System.Drawing.Size(1112, 488);
             this.dgvDatos.TabIndex = 0;
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(139, 375);
+            this.btnAceptar.Location = new System.Drawing.Point(285, 330);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(202, 55);
             this.btnAceptar.TabIndex = 15;
@@ -118,7 +115,7 @@
             this.tsbSalir});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1880, 42);
+            this.toolStrip1.Size = new System.Drawing.Size(2052, 42);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -129,6 +126,7 @@
             this.tsbNuevo.Name = "tsbNuevo";
             this.tsbNuevo.Size = new System.Drawing.Size(121, 36);
             this.tsbNuevo.Text = "Nuevo";
+            this.tsbNuevo.Click += new System.EventHandler(this.tsbNuevo_Click);
             // 
             // tsbEditar
             // 
@@ -137,6 +135,7 @@
             this.tsbEditar.Name = "tsbEditar";
             this.tsbEditar.Size = new System.Drawing.Size(110, 36);
             this.tsbEditar.Text = "Editar";
+            this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
             // tsbBorrar
             // 
@@ -145,6 +144,7 @@
             this.tsbBorrar.Name = "tsbBorrar";
             this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
             this.tsbBorrar.Text = "Borrar";
+            this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
             // 
             // tsbSalir
             // 
@@ -217,7 +217,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.statusStrip1.Location = new System.Drawing.Point(0, 573);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1880, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(2052, 22);
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -229,7 +229,6 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnCancelar);
             this.splitContainer1.Panel1.Controls.Add(this.btnAceptar);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.tlpPanel);
@@ -238,8 +237,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatos);
-            this.splitContainer1.Size = new System.Drawing.Size(1880, 595);
-            this.splitContainer1.SplitterDistance = 806;
+            this.splitContainer1.Size = new System.Drawing.Size(2052, 595);
+            this.splitContainer1.SplitterDistance = 879;
             this.splitContainer1.TabIndex = 5;
             // 
             // label9
@@ -251,11 +250,32 @@
             this.label9.TabIndex = 11;
             this.label9.Text = "Fotografia";
             // 
+            // MarcaID
+            // 
+            this.MarcaID.HeaderText = "Codigo";
+            this.MarcaID.MinimumWidth = 10;
+            this.MarcaID.Name = "MarcaID";
+            this.MarcaID.Width = 200;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 10;
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 200;
+            // 
+            // Estado
+            // 
+            this.Estado.HeaderText = "Estado";
+            this.Estado.MinimumWidth = 10;
+            this.Estado.Name = "Estado";
+            this.Estado.Width = 200;
+            // 
             // frmMarcaMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1880, 595);
+            this.ClientSize = new System.Drawing.Size(2052, 595);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
@@ -278,8 +298,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.DataGridView dgvDatos;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label label1;
@@ -297,5 +315,8 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbEstado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MarcaID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
     }
 }
