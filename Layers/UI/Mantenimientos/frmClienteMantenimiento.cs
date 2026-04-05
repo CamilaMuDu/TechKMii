@@ -5,16 +5,20 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 using log4net;
+using Newtonsoft.Json;
 using TechKMii.Layers.BLL;
 using TechKMii.Layers.DAL;
 using TechKMii.Layers.Entities;
 using TechKMii.Layers.Interfaces;
 using UTN.Winform.Electronics.Extensions;
+using UTNLeccion8B.Layer.Entities.PersonaHacienda;
 
 namespace TechKMii.Layers.UI.Mantenimientos
 {
@@ -56,55 +60,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                IClienteBLL clienteBLL = new ClienteBLL();
-
-                Cliente cliente = new Cliente();
-
-                cliente.Nombre = txtNombre.Text.Trim();
-                cliente.Apellidos = txtApellidos.Text.Trim();
-
-                // Sexo
-                if (rdbFemenino.Checked)
-                    cliente.Sexo = Sexo.Femenino;
-                else
-                    cliente.Sexo = Sexo.Masculino;
-
-                cliente.Telefono = mskTelefono.Text.Trim();
-                cliente.Correo = txtCorreo.Text.Trim();
-                cliente.Direccion = txtDireccion.Text.Trim();
-
-                // Tipo Identificación
-                cliente.TipoIdentificacion = (TipoIdentificacion)cmbTipoIdentificacion.SelectedItem;
-
-                // Provincia
-                cliente.Provincia = cmbProvincia.Text;
-
-                // Estado
-                cliente.Estado = chkEstado.Checked ? EstadoCatalogos.Activo : EstadoCatalogos.Inactivo;
-
-                // Fotografía
-                if (pcbFotografia.Image != null)
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        pcbFotografia.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        cliente.Fotografia = ms.ToArray();
-                    }
-                }
-
-                await clienteBLL.Save(cliente);
-
-                MessageBox.Show("Cliente guardado con éxito", "OK",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                LimpiarFormulario();
-            }
-            catch (Exception er)
-            {
-                MessageBox.Show("Error: " + er.Message);
-            }
+            
         }
 
         private void LimpiarFormulario()
@@ -121,7 +77,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
             rdbFemenino.Checked = false;
             rdbMasculino.Checked = false;
 
-            chkEstado.Checked = false;
+            cmbEstado.SelectedIndex = -1;
 
             pcbFotografia.Image = null;
         }
@@ -130,5 +86,90 @@ namespace TechKMii.Layers.UI.Mantenimientos
         {
 
         }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(txtIdentificacion.Text))
+                {
+                    MessageBox.Show("No existe una identificación para buscar", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtIdentificacion.Focus();
+                    return;
+                }
+
+                PersonaHaciendaDatos datosDatos = new PersonaHaciendaDatos();
+                string url = "https://api.hacienda.go.cr/fe/ae?identificacion=" + txtIdentificacion.Text.Trim();
+
+                HttpWebRequest myWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                myWebRequest.UserAgent = "Mozilla/5.0";
+                myWebRequest.Credentials = CredentialCache.DefaultCredentials;
+                myWebRequest.Proxy = null;
+
+                using (HttpWebResponse myHttpWebResponse = (HttpWebResponse)myWebRequest.GetResponse())
+                using (Stream myStream = myHttpWebResponse.GetResponseStream())
+                using (StreamReader myStreamReader = new StreamReader(myStream))
+                {
+                    string datos = HttpUtility.HtmlDecode(myStreamReader.ReadToEnd());
+
+                    datosDatos = JsonConvert.DeserializeObject<PersonaHaciendaDatos>(datos);
+
+                    if (datosDatos == null || string.IsNullOrWhiteSpace(datosDatos.nombre))
+                    {
+                        MessageBox.Show("No se encontraron datos en Hacienda.", "Atención",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    LlenarNombreYApellidos(datosDatos.nombre);
+                }
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Llena el nombre y los dos apellidos por separado
+        private void LlenarNombreYApellidos(string nombreCompleto)
+        {
+            txtNombre.Clear();
+            txtApellidos.Clear();
+
+            if (string.IsNullOrWhiteSpace(nombreCompleto))
+                return;
+
+            string[] partes = nombreCompleto
+                .Trim()
+                .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            switch (partes.Length)
+            {
+                case 1:
+                    txtNombre.Text = partes[0];
+                    break;
+
+                case 2:
+                    txtNombre.Text = partes[0];
+                    txtApellidos.Text = partes[1];
+                    break;
+
+                case 3:
+
+                    txtNombre.Text = partes[0];
+                    txtApellidos.Text = $"{partes[1]} {partes[2]}";
+                    break;
+
+                default:
+                    txtNombre.Text = string.Join(" ", partes.Take(partes.Length - 2));
+                    txtApellidos.Text = string.Join(" ", partes.Skip(partes.Length - 2));
+                    break;
+            }
+        }
     }
 }
+

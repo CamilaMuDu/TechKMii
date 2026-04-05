@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMarcaMantenimiento));
             this.dgvDatos = new System.Windows.Forms.DataGridView();
+            this.MarcaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,9 +49,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label9 = new System.Windows.Forms.Label();
-            this.MarcaID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.tlpPanel.SuspendLayout();
@@ -65,13 +65,34 @@
             this.MarcaID,
             this.Nombre,
             this.Estado});
-            this.dgvDatos.Location = new System.Drawing.Point(18, 45);
+            this.dgvDatos.Location = new System.Drawing.Point(18, 53);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.RowHeadersWidth = 82;
             this.dgvDatos.RowTemplate.Height = 33;
-            this.dgvDatos.Size = new System.Drawing.Size(1112, 488);
+            this.dgvDatos.Size = new System.Drawing.Size(1112, 480);
             this.dgvDatos.TabIndex = 0;
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
+            // 
+            // MarcaID
+            // 
+            this.MarcaID.HeaderText = "Codigo";
+            this.MarcaID.MinimumWidth = 10;
+            this.MarcaID.Name = "MarcaID";
+            this.MarcaID.Width = 200;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 10;
+            this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 200;
+            // 
+            // Estado
+            // 
+            this.Estado.HeaderText = "Estado";
+            this.Estado.MinimumWidth = 10;
+            this.Estado.Name = "Estado";
+            this.Estado.Width = 200;
             // 
             // btnAceptar
             // 
@@ -133,7 +154,7 @@
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
             this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(110, 36);
+            this.tsbEditar.Size = new System.Drawing.Size(110, 44);
             this.tsbEditar.Text = "Editar";
             this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
@@ -142,7 +163,7 @@
             this.tsbBorrar.Image = ((System.Drawing.Image)(resources.GetObject("tsbBorrar.Image")));
             this.tsbBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBorrar.Name = "tsbBorrar";
-            this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
+            this.tsbBorrar.Size = new System.Drawing.Size(114, 44);
             this.tsbBorrar.Text = "Borrar";
             this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
             // 
@@ -151,7 +172,7 @@
             this.tsbSalir.Image = ((System.Drawing.Image)(resources.GetObject("tsbSalir.Image")));
             this.tsbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSalir.Name = "tsbSalir";
-            this.tsbSalir.Size = new System.Drawing.Size(95, 36);
+            this.tsbSalir.Size = new System.Drawing.Size(95, 44);
             this.tsbSalir.Text = "Salir";
             this.tsbSalir.Click += new System.EventHandler(this.tsbSalir_Click);
             // 
@@ -250,27 +271,6 @@
             this.label9.TabIndex = 11;
             this.label9.Text = "Fotografia";
             // 
-            // MarcaID
-            // 
-            this.MarcaID.HeaderText = "Codigo";
-            this.MarcaID.MinimumWidth = 10;
-            this.MarcaID.Name = "MarcaID";
-            this.MarcaID.Width = 200;
-            // 
-            // Nombre
-            // 
-            this.Nombre.HeaderText = "Nombre";
-            this.Nombre.MinimumWidth = 10;
-            this.Nombre.Name = "Nombre";
-            this.Nombre.Width = 200;
-            // 
-            // Estado
-            // 
-            this.Estado.HeaderText = "Estado";
-            this.Estado.MinimumWidth = 10;
-            this.Estado.Name = "Estado";
-            this.Estado.Width = 200;
-            // 
             // frmMarcaMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -279,6 +279,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
+            this.IsMdiContainer = true;
             this.Name = "frmMarcaMantenimiento";
             this.Text = "Manteminiento de Marca";
             this.Load += new System.EventHandler(this.frmMarcaMantenimiento_Load);

@@ -119,7 +119,9 @@ namespace TechKMii
             // Rol 2 = Vendedor
             if (Settings.Default.Rol.Equals("2"))
             {
+                menus.Add("mantenimientosToolStripMenuItem");
                 menus.Add("procesosToolStripMenuItem");
+                menus.Add("reportesToolStripMenuItem");
             }
 
             // Rol 3 = Reportes

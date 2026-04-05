@@ -71,7 +71,7 @@
             // borrarToolStripMenuItem
             // 
             this.borrarToolStripMenuItem.Name = "borrarToolStripMenuItem";
-            this.borrarToolStripMenuItem.Size = new System.Drawing.Size(300, 38);
+            this.borrarToolStripMenuItem.Size = new System.Drawing.Size(152, 38);
             this.borrarToolStripMenuItem.Text = "Borrar";
             this.borrarToolStripMenuItem.Click += new System.EventHandler(this.borrarToolStripMenuItem_Click);
             // 
@@ -81,7 +81,7 @@
             this.cmdMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.borrarToolStripMenuItem});
             this.cmdMenu.Name = "cmdMenu";
-            this.cmdMenu.Size = new System.Drawing.Size(301, 86);
+            this.cmdMenu.Size = new System.Drawing.Size(153, 42);
             // 
             // trvUsuarios
             // 
@@ -93,7 +93,7 @@
             this.trvUsuarios.Margin = new System.Windows.Forms.Padding(6);
             this.trvUsuarios.Name = "trvUsuarios";
             this.trvUsuarios.SelectedImageIndex = 0;
-            this.trvUsuarios.Size = new System.Drawing.Size(901, 614);
+            this.trvUsuarios.Size = new System.Drawing.Size(901, 606);
             this.trvUsuarios.TabIndex = 5;
             this.trvUsuarios.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvUsuarios_NodeMouseClick);
             this.trvUsuarios.ContextMenuStripChanged += new System.EventHandler(this.frmSeguridad_Load);
@@ -189,7 +189,7 @@
             // 
             this.spcContenedor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spcContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spcContenedor.Location = new System.Drawing.Point(0, 42);
+            this.spcContenedor.Location = new System.Drawing.Point(0, 50);
             this.spcContenedor.Margin = new System.Windows.Forms.Padding(6);
             this.spcContenedor.Name = "spcContenedor";
             // 
@@ -200,7 +200,7 @@
             // spcContenedor.Panel2
             // 
             this.spcContenedor.Panel2.Controls.Add(this.trvUsuarios);
-            this.spcContenedor.Size = new System.Drawing.Size(1567, 618);
+            this.spcContenedor.Size = new System.Drawing.Size(1567, 610);
             this.spcContenedor.SplitterDistance = 654;
             this.spcContenedor.SplitterWidth = 8;
             this.spcContenedor.TabIndex = 5;
@@ -234,7 +234,7 @@
             this.toolStripBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnSalir.Name = "toolStripBtnSalir";
-            this.toolStripBtnSalir.Size = new System.Drawing.Size(63, 36);
+            this.toolStripBtnSalir.Size = new System.Drawing.Size(63, 44);
             this.toolStripBtnSalir.Text = "Sa&lir";
             this.toolStripBtnSalir.Click += new System.EventHandler(this.toolStripBtnSalir_Click);
             // 
@@ -243,7 +243,7 @@
             this.toolStripBtnGuardarUsuario.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnGuardarUsuario.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnGuardarUsuario.Name = "toolStripBtnGuardarUsuario";
-            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(102, 36);
+            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(102, 44);
             this.toolStripBtnGuardarUsuario.Text = "Guardar";
             this.toolStripBtnGuardarUsuario.Click += new System.EventHandler(this.toolStripBtnGuardarUsuario_Click);
             // 
@@ -252,7 +252,7 @@
             this.toolStripBtnNuevo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnNuevo.Name = "toolStripBtnNuevo";
-            this.toolStripBtnNuevo.Size = new System.Drawing.Size(89, 36);
+            this.toolStripBtnNuevo.Size = new System.Drawing.Size(89, 44);
             this.toolStripBtnNuevo.Text = "&Nuevo";
             this.toolStripBtnNuevo.Click += new System.EventHandler(this.toolStripBtnNuevo_Click);
             // 
@@ -266,7 +266,7 @@
             this.tspBarraPrincipal.Location = new System.Drawing.Point(0, 0);
             this.tspBarraPrincipal.Name = "tspBarraPrincipal";
             this.tspBarraPrincipal.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 42);
+            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 50);
             this.tspBarraPrincipal.TabIndex = 4;
             this.tspBarraPrincipal.Text = "toolStrip1";
             // 
@@ -289,6 +289,7 @@
             this.Controls.Add(this.spcContenedor);
             this.Controls.Add(this.tspBarraPrincipal);
             this.Controls.Add(this.sttBarraInferior);
+            this.IsMdiContainer = true;
             this.Name = "frmSeguridad";
             this.Text = "frmSeguridad";
             this.Load += new System.EventHandler(this.frmSeguridad_Load);
