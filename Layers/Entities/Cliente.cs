@@ -9,6 +9,7 @@ namespace TechKMii.Layers.Entities
     public class Cliente
     {
         public int ClienteID { set; get; }
+        public string Identificacion { set; get; }
         public string Nombre { set; get; }
         public string Apellidos { set; get; }
         public Sexo Sexo { set; get; }

@@ -36,7 +36,7 @@
             this.tsbSalir = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnAnnadirFoto = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.pcbFotografia = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -61,9 +61,9 @@
             this.txtIdentificacion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -96,6 +96,7 @@
             this.tsbNuevo.Name = "tsbNuevo";
             this.tsbNuevo.Size = new System.Drawing.Size(121, 36);
             this.tsbNuevo.Text = "Nuevo";
+            this.tsbNuevo.Click += new System.EventHandler(this.tsbNuevo_Click);
             // 
             // tsbEditar
             // 
@@ -121,11 +122,12 @@
             this.tsbSalir.Name = "tsbSalir";
             this.tsbSalir.Size = new System.Drawing.Size(95, 44);
             this.tsbSalir.Text = "Salir";
+            this.tsbSalir.Click += new System.EventHandler(this.tsbSalir_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1127);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1104);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 14, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1894, 22);
@@ -143,7 +145,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
-            this.splitContainer1.Panel1.Controls.Add(this.btnCancelar);
+            this.splitContainer1.Panel1.Controls.Add(this.btnAnnadirFoto);
             this.splitContainer1.Panel1.Controls.Add(this.btnAgregar);
             this.splitContainer1.Panel1.Controls.Add(this.pcbFotografia);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
@@ -154,28 +156,28 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatosCliente);
-            this.splitContainer1.Size = new System.Drawing.Size(1894, 1085);
+            this.splitContainer1.Size = new System.Drawing.Size(1894, 1062);
             this.splitContainer1.SplitterDistance = 802;
             this.splitContainer1.TabIndex = 2;
             // 
-            // btnCancelar
+            // btnAnnadirFoto
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(468, 1010);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(180, 56);
-            this.btnCancelar.TabIndex = 16;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnAnnadirFoto.Location = new System.Drawing.Point(348, 60);
+            this.btnAnnadirFoto.Name = "btnAnnadirFoto";
+            this.btnAnnadirFoto.Size = new System.Drawing.Size(154, 61);
+            this.btnAnnadirFoto.TabIndex = 16;
+            this.btnAnnadirFoto.Text = "Añadir";
+            this.btnAnnadirFoto.UseVisualStyleBackColor = true;
+            this.btnAnnadirFoto.Click += new System.EventHandler(this.btnAnnadirFoto_Click);
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(236, 1010);
+            this.btnAgregar.Location = new System.Drawing.Point(293, 953);
             this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(180, 56);
+            this.btnAgregar.Size = new System.Drawing.Size(209, 79);
             this.btnAgregar.TabIndex = 15;
-            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.Text = "Agregar Cliente";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
@@ -184,7 +186,7 @@
             this.pcbFotografia.Location = new System.Drawing.Point(34, 60);
             this.pcbFotografia.Margin = new System.Windows.Forms.Padding(4);
             this.pcbFotografia.Name = "pcbFotografia";
-            this.pcbFotografia.Size = new System.Drawing.Size(384, 354);
+            this.pcbFotografia.Size = new System.Drawing.Size(289, 278);
             this.pcbFotografia.TabIndex = 12;
             this.pcbFotografia.TabStop = false;
             // 
@@ -224,9 +226,9 @@
             this.tlpPanel.Controls.Add(this.txtIdentificacion, 1, 1);
             this.tlpPanel.Controls.Add(this.label3, 0, 3);
             this.tlpPanel.Controls.Add(this.label5, 0, 4);
-            this.tlpPanel.Controls.Add(this.cmbEstado, 1, 10);
             this.tlpPanel.Controls.Add(this.label11, 0, 10);
-            this.tlpPanel.Location = new System.Drawing.Point(34, 435);
+            this.tlpPanel.Controls.Add(this.cmbEstado, 1, 10);
+            this.tlpPanel.Location = new System.Drawing.Point(33, 358);
             this.tlpPanel.Margin = new System.Windows.Forms.Padding(6);
             this.tlpPanel.Name = "tlpPanel";
             this.tlpPanel.RowCount = 11;
@@ -241,7 +243,7 @@
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 11F));
-            this.tlpPanel.Size = new System.Drawing.Size(754, 511);
+            this.tlpPanel.Size = new System.Drawing.Size(754, 538);
             this.tlpPanel.TabIndex = 10;
             // 
             // cmbTipoIdentificacion
@@ -446,17 +448,6 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Sexo";
             // 
-            // dgvDatosCliente
-            // 
-            this.dgvDatosCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatosCliente.Location = new System.Drawing.Point(18, 15);
-            this.dgvDatosCliente.Margin = new System.Windows.Forms.Padding(4);
-            this.dgvDatosCliente.Name = "dgvDatosCliente";
-            this.dgvDatosCliente.RowHeadersWidth = 82;
-            this.dgvDatosCliente.RowTemplate.Height = 33;
-            this.dgvDatosCliente.Size = new System.Drawing.Size(1042, 1017);
-            this.dgvDatosCliente.TabIndex = 0;
-            // 
             // cmbEstado
             // 
             this.cmbEstado.FormattingEnabled = true;
@@ -469,19 +460,30 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 474);
+            this.label11.Location = new System.Drawing.Point(6, 487);
             this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(186, 25);
             this.label11.TabIndex = 23;
             this.label11.Text = "Estado";
             // 
+            // dgvDatosCliente
+            // 
+            this.dgvDatosCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDatosCliente.Location = new System.Drawing.Point(18, 15);
+            this.dgvDatosCliente.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvDatosCliente.Name = "dgvDatosCliente";
+            this.dgvDatosCliente.RowHeadersWidth = 82;
+            this.dgvDatosCliente.RowTemplate.Height = 33;
+            this.dgvDatosCliente.Size = new System.Drawing.Size(1042, 1017);
+            this.dgvDatosCliente.TabIndex = 0;
+            // 
             // frmClienteMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1894, 1149);
+            this.ClientSize = new System.Drawing.Size(1894, 1126);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -489,7 +491,6 @@
             this.Name = "frmClienteMantenimiento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmClienteMantenimiento";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmClienteMantenimiento_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -538,11 +539,11 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.DataGridView dgvDatosCliente;
-        private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmbTipoIdentificacion;
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnAnnadirFoto;
     }
 }
