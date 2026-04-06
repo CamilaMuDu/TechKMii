@@ -106,10 +106,12 @@
     <Compile Include="Layers\BLL\MarcaBLL.cs" />
     <Compile Include="Layers\BLL\ProvinciaBLL.cs" />
     <Compile Include="Layers\BLL\RolBLL.cs" />
+    <Compile Include="Layers\BLL\TipoDispositivoBLL.cs" />
     <Compile Include="Layers\BLL\UsuarioBLL.cs" />
     <Compile Include="Layers\DAL\ClienteDAL.cs" />
     <Compile Include="Layers\DAL\MarcaDAL.cs" />
     <Compile Include="Layers\DAL\RolDAL.cs" />
+    <Compile Include="Layers\DAL\TipoDispositivoDAL.cs" />
     <Compile Include="Layers\DAL\UsuarioDAL.cs" />
     <Compile Include="Layers\Entities\BCCR\Dolar.cs" />
     <Compile Include="Layers\Entities\BCCR\ServicesBCCR.cs" />
@@ -133,6 +135,8 @@
     <Compile Include="Layers\Interfaces\IProvinciaBLL.cs" />
     <Compile Include="Layers\Interfaces\IRolBLL.cs" />
     <Compile Include="Layers\Interfaces\IRolDAL.cs" />
+    <Compile Include="Layers\Interfaces\ITipoDispositivoBLL.cs" />
+    <Compile Include="Layers\Interfaces\ITipoDispositivoDAL.cs" />
     <Compile Include="Layers\Interfaces\IUsuarioBLL.cs" />
     <Compile Include="Layers\Interfaces\IUsuarioDAL.cs" />
     <Compile Include="Layers\UI\frmAcercaDe.cs">
