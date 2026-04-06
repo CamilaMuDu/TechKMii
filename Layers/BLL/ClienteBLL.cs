@@ -44,6 +44,12 @@ namespace TechKMii.Layers.BLL
             return dalCliente.Update(pCliente);
         }
 
+        public IEnumerable<Cliente> GetAllSync()
+        {
+            IClienteDAL dalCliente = new ClienteDAL();
+            return dalCliente.GetAllSync();
+        }
+
         //public List<Cliente> GetByFilter(string filtro)
         //{
         //    IClienteDAL dalCliente = new ClienteDAL();

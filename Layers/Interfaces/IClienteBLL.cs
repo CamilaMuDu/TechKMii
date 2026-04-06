@@ -16,5 +16,6 @@ namespace TechKMii.Layers.Interfaces
         Task<Cliente> Save(Cliente pCliente);
         Task<Cliente> Update(Cliente pCliente);
         Task<bool> Delete(int clienteID);
+        IEnumerable<Cliente> GetAllSync();
     }
 }

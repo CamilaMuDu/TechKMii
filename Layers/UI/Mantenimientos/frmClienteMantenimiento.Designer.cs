@@ -61,8 +61,8 @@
             this.txtIdentificacion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -103,7 +103,7 @@
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
             this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(110, 44);
+            this.tsbEditar.Size = new System.Drawing.Size(110, 36);
             this.tsbEditar.Text = "Editar";
             this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
@@ -112,15 +112,16 @@
             this.tsbBorrar.Image = ((System.Drawing.Image)(resources.GetObject("tsbBorrar.Image")));
             this.tsbBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBorrar.Name = "tsbBorrar";
-            this.tsbBorrar.Size = new System.Drawing.Size(114, 44);
+            this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
             this.tsbBorrar.Text = "Borrar";
+            this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
             // 
             // tsbSalir
             // 
             this.tsbSalir.Image = ((System.Drawing.Image)(resources.GetObject("tsbSalir.Image")));
             this.tsbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSalir.Name = "tsbSalir";
-            this.tsbSalir.Size = new System.Drawing.Size(95, 44);
+            this.tsbSalir.Size = new System.Drawing.Size(95, 36);
             this.tsbSalir.Text = "Salir";
             this.tsbSalir.Click += new System.EventHandler(this.tsbSalir_Click);
             // 
@@ -448,14 +449,6 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Sexo";
             // 
-            // cmbEstado
-            // 
-            this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Location = new System.Drawing.Point(201, 465);
-            this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(399, 33);
-            this.cmbEstado.TabIndex = 22;
-            // 
             // label11
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -467,6 +460,14 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Estado";
             // 
+            // cmbEstado
+            // 
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Location = new System.Drawing.Point(201, 465);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(399, 33);
+            this.cmbEstado.TabIndex = 22;
+            // 
             // dgvDatosCliente
             // 
             this.dgvDatosCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -477,6 +478,8 @@
             this.dgvDatosCliente.RowTemplate.Height = 33;
             this.dgvDatosCliente.Size = new System.Drawing.Size(1042, 1017);
             this.dgvDatosCliente.TabIndex = 0;
+            this.dgvDatosCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellClick);
+            this.dgvDatosCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellContentClick);
             // 
             // frmClienteMantenimiento
             // 

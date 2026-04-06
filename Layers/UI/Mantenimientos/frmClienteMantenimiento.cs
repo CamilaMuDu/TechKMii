@@ -26,6 +26,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
     {
         private static readonly ILog _myLogControlEventos = log4net.LogManager.GetLogger("MyControlEventos");
 
+        IClienteBLL clienteBll = new ClienteBLL();
         IProvinciaBLL provinciaBLL = new BLLProvincia();
         Provincia provincia = new Provincia();
         private byte[] fotoBytes = null;
@@ -57,6 +58,8 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
                 cmbEstado.DataSource = Enum.GetValues(typeof(EstadoCatalogos));
                 cmbEstado.SelectedIndex = -1;
+
+                CargarClientes();
             }
             catch (Exception er)
             {
@@ -65,6 +68,31 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
 
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void CargarClientes()
+        {
+            try
+            {
+                var lista = clienteBll.GetAllSync().ToList();
+
+                dgvDatosCliente.AutoGenerateColumns = true;
+                dgvDatosCliente.DataSource = lista;
+
+                if (dgvDatosCliente.Columns["Fotografia"] != null)
+                    dgvDatosCliente.Columns["Fotografia"].Visible = false;
+
+                if (dgvDatosCliente.Columns["ClienteID"] != null)
+                    dgvDatosCliente.Columns["ClienteID"].Visible = false;
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show("Error al cargar los clientes: " + er.ToString(),
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -155,30 +183,13 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 else
                     oCliente.Sexo = Sexo.Masculino;
 
-                IClienteBLL clienteBLL = new ClienteBLL();
-                Cliente clienteGuardado = await clienteBLL.Save(oCliente);
+                Cliente clienteGuardado = await clienteBll.Save(oCliente);
 
                 MessageBox.Show("Cliente agregado correctamente.", "Información",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                clienteIdActual = 0;
-                fotoBytes = null;
-
-                txtIdentificacion.Clear();
-                txtNombre.Clear();
-                txtApellidos.Clear();
-                mskTelefono.Clear();
-                txtCorreo.Clear();
-                txtDireccion.Clear();
-
-                cmbTipoIdentificacion.SelectedIndex = -1;
-                cmbProvincia.SelectedIndex = -1;
-                cmbEstado.SelectedIndex = -1;
-
-                rdbFemenino.Checked = false;
-                rdbMasculino.Checked = false;
-
-                pcbFotografia.Image = null;
+                LimpiarFormulario();
+                CargarClientes();
             }
             catch (Exception er)
             {
@@ -193,6 +204,10 @@ namespace TechKMii.Layers.UI.Mantenimientos
         }
         private void LimpiarFormulario()
         {
+            clienteIdActual = 0;
+            fotoBytes = null;
+
+            txtIdentificacion.Clear();
             txtNombre.Clear();
             txtApellidos.Clear();
             mskTelefono.Clear();
@@ -201,19 +216,124 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
             cmbProvincia.SelectedIndex = -1;
             cmbTipoIdentificacion.SelectedIndex = -1;
+            cmbEstado.SelectedIndex = -1;
 
             rdbFemenino.Checked = false;
             rdbMasculino.Checked = false;
 
-            cmbEstado.SelectedIndex = -1;
-
-            fotoBytes = null;
             pcbFotografia.Image = null;
+            txtIdentificacion.Enabled = true;
         }
 
-        private void tsbEditar_Click(object sender, EventArgs e)
+        private async void tsbEditar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (clienteIdActual <= 0)
+                {
+                    MessageBox.Show("Debe seleccionar un cliente de la lista para editar.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
+                if (cmbTipoIdentificacion.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar el tipo de identificación.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbTipoIdentificacion.Focus();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtIdentificacion.Text))
+                {
+                    MessageBox.Show("Debe ingresar la identificación.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtIdentificacion.Focus();
+                    return;
+                }
+
+                if (txtIdentificacion.Text.Trim().Length > 20)
+                {
+                    MessageBox.Show("La identificación no puede tener más de 20 caracteres.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtIdentificacion.Focus();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                {
+                    MessageBox.Show("Debe ingresar el nombre.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNombre.Focus();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtApellidos.Text))
+                {
+                    MessageBox.Show("Debe ingresar los apellidos.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtApellidos.Focus();
+                    return;
+                }
+
+                if (!rdbFemenino.Checked && !rdbMasculino.Checked)
+                {
+                    MessageBox.Show("Debe seleccionar el sexo.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (cmbProvincia.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar la provincia.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbProvincia.Focus();
+                    return;
+                }
+
+                if (cmbEstado.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar el estado.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbEstado.Focus();
+                    return;
+                }
+
+                Cliente oCliente = new Cliente();
+                oCliente.ClienteID = clienteIdActual;
+                oCliente.Identificacion = txtIdentificacion.Text.Trim();
+                oCliente.Nombre = txtNombre.Text.Trim();
+                oCliente.Apellidos = txtApellidos.Text.Trim();
+                oCliente.Telefono = mskTelefono.Text.Trim();
+                oCliente.Correo = txtCorreo.Text.Trim();
+                oCliente.Direccion = txtDireccion.Text.Trim();
+                oCliente.Provincia = cmbProvincia.SelectedValue.ToString();
+                oCliente.Fotografia = fotoBytes;
+                oCliente.TipoIdentificacion = (TipoIdentificacion)cmbTipoIdentificacion.SelectedItem;
+                oCliente.Estado = (EstadoCatalogos)cmbEstado.SelectedItem;
+
+                if (rdbFemenino.Checked)
+                    oCliente.Sexo = Sexo.Femenino;
+                else
+                    oCliente.Sexo = Sexo.Masculino;
+
+                Cliente clienteActualizado = await clienteBll.Update(oCliente);
+
+                MessageBox.Show("Cliente actualizado correctamente.", "Información",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LimpiarFormulario();
+                CargarClientes();
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnBuscarCliente_Click(object sender, EventArgs e)
@@ -228,36 +348,67 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     return;
                 }
 
-                PersonaHaciendaDatos datosDatos = new PersonaHaciendaDatos();
-                string url = "https://api.hacienda.go.cr/fe/ae?identificacion=" + txtIdentificacion.Text.Trim();
+                this.Cursor = Cursors.WaitCursor;
 
-                HttpWebRequest myWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                myWebRequest.UserAgent = "Mozilla/5.0";
-                myWebRequest.Credentials = CredentialCache.DefaultCredentials;
-                myWebRequest.Proxy = null;
+                PersonaHaciendaDatos datosDatos = null;
 
-                using (HttpWebResponse myHttpWebResponse = (HttpWebResponse)myWebRequest.GetResponse())
-                using (Stream myStream = myHttpWebResponse.GetResponseStream())
-                using (StreamReader myStreamReader = new StreamReader(myStream))
+                string identificacion = txtIdentificacion.Text.Trim();
+
+                datosDatos = Task.Run(() =>
                 {
-                    string datos = HttpUtility.HtmlDecode(myStreamReader.ReadToEnd());
+                    string url = "https://api.hacienda.go.cr/fe/ae?identificacion=" + identificacion;
 
-                    datosDatos = JsonConvert.DeserializeObject<PersonaHaciendaDatos>(datos);
+                    HttpWebRequest myWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                    myWebRequest.UserAgent = "Mozilla/5.0";
+                    myWebRequest.Credentials = CredentialCache.DefaultCredentials;
+                    myWebRequest.Proxy = null;
+                    myWebRequest.Timeout = 5000; 
 
-                    if (datosDatos == null || string.IsNullOrWhiteSpace(datosDatos.nombre))
+                    using (HttpWebResponse myHttpWebResponse = (HttpWebResponse)myWebRequest.GetResponse())
+                    using (Stream myStream = myHttpWebResponse.GetResponseStream())
+                    using (StreamReader myStreamReader = new StreamReader(myStream))
                     {
-                        MessageBox.Show("No se encontraron datos en Hacienda.", "Atención",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        string datos = HttpUtility.HtmlDecode(myStreamReader.ReadToEnd());
+
+                        return JsonConvert.DeserializeObject<PersonaHaciendaDatos>(datos);
                     }
 
-                    LlenarNombreYApellidos(datosDatos.nombre);
+                }).GetAwaiter().GetResult();
+
+                this.Cursor = Cursors.Default;
+
+                if (datosDatos == null || string.IsNullOrWhiteSpace(datosDatos.nombre))
+                {
+                    MessageBox.Show("No se encontraron datos en Hacienda.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                LlenarNombreYApellidos(datosDatos.nombre);
+            }
+            catch (WebException)
+            {
+                this.Cursor = Cursors.Default;
+
+                DialogResult result = MessageBox.Show(
+                    "El servicio de Hacienda no está disponible en este momento.\n\n¿Desea ingresar los datos manualmente?",
+                    "Hacienda no disponible",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    txtNombre.Focus();
                 }
             }
             catch (Exception er)
             {
+                this.Cursor = Cursors.Default;
+
                 string msg = "";
-                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -300,6 +451,54 @@ namespace TechKMii.Layers.UI.Mantenimientos
             }
         }
 
+        private void CargarClienteEnFormulario(Cliente oCliente)
+        {
+            try
+            {
+                if (oCliente == null)
+                    return;
+
+                clienteIdActual = oCliente.ClienteID;
+                txtIdentificacion.Enabled = false;
+
+                txtIdentificacion.Text = oCliente.Identificacion;
+                txtNombre.Text = oCliente.Nombre;
+                txtApellidos.Text = oCliente.Apellidos;
+                mskTelefono.Text = oCliente.Telefono;
+                txtCorreo.Text = oCliente.Correo;
+                txtDireccion.Text = oCliente.Direccion;
+
+                cmbProvincia.SelectedValue = oCliente.Provincia;
+                cmbTipoIdentificacion.SelectedItem = oCliente.TipoIdentificacion;
+                cmbEstado.SelectedItem = oCliente.Estado;
+
+                if (oCliente.Sexo == Sexo.Femenino)
+                    rdbFemenino.Checked = true;
+                else
+                    rdbMasculino.Checked = true;
+
+                fotoBytes = oCliente.Fotografia;
+
+                if (oCliente.Fotografia != null)
+                {
+                    using (MemoryStream ms = new MemoryStream(oCliente.Fotografia))
+                    {
+                        pcbFotografia.Image = Image.FromStream(ms);
+                        pcbFotografia.SizeMode = PictureBoxSizeMode.StretchImage;
+                    }
+                }
+                else
+                {
+                    pcbFotografia.Image = null;
+                }
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("Error al cargar el cliente en el formulario: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void tsbSalir_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -339,6 +538,76 @@ namespace TechKMii.Layers.UI.Mantenimientos
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar la imagen: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void dgvDatosCliente_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex < 0)
+                    return;
+
+                Cliente oCliente = dgvDatosCliente.Rows[e.RowIndex].DataBoundItem as Cliente;
+
+                if (oCliente != null)
+                    CargarClienteEnFormulario(oCliente);
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("Error al seleccionar el cliente: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvDatosCliente_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private async void tsbBorrar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clienteIdActual <= 0)
+                {
+                    MessageBox.Show("Debe seleccionar un cliente para eliminar.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                DialogResult respuesta = MessageBox.Show(
+                    "¿Está seguro de eliminar el cliente seleccionado?",
+                    "Confirmar eliminación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                    return;
+
+                bool eliminado = await clienteBll.Delete(clienteIdActual);
+
+                if (eliminado)
+                {
+                    MessageBox.Show("Cliente eliminado correctamente.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LimpiarFormulario();
+                    CargarClientes();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo eliminar el cliente.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
