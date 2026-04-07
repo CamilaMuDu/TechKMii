@@ -22,6 +22,8 @@ namespace TechKMii.Layers.UI.Login
     {
         private static readonly ILog _myLogControlEventos = log4net.LogManager.GetLogger("MyControlEventos");
         private int contador = 0;
+        IUsuarioBLL usuariobll = new UsuarioBLL();
+
         public frmLogin()
         {
             InitializeComponent();
@@ -35,7 +37,6 @@ namespace TechKMii.Layers.UI.Login
 
         private async void btnAceptar_Click(object sender, EventArgs e)
         {
-            IUsuarioBLL usuariobll = new UsuarioBLL();
             epError.Clear();
             Usuario oUsuario = null;
             try

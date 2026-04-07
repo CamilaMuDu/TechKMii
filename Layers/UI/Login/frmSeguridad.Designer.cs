@@ -51,6 +51,7 @@
             this.toolStripBtnNuevo = new System.Windows.Forms.ToolStripButton();
             this.tspBarraPrincipal = new System.Windows.Forms.ToolStrip();
             this.sttBarraInferior = new System.Windows.Forms.StatusStrip();
+            this.tsbEditar = new System.Windows.Forms.ToolStripButton();
             this.cmdMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spcContenedor)).BeginInit();
@@ -93,8 +94,9 @@
             this.trvUsuarios.Margin = new System.Windows.Forms.Padding(6);
             this.trvUsuarios.Name = "trvUsuarios";
             this.trvUsuarios.SelectedImageIndex = 0;
-            this.trvUsuarios.Size = new System.Drawing.Size(901, 606);
+            this.trvUsuarios.Size = new System.Drawing.Size(901, 614);
             this.trvUsuarios.TabIndex = 5;
+            this.trvUsuarios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvUsuarios_AfterSelect);
             this.trvUsuarios.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvUsuarios_NodeMouseClick);
             this.trvUsuarios.ContextMenuStripChanged += new System.EventHandler(this.frmSeguridad_Load);
             // 
@@ -189,7 +191,7 @@
             // 
             this.spcContenedor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spcContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spcContenedor.Location = new System.Drawing.Point(0, 50);
+            this.spcContenedor.Location = new System.Drawing.Point(0, 42);
             this.spcContenedor.Margin = new System.Windows.Forms.Padding(6);
             this.spcContenedor.Name = "spcContenedor";
             // 
@@ -200,7 +202,7 @@
             // spcContenedor.Panel2
             // 
             this.spcContenedor.Panel2.Controls.Add(this.trvUsuarios);
-            this.spcContenedor.Size = new System.Drawing.Size(1567, 610);
+            this.spcContenedor.Size = new System.Drawing.Size(1567, 618);
             this.spcContenedor.SplitterDistance = 654;
             this.spcContenedor.SplitterWidth = 8;
             this.spcContenedor.TabIndex = 5;
@@ -234,8 +236,8 @@
             this.toolStripBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnSalir.Name = "toolStripBtnSalir";
-            this.toolStripBtnSalir.Size = new System.Drawing.Size(63, 44);
-            this.toolStripBtnSalir.Text = "Sa&lir";
+            this.toolStripBtnSalir.Size = new System.Drawing.Size(63, 36);
+            this.toolStripBtnSalir.Text = "&Salir";
             this.toolStripBtnSalir.Click += new System.EventHandler(this.toolStripBtnSalir_Click);
             // 
             // toolStripBtnGuardarUsuario
@@ -243,8 +245,8 @@
             this.toolStripBtnGuardarUsuario.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnGuardarUsuario.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnGuardarUsuario.Name = "toolStripBtnGuardarUsuario";
-            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(102, 44);
-            this.toolStripBtnGuardarUsuario.Text = "Guardar";
+            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(102, 36);
+            this.toolStripBtnGuardarUsuario.Text = "&Guardar";
             this.toolStripBtnGuardarUsuario.Click += new System.EventHandler(this.toolStripBtnGuardarUsuario_Click);
             // 
             // toolStripBtnNuevo
@@ -252,7 +254,7 @@
             this.toolStripBtnNuevo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnNuevo.Name = "toolStripBtnNuevo";
-            this.toolStripBtnNuevo.Size = new System.Drawing.Size(89, 44);
+            this.toolStripBtnNuevo.Size = new System.Drawing.Size(89, 36);
             this.toolStripBtnNuevo.Text = "&Nuevo";
             this.toolStripBtnNuevo.Click += new System.EventHandler(this.toolStripBtnNuevo_Click);
             // 
@@ -262,11 +264,12 @@
             this.tspBarraPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripBtnNuevo,
             this.toolStripBtnGuardarUsuario,
+            this.tsbEditar,
             this.toolStripBtnSalir});
             this.tspBarraPrincipal.Location = new System.Drawing.Point(0, 0);
             this.tspBarraPrincipal.Name = "tspBarraPrincipal";
             this.tspBarraPrincipal.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 50);
+            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 42);
             this.tspBarraPrincipal.TabIndex = 4;
             this.tspBarraPrincipal.Text = "toolStrip1";
             // 
@@ -281,6 +284,16 @@
             this.sttBarraInferior.Text = "statusStrip1";
             this.sttBarraInferior.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sttBarraInferior_ItemClicked);
             // 
+            // tsbEditar
+            // 
+            this.tsbEditar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
+            this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbEditar.Name = "tsbEditar";
+            this.tsbEditar.Size = new System.Drawing.Size(78, 36);
+            this.tsbEditar.Text = "&Editar";
+            this.tsbEditar.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // frmSeguridad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -291,7 +304,7 @@
             this.Controls.Add(this.sttBarraInferior);
             this.IsMdiContainer = true;
             this.Name = "frmSeguridad";
-            this.Text = "frmSeguridad";
+            this.Text = "Seguridad de usuarios";
             this.Load += new System.EventHandler(this.frmSeguridad_Load);
             this.cmdMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.epError)).EndInit();
@@ -331,5 +344,6 @@
         private System.Windows.Forms.ToolStripButton toolStripBtnGuardarUsuario;
         private System.Windows.Forms.ToolStripButton toolStripBtnSalir;
         private System.Windows.Forms.StatusStrip sttBarraInferior;
+        private System.Windows.Forms.ToolStripButton tsbEditar;
     }
 }

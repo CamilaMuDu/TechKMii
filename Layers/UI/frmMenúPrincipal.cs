@@ -78,7 +78,7 @@ namespace TechKMii
 
                 _myLogControlEventos.InfoFormat("Conectado al Form Principal");
 
-                Seguridad(); // <- activar aquí
+                Seguridad(); 
             }
             catch (Exception er)
             {
@@ -160,6 +160,12 @@ namespace TechKMii
         {
             frmAcercaDe frmAcerca = new frmAcercaDe();
             frmAcerca.ShowDialog();
+        }
+
+        private void inventarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmInventarioMantenimiento inventario = new frmInventarioMantenimiento();
+            inventario.ShowDialog();
         }
     }
 }

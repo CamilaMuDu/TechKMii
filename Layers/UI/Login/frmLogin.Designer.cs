@@ -94,7 +94,6 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(391, 44);
             this.txtNombre.TabIndex = 2;
-            this.txtNombre.Text = "Administrador";
             this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // txtContrasenna
@@ -106,7 +105,7 @@
             this.txtContrasenna.PasswordChar = '*';
             this.txtContrasenna.Size = new System.Drawing.Size(391, 44);
             this.txtContrasenna.TabIndex = 3;
-            this.txtContrasenna.Text = "ADMIN1";
+            this.txtContrasenna.Text = "********";
             this.txtContrasenna.TextChanged += new System.EventHandler(this.txtContrasenna_TextChanged);
             // 
             // btnSalir

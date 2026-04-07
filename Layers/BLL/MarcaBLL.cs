@@ -11,27 +11,24 @@ namespace TechKMii.Layers.BLL
 {
     public class MarcaBLL : IMarcaBLL
     {
+        IMarcaDAL marcaDAL = new MarcaDAL();
         public bool Delete(int MarcaID)
         {
-           IMarcaDAL marcaDAL = new MarcaDAL();
             return marcaDAL.Delete(MarcaID);
         }
 
         public IEnumerable<Marca> GetAll()
         {
-            IMarcaDAL marcaDAL = new MarcaDAL();
             return marcaDAL.GetAll();
         }
 
         public Marca GetById(int MarcaID)
         {
-           IMarcaDAL marcaDAL = new MarcaDAL();
             return marcaDAL.GetById(MarcaID);
         }
 
         public Marca Save(Marca pMarca)
         {
-            IMarcaDAL marcaDAL = new MarcaDAL();
             if(pMarca.MarcaID == 0)
             {
                 return marcaDAL.Save(pMarca);
@@ -44,7 +41,6 @@ namespace TechKMii.Layers.BLL
 
         public Marca Update(Marca pMarca)
         {
-            IMarcaDAL marcaDAL = new MarcaDAL();
             return marcaDAL.Update(pMarca);
         }
     }

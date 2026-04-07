@@ -11,36 +11,32 @@ namespace TechKMii.Layers.BLL
 {
     public class UsuarioBLL : IUsuarioBLL
     {
+        IUsuarioDAL usuarioDAL = new UsuarioDAL();
+
         public bool Delete(string UsuarioID)
         {
-           IUsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.Delete(UsuarioID);
         }
 
         public IEnumerable<Usuario> GetAll()
         {
-            IUsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.GetAll();
         }
 
         public Usuario GetById(string UsuarioID)
         {
-            IUsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.GetById(UsuarioID);
         }
 
         public Usuario Login(string UsuarioID, string contrasenna)
         {
-            IUsuarioDAL usuarioDAL = new UsuarioDAL();
-
             //Encriptar la contraseña
             string cryptedPassword = Cryptography.EncrypthAES(contrasenna);
             return usuarioDAL.Login(UsuarioID, cryptedPassword);
         }
 
         public Usuario Save(Usuario pUsuario)
-        {
-           IUsuarioDAL usuarioDAL = new UsuarioDAL();
+        { 
             string mensaje = "";
             Usuario oUsuario = null;
 
@@ -62,6 +58,12 @@ namespace TechKMii.Layers.BLL
             }
             return oUsuario;
         }
+
+        public Usuario Update(Usuario pUsuario)
+        {
+            return usuarioDAL.Update(pUsuario);
+        }
+
         private bool IsValidPassword(string pContrasenna, ref string pMensaje)
         {
             if (pContrasenna.Trim().Length < 6)
