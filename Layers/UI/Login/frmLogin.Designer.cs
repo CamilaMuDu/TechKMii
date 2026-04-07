@@ -94,6 +94,8 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(391, 44);
             this.txtNombre.TabIndex = 2;
+            this.txtNombre.Text = "Administrador";
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // txtContrasenna
             // 
@@ -104,13 +106,14 @@
             this.txtContrasenna.PasswordChar = '*';
             this.txtContrasenna.Size = new System.Drawing.Size(391, 44);
             this.txtContrasenna.TabIndex = 3;
-            this.txtContrasenna.Text = "123456";
+            this.txtContrasenna.Text = "ADMIN1";
+            this.txtContrasenna.TextChanged += new System.EventHandler(this.txtContrasenna_TextChanged);
             // 
             // btnSalir
             // 
             this.btnSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.Location = new System.Drawing.Point(411, 701);
+            this.btnSalir.Location = new System.Drawing.Point(415, 666);
             this.btnSalir.Margin = new System.Windows.Forms.Padding(6);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(264, 102);
@@ -123,7 +126,7 @@
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(104, 701);
+            this.btnAceptar.Location = new System.Drawing.Point(108, 666);
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(6);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(276, 102);

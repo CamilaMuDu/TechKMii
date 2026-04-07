@@ -68,6 +68,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
         }
         private void Limpiar()
         {
+            tipo = new TipoDispositivo();
             txtNombre.Clear();
             cmbEstado.SelectedIndex = 0;
             dgvDatos.ClearSelection();
@@ -83,22 +84,50 @@ namespace TechKMii.Layers.UI.Mantenimientos
         {
             try
             {
-                if (dgvDatos.CurrentRow == null)
+                if (tipo.TipoID == 0)
                 {
                     MessageBox.Show("Debe seleccionar un registro para editar.", "Validación",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                tipo.TipoID = Convert.ToInt32(dgvDatos.CurrentRow.Cells["TipoID"].Value);
-                txtNombre.Text = dgvDatos.CurrentRow.Cells["Nombre"].Value.ToString();
+                if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                {
+                    MessageBox.Show("Debe ingresar el nombre.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNombre.Focus();
+                    return;
+                }
 
-                int estadoValor = Convert.ToInt32(dgvDatos.CurrentRow.Cells["Estado"].Value);
-                cmbEstado.SelectedItem = (EstadoCatalogos)estadoValor;
+                if (cmbEstado.SelectedItem == null)
+                {
+                    MessageBox.Show("Debe seleccionar un estado.", "Validación",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbEstado.Focus();
+                    return;
+                }
+
+                DialogResult r = MessageBox.Show("¿Desea editar el registro seleccionado?", "Confirmación",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (r == DialogResult.Yes)
+                {
+                    tipo.Nombre = txtNombre.Text.Trim();
+                    tipo.Estado = (EstadoCatalogos)cmbEstado.SelectedItem;
+
+                    tipoDispositivoBLL.Update(tipo);
+
+                    MessageBox.Show("Tipo de dispositivo actualizado correctamente.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    CargarDatos();
+                    Limpiar();
+                    tipo = new TipoDispositivo();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar datos para editar: {ex.Message}", "Error",
+                MessageBox.Show($"Error al editar: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -154,12 +183,12 @@ namespace TechKMii.Layers.UI.Mantenimientos
         {
             try
             {
-                //Validaciones
                 if (string.IsNullOrWhiteSpace(txtNombre.Text))
                 {
                     MessageBox.Show("Debe ingresar el nombre.", "Validación",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtNombre.Focus();
+                    return;
                 }
 
                 if (cmbEstado.SelectedItem == null)
@@ -167,32 +196,33 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     MessageBox.Show("Debe seleccionar un estado.", "Validación",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     cmbEstado.Focus();
+                    return;
+                }
+
+                if (tipo.TipoID != 0)
+                {
+                    MessageBox.Show("Para modificar un registro, use el botón Editar.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
 
                 tipo.Nombre = txtNombre.Text.Trim();
                 tipo.Estado = (EstadoCatalogos)cmbEstado.SelectedItem;
-                
 
-                if (tipo.TipoID == 0)
-                {
-                    tipoDispositivoBLL.Save(tipo);
-                    MessageBox.Show("Tipo de dispositivo guardado correctamente.", "Información",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    tipoDispositivoBLL.Update(tipo);
-                    MessageBox.Show("Tipo de dispositivo actualizado correctamente.", "Información",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                tipoDispositivoBLL.Save(tipo);
+
+                MessageBox.Show("Tipo de dispositivo guardado correctamente.", "Información",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 CargarDatos();
                 Limpiar();
+                tipo = new TipoDispositivo();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al guardar: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }       
         }
 
         private void dgvDatos_CellClick(object sender, DataGridViewCellEventArgs e)

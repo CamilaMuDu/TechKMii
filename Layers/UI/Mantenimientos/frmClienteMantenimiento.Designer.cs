@@ -85,16 +85,18 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(1894, 42);
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolStrip1.Size = new System.Drawing.Size(1894, 50);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // tsbNuevo
             // 
             this.tsbNuevo.Image = ((System.Drawing.Image)(resources.GetObject("tsbNuevo.Image")));
             this.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNuevo.Name = "tsbNuevo";
-            this.tsbNuevo.Size = new System.Drawing.Size(121, 36);
+            this.tsbNuevo.Size = new System.Drawing.Size(121, 44);
             this.tsbNuevo.Text = "Nuevo";
             this.tsbNuevo.Click += new System.EventHandler(this.tsbNuevo_Click);
             // 
@@ -103,7 +105,7 @@
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
             this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(110, 36);
+            this.tsbEditar.Size = new System.Drawing.Size(110, 44);
             this.tsbEditar.Text = "Editar";
             this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
@@ -112,7 +114,7 @@
             this.tsbBorrar.Image = ((System.Drawing.Image)(resources.GetObject("tsbBorrar.Image")));
             this.tsbBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBorrar.Name = "tsbBorrar";
-            this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
+            this.tsbBorrar.Size = new System.Drawing.Size(114, 44);
             this.tsbBorrar.Text = "Borrar";
             this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
             // 
@@ -121,7 +123,7 @@
             this.tsbSalir.Image = ((System.Drawing.Image)(resources.GetObject("tsbSalir.Image")));
             this.tsbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSalir.Name = "tsbSalir";
-            this.tsbSalir.Size = new System.Drawing.Size(95, 36);
+            this.tsbSalir.Size = new System.Drawing.Size(95, 44);
             this.tsbSalir.Text = "Salir";
             this.tsbSalir.Click += new System.EventHandler(this.tsbSalir_Click);
             // 
@@ -137,9 +139,10 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 42);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 50);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -152,13 +155,15 @@
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.tlpPanel);
             this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
-            this.splitContainer1.Panel1MinSize = 500;
+            this.splitContainer1.Panel1MinSize = 300;
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatosCliente);
-            this.splitContainer1.Size = new System.Drawing.Size(1894, 1062);
-            this.splitContainer1.SplitterDistance = 802;
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
+            this.splitContainer1.Size = new System.Drawing.Size(1894, 1054);
+            this.splitContainer1.SplitterDistance = 850;
             this.splitContainer1.TabIndex = 2;
             // 
             // btnAnnadirFoto
@@ -519,7 +524,6 @@
         private System.Windows.Forms.ToolStripButton tsbBorrar;
         private System.Windows.Forms.ToolStripButton tsbSalir;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TableLayoutPanel tlpPanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -548,5 +552,6 @@
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnAnnadirFoto;
+        protected System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

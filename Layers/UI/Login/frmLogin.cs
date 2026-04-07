@@ -128,6 +128,16 @@ namespace TechKMii.Layers.UI.Login
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtContrasenna_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
