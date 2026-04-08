@@ -34,7 +34,6 @@
             this.tsbEditar = new System.Windows.Forms.ToolStripButton();
             this.tsbBorrar = new System.Windows.Forms.ToolStripButton();
             this.tsbSalir = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnAnnadirFoto = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
@@ -85,8 +84,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(1894, 50);
+            this.toolStrip1.Size = new System.Drawing.Size(2060, 50);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
@@ -127,30 +125,18 @@
             this.tsbSalir.Text = "Salir";
             this.tsbSalir.Click += new System.EventHandler(this.tsbSalir_Click);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1104);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 14, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1894, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
             // splitContainer1
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 50);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.btnAnnadirFoto);
-            this.splitContainer1.Panel1.Controls.Add(this.btnAgregar);
             this.splitContainer1.Panel1.Controls.Add(this.pcbFotografia);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
             this.splitContainer1.Panel1.Controls.Add(this.tlpPanel);
@@ -159,11 +145,10 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatosCliente);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(1894, 1054);
-            this.splitContainer1.SplitterDistance = 850;
+            this.splitContainer1.Size = new System.Drawing.Size(2060, 1207);
+            this.splitContainer1.SplitterDistance = 924;
             this.splitContainer1.TabIndex = 2;
             // 
             // btnAnnadirFoto
@@ -178,7 +163,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(293, 953);
+            this.btnAgregar.Location = new System.Drawing.Point(202, 535);
             this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(209, 79);
@@ -189,6 +174,7 @@
             // 
             // pcbFotografia
             // 
+            this.pcbFotografia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pcbFotografia.Location = new System.Drawing.Point(34, 60);
             this.pcbFotografia.Margin = new System.Windows.Forms.Padding(4);
             this.pcbFotografia.Name = "pcbFotografia";
@@ -208,11 +194,14 @@
             // 
             // tlpPanel
             // 
+            this.tlpPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tlpPanel.ColumnCount = 3;
             this.tlpPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 244F));
             this.tlpPanel.Controls.Add(this.cmbTipoIdentificacion, 1, 0);
+            this.tlpPanel.Controls.Add(this.btnAgregar, 1, 11);
             this.tlpPanel.Controls.Add(this.rdbFemenino, 1, 4);
             this.tlpPanel.Controls.Add(this.rdbMasculino, 1, 5);
             this.tlpPanel.Controls.Add(this.mskTelefono, 1, 6);
@@ -234,10 +223,10 @@
             this.tlpPanel.Controls.Add(this.label5, 0, 4);
             this.tlpPanel.Controls.Add(this.label11, 0, 10);
             this.tlpPanel.Controls.Add(this.cmbEstado, 1, 10);
-            this.tlpPanel.Location = new System.Drawing.Point(33, 358);
+            this.tlpPanel.Location = new System.Drawing.Point(81, 339);
             this.tlpPanel.Margin = new System.Windows.Forms.Padding(6);
             this.tlpPanel.Name = "tlpPanel";
-            this.tlpPanel.RowCount = 11;
+            this.tlpPanel.RowCount = 12;
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -248,8 +237,9 @@
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
-            this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 11F));
-            this.tlpPanel.Size = new System.Drawing.Size(754, 538);
+            this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
+            this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tlpPanel.Size = new System.Drawing.Size(754, 627);
             this.tlpPanel.TabIndex = 10;
             // 
             // cmbTipoIdentificacion
@@ -458,7 +448,7 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 487);
+            this.label11.Location = new System.Drawing.Point(6, 484);
             this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(186, 25);
@@ -481,7 +471,7 @@
             this.dgvDatosCliente.Name = "dgvDatosCliente";
             this.dgvDatosCliente.RowHeadersWidth = 82;
             this.dgvDatosCliente.RowTemplate.Height = 33;
-            this.dgvDatosCliente.Size = new System.Drawing.Size(1042, 1017);
+            this.dgvDatosCliente.Size = new System.Drawing.Size(1099, 1017);
             this.dgvDatosCliente.TabIndex = 0;
             this.dgvDatosCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellClick);
             this.dgvDatosCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellContentClick);
@@ -490,10 +480,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1894, 1126);
+            this.ClientSize = new System.Drawing.Size(2060, 1257);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmClienteMantenimiento";
@@ -523,7 +511,6 @@
         private System.Windows.Forms.ToolStripButton tsbEditar;
         private System.Windows.Forms.ToolStripButton tsbBorrar;
         private System.Windows.Forms.ToolStripButton tsbSalir;
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.TableLayoutPanel tlpPanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

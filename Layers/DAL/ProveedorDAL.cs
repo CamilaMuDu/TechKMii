@@ -18,15 +18,14 @@ namespace TechKMii.Layers.DAL
         private static readonly ILog _myLogControlEventos = LogManager.GetLogger("MyControlEventos");
         public bool Delete(int ProveedorID)
         {
-            StringBuilder conexion = new StringBuilder();
             SqlCommand command = new SqlCommand();
             string msg = "";
             double row = 0;
+
             try
             {
                 command.CommandText = "dbo.usp_DELETE_Proveedor_ByID";
                 command.CommandType = CommandType.StoredProcedure;
-
                 command.Parameters.AddWithValue("@ProveedorID", ProveedorID);
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
@@ -34,7 +33,7 @@ namespace TechKMii.Layers.DAL
                     row = db.ExecuteNonQuery(command, IsolationLevel.ReadCommitted);
                 }
 
-                return row > 0 ? true : false;
+                return row > 0;
             }
             catch (SqlException er)
             {
@@ -68,7 +67,7 @@ namespace TechKMii.Layers.DAL
                         {                         
                             Proveedor oProveedor = new Proveedor
                             {
-                                ProveedorID = Convert.ToInt32(reader["MarcaID"]),
+                                ProveedorID = Convert.ToInt32(reader["ProveedorID"]),
                                 Nombre = reader["Nombre"].ToString(),
                                 Estado = (EstadoCatalogos)Convert.ToInt32(reader["Estado"])
                             };
@@ -137,7 +136,6 @@ namespace TechKMii.Layers.DAL
         {
             Proveedor oProveedor = null;
             SqlCommand command = new SqlCommand();
-            int row = 0;
             string msg = "";
 
             command.CommandText = "dbo.usp_INSERT_Proveedor";
@@ -191,7 +189,7 @@ namespace TechKMii.Layers.DAL
                 }
 
                 if (row > 0)
-                    oProveedor = GetById(oProveedor.ProveedorID);
+                    oProveedor = GetById(pProveedor.ProveedorID);
 
                 return oProveedor;
             }
