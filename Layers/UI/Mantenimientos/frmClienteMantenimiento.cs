@@ -17,6 +17,7 @@ using TechKMii.Layers.BLL;
 using TechKMii.Layers.DAL;
 using TechKMii.Layers.Entities;
 using TechKMii.Layers.Interfaces;
+using TechKMii.Layers.UI.Mantenimientos.Filtros;
 using UTN.Winform.Electronics.Extensions;
 using UTNLeccion8B.Layer.Entities.PersonaHacienda;
 
@@ -178,15 +179,22 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 oCliente.TipoIdentificacion = (TipoIdentificacion)cmbTipoIdentificacion.SelectedItem;
                 oCliente.Estado = (EstadoCatalogos)cmbEstado.SelectedItem;
 
-                if (rdbFemenino.Checked)
-                    oCliente.Sexo = Sexo.Femenino;
+                if (clienteIdActual == 0)
+                {
+                    oCliente.ClienteID = 0;
+                    Cliente clienteGuardado = await clienteBll.Save(oCliente);
+
+                    MessageBox.Show("Cliente agregado correctamente.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 else
-                    oCliente.Sexo = Sexo.Masculino;
+                {
+                    oCliente.ClienteID = clienteIdActual;
+                    Cliente clienteActualizado = await clienteBll.Update(oCliente);
 
-                Cliente clienteGuardado = await clienteBll.Save(oCliente);
-
-                MessageBox.Show("Cliente agregado correctamente.", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cliente actualizado correctamente.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
                 LimpiarFormulario();
                 CargarClientes();
@@ -459,7 +467,6 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     return;
 
                 clienteIdActual = oCliente.ClienteID;
-                txtIdentificacion.Enabled = false;
 
                 txtIdentificacion.Text = oCliente.Identificacion;
                 txtNombre.Text = oCliente.Nombre;
@@ -551,7 +558,9 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 Cliente oCliente = dgvDatosCliente.Rows[e.RowIndex].DataBoundItem as Cliente;
 
                 if (oCliente != null)
+                {
                     CargarClienteEnFormulario(oCliente);
+                }
             }
             catch (Exception er)
             {
@@ -619,6 +628,31 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+
+        }
+
+        private void tspBuscarCliente_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (frmClienteFiltro frm = new frmClienteFiltro())
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        Cliente clienteSeleccionado = frm.oCliente;
+
+                        if (clienteSeleccionado != null)
+                        {
+                            CargarClienteEnFormulario(clienteSeleccionado);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el filtro: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
     }

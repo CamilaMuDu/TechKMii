@@ -104,6 +104,7 @@
     <Compile Include="Layers\BLL\ClienteBLL.cs" />
     <Compile Include="Layers\BLL\DolarBLL.cs" />
     <Compile Include="Layers\BLL\MarcaBLL.cs" />
+    <Compile Include="Layers\BLL\ProductoBLL.cs" />
     <Compile Include="Layers\BLL\ProveedorBLL.cs" />
     <Compile Include="Layers\BLL\ProvinciaBLL.cs" />
     <Compile Include="Layers\BLL\RolBLL.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Layers\BLL\UsuarioBLL.cs" />
     <Compile Include="Layers\DAL\ClienteDAL.cs" />
     <Compile Include="Layers\DAL\MarcaDAL.cs" />
+    <Compile Include="Layers\DAL\ProductoDAL.cs" />
     <Compile Include="Layers\DAL\ProveedorDAL.cs" />
     <Compile Include="Layers\DAL\RolDAL.cs" />
     <Compile Include="Layers\DAL\TipoDispositivoDAL.cs" />
@@ -134,6 +136,8 @@
     <Compile Include="Layers\Interfaces\IDolarBLL.cs" />
     <Compile Include="Layers\Interfaces\IMarcaBLL.cs" />
     <Compile Include="Layers\Interfaces\IMarcaDAL.cs" />
+    <Compile Include="Layers\Interfaces\IProductoBLL.cs" />
+    <Compile Include="Layers\Interfaces\IProductoDAL.cs" />
     <Compile Include="Layers\Interfaces\IProveedorBLL.cs" />
     <Compile Include="Layers\Interfaces\IProveedorDAL.cs" />
     <Compile Include="Layers\Interfaces\IProvinciaBLL.cs" />
@@ -173,6 +177,12 @@
     <Compile Include="Layers\UI\Mantenimientos\Filtros\frmClienteFiltro.Designer.cs">
       <DependentUpon>frmClienteFiltro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\frmProductoMantenimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Layers\UI\Mantenimientos\frmProductoMantenimiento.Designer.cs">
+      <DependentUpon>frmProductoMantenimiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layers\UI\Mantenimientos\frmClienteMantenimiento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,12 +200,6 @@
     </Compile>
     <Compile Include="Layers\UI\Mantenimientos\frmMarcaMantenimiento.Designer.cs">
       <DependentUpon>frmMarcaMantenimiento.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Layers\UI\Mantenimientos\frmProductoMantenimiento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Layers\UI\Mantenimientos\frmProductoMantenimiento.Designer.cs">
-      <DependentUpon>frmProductoMantenimiento.cs</DependentUpon>
     </Compile>
     <Compile Include="Layers\UI\Mantenimientos\frmProveedorMantenimiento.cs">
       <SubType>Form</SubType>
@@ -248,6 +252,9 @@
     <EmbeddedResource Include="Layers\UI\Mantenimientos\Filtros\frmClienteFiltro.resx">
       <DependentUpon>frmClienteFiltro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Layers\UI\Mantenimientos\frmProductoMantenimiento.resx">
+      <DependentUpon>frmProductoMantenimiento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Layers\UI\Mantenimientos\frmClienteMantenimiento.resx">
       <DependentUpon>frmClienteMantenimiento.cs</DependentUpon>
     </EmbeddedResource>
@@ -256,9 +263,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Layers\UI\Mantenimientos\frmMarcaMantenimiento.resx">
       <DependentUpon>frmMarcaMantenimiento.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Layers\UI\Mantenimientos\frmProductoMantenimiento.resx">
-      <DependentUpon>frmProductoMantenimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Layers\UI\Mantenimientos\frmProveedorMantenimiento.resx">
       <DependentUpon>frmProveedorMantenimiento.cs</DependentUpon>

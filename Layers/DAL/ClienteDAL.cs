@@ -365,62 +365,70 @@ namespace TechKMii.Layers.DAL
             }
         }
 
-        //public List<Cliente> GetByFilter(string filtro)
-        //{
+        public List<Cliente> GetByFilter(string filtro)
+        {
+            List<Cliente> lista = new List<Cliente>();
+            SqlCommand command = new SqlCommand();
+            string msg = "";
 
-        //    DataSet ds = null;
-        //    List<Cliente> lista = new List<Cliente>();
-        //    SqlCommand command = new SqlCommand();
-        //    string msg = "";
-        //    try
-        //    {
-        //        command.CommandText = "dbo.usp_SELECT_Cliente_ByFilter";
-        //        command.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                command.CommandText = "dbo.usp_SELECT_Cliente_ByFilter";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@Filtro", filtro);
 
-        //        command.Parameters.AddWithValue("@Filtro", filtro);
+                using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
+                {
+                    using (IDataReader dr = db.ExecuteReader(command))
+                    {
+                        while (dr.Read())
+                        {
+                            Cliente oCliente = new Cliente();
 
-        //        using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
-        //        {
-        //            ds = db.ExecuteReader(command, "query");
-        //        }
+                            oCliente.ClienteID = Convert.ToInt32(dr["ClienteID"]);
+                            oCliente.Identificacion = dr["Identificacion"].ToString();
+                            oCliente.Nombre = dr["Nombre"].ToString();
+                            oCliente.Apellidos = dr["Apellidos"].ToString();
 
-        //        if (ds.Tables[0].Rows.Count > 0)
-        //        {
-        //            foreach (DataRow dr in ds.Tables[0].Rows)
-        //            {
-        //                Cliente oCliente = new Cliente();
+                            if (dr["Sexo"] != DBNull.Value)
+                                oCliente.Sexo = (Sexo)Enum.Parse(typeof(Sexo), dr["Sexo"].ToString());
 
-        //                oCliente.ClienteID = Convert.ToInt32(dr["ClienteID"]);
-        //                oCliente.Nombre = dr["Nombre"].ToString();
-        //                oCliente.Apellidos = dr["Apellidos"].ToString();
-        //                oCliente.Sexo = (Sexo)dr["Sexo"];
-        //                oCliente.Telefono = dr["Telefono"].ToString();
-        //                oCliente.Correo = dr["Correo"].ToString();
-        //                oCliente.Direccion = dr["Direccion"].ToString();
-        //                oCliente.TipoIdentificacion = (TipoIdentificacion)dr["TipoIdentificacion"];
-        //                oCliente.Provincia = dr["ProvinciaID"].ToString();
+                            oCliente.Telefono = dr["Telefono"].ToString();
+                            oCliente.Correo = dr["Correo"].ToString();
+                            oCliente.Direccion = dr["Direccion"].ToString();
+                            oCliente.Provincia = dr["Provincia"].ToString();
 
-        //                if (dr["Fotografia"] != DBNull.Value)
-        //                    oCliente.Fotografia = (byte[])dr["Fotografia"];
-        //                oCliente.Estado = (EstadoCatalogos)dr["Estado"];
+                            if (dr["Fotografia"] != DBNull.Value)
+                                oCliente.Fotografia = (byte[])dr["Fotografia"];
+                            else
+                                oCliente.Fotografia = null;
 
-        //                lista.Add(oCliente);
-        //            }
-        //        }
-        //        return lista;
-        //    }
-        //    catch (SqlException er)
-        //    {
-        //        _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
-        //        throw new CustomException(msg.ToSqlServerDetailError(er));
-        //    }
-        //    catch (Exception er)
-        //    {
-        //        msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
-        //        _myLogControlEventos.ErrorFormat("Error {0}", msg.ToString());
-        //        throw;
-        //    }
-        //}       
+                            if (dr["TipoIdentificacion"] != DBNull.Value)
+                                oCliente.TipoIdentificacion = (TipoIdentificacion)Enum.Parse(typeof(TipoIdentificacion), dr["TipoIdentificacion"].ToString());
+
+                            if (dr["Estado"] != DBNull.Value)
+                                oCliente.Estado = (EstadoCatalogos)Convert.ToInt32(dr["Estado"]);
+
+                            lista.Add(oCliente);
+                        }
+                    }
+                }
+
+                return lista;
+            }
+            catch (SqlException er)
+            {
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
+                throw new CustomException(msg.ToSqlServerDetailError(er));
+            }
+            catch (Exception er)
+            {
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg);
+                throw;
+            }
+        }
     }
 }
 

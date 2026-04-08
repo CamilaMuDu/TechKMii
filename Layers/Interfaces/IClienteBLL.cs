@@ -9,7 +9,7 @@ namespace TechKMii.Layers.Interfaces
 {
     public interface IClienteBLL
     {
-        //List<Cliente> GetByFilter(string filtro);
+        List<Cliente> GetByFilter(string filtro);
         Task<IEnumerable<Cliente>> GetAll();
         Cliente GetById(int clienteID);
         Cliente GetByIdentificacion(string identificacion);

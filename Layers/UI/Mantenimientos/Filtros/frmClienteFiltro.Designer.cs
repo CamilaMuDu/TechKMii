@@ -28,19 +28,102 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmClienteFiltro));
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tspNuevo = new System.Windows.Forms.ToolStripButton();
+            this.tspBuscarCliente = new System.Windows.Forms.ToolStripButton();
+            this.tspSalir = new System.Windows.Forms.ToolStripButton();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.dgvBuscar = new System.Windows.Forms.DataGridView();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBuscar)).BeginInit();
             this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspNuevo,
+            this.tspBuscarCliente,
+            this.tspSalir});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1185, 42);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tspNuevo
+            // 
+            this.tspNuevo.Image = ((System.Drawing.Image)(resources.GetObject("tspNuevo.Image")));
+            this.tspNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspNuevo.Name = "tspNuevo";
+            this.tspNuevo.Size = new System.Drawing.Size(121, 36);
+            this.tspNuevo.Text = "Nuevo";
+            this.tspNuevo.Click += new System.EventHandler(this.tspNuevo_Click);
+            // 
+            // tspBuscarCliente
+            // 
+            this.tspBuscarCliente.Image = ((System.Drawing.Image)(resources.GetObject("tspBuscarCliente.Image")));
+            this.tspBuscarCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspBuscarCliente.Name = "tspBuscarCliente";
+            this.tspBuscarCliente.Size = new System.Drawing.Size(201, 36);
+            this.tspBuscarCliente.Text = "Buscar Cliente";
+            this.tspBuscarCliente.Click += new System.EventHandler(this.tspBuscarCliente_Click);
+            // 
+            // tspSalir
+            // 
+            this.tspSalir.Image = ((System.Drawing.Image)(resources.GetObject("tspSalir.Image")));
+            this.tspSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspSalir.Name = "tspSalir";
+            this.tspSalir.Size = new System.Drawing.Size(95, 36);
+            this.tspSalir.Text = "Salir";
+            this.tspSalir.Click += new System.EventHandler(this.tspSalir_Click);
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Location = new System.Drawing.Point(40, 87);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(1086, 31);
+            this.txtBuscar.TabIndex = 2;
+            // 
+            // dgvBuscar
+            // 
+            this.dgvBuscar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBuscar.Location = new System.Drawing.Point(40, 152);
+            this.dgvBuscar.Name = "dgvBuscar";
+            this.dgvBuscar.RowHeadersWidth = 82;
+            this.dgvBuscar.RowTemplate.Height = 33;
+            this.dgvBuscar.Size = new System.Drawing.Size(1086, 347);
+            this.dgvBuscar.TabIndex = 3;
+            this.dgvBuscar.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBuscar_CellClick);
             // 
             // frmClienteFiltro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1313, 745);
+            this.ClientSize = new System.Drawing.Size(1185, 544);
+            this.Controls.Add(this.dgvBuscar);
+            this.Controls.Add(this.txtBuscar);
+            this.Controls.Add(this.toolStrip1);
+            this.IsMdiContainer = true;
             this.Name = "frmClienteFiltro";
-            this.Text = "frmClienteFiltro";
+            this.Text = "Filtro de cliente";
+            this.Load += new System.EventHandler(this.frmClienteFiltro_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBuscar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton tspNuevo;
+        private System.Windows.Forms.ToolStripButton tspBuscarCliente;
+        private System.Windows.Forms.ToolStripButton tspSalir;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.DataGridView dgvBuscar;
     }
 }

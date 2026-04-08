@@ -50,10 +50,10 @@ namespace TechKMii.Layers.BLL
             return dalCliente.GetAllSync();
         }
 
-        //public List<Cliente> GetByFilter(string filtro)
-        //{
-        //    IClienteDAL dalCliente = new ClienteDAL();
-        //    return dalCliente.GetByFilter(filtro);
-        //}
+        public List<Cliente> GetByFilter(string filtro)
+        {
+            IClienteDAL dalCliente = new ClienteDAL();
+            return dalCliente.GetByFilter(filtro);
+        }
     }
 }
