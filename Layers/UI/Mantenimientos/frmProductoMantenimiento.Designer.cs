@@ -63,6 +63,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.btnCargarFoto = new System.Windows.Forms.Button();
+            this.tspBuscarProduto = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosProducto)).BeginInit();
@@ -76,6 +77,7 @@
             this.tspNuevo,
             this.tspEditar,
             this.tspBorrar,
+            this.tspBuscarProduto,
             this.tspSalir});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -96,7 +98,7 @@
             this.tspEditar.Image = ((System.Drawing.Image)(resources.GetObject("tspEditar.Image")));
             this.tspEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspEditar.Name = "tspEditar";
-            this.tspEditar.Size = new System.Drawing.Size(110, 36);
+            this.tspEditar.Size = new System.Drawing.Size(110, 44);
             this.tspEditar.Text = "Editar";
             // 
             // tspBorrar
@@ -106,6 +108,7 @@
             this.tspBorrar.Name = "tspBorrar";
             this.tspBorrar.Size = new System.Drawing.Size(114, 36);
             this.tspBorrar.Text = "Borrar";
+            this.tspBorrar.Click += new System.EventHandler(this.tspBorrar_Click);
             // 
             // tspSalir
             // 
@@ -114,6 +117,7 @@
             this.tspSalir.Name = "tspSalir";
             this.tspSalir.Size = new System.Drawing.Size(95, 36);
             this.tspSalir.Text = "Salir";
+            this.tspSalir.Click += new System.EventHandler(this.tspSalir_Click);
             // 
             // label1
             // 
@@ -223,6 +227,8 @@
             this.dgvDatosProducto.RowTemplate.Height = 33;
             this.dgvDatosProducto.Size = new System.Drawing.Size(968, 964);
             this.dgvDatosProducto.TabIndex = 13;
+            this.dgvDatosProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellClick);
+            this.dgvDatosProducto.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellContentClick);
             // 
             // label11
             // 
@@ -353,6 +359,7 @@
             this.btnAgregarProducto.TabIndex = 30;
             this.btnAgregarProducto.Text = "Agregar Producto";
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
+            this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
             // btnCargarFoto
             // 
@@ -363,11 +370,19 @@
             this.btnCargarFoto.Text = "Cargar Imagen";
             this.btnCargarFoto.UseVisualStyleBackColor = true;
             // 
+            // tspBuscarProduto
+            // 
+            this.tspBuscarProduto.Image = ((System.Drawing.Image)(resources.GetObject("tspBuscarProduto.Image")));
+            this.tspBuscarProduto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspBuscarProduto.Name = "tspBuscarProduto";
+            this.tspBuscarProduto.Size = new System.Drawing.Size(222, 44);
+            this.tspBuscarProduto.Text = "Buscar Producto";
+            // 
             // frmProductoMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2056, 1140);
+            this.ClientSize = new System.Drawing.Size(2056, 1083);
             this.Controls.Add(this.btnCargarFoto);
             this.Controls.Add(this.btnAgregarProducto);
             this.Controls.Add(this.button1);
@@ -449,5 +464,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAgregarProducto;
         private System.Windows.Forms.Button btnCargarFoto;
+        private System.Windows.Forms.ToolStripButton tspBuscarProduto;
     }
 }
