@@ -10,7 +10,7 @@ namespace TechKMii.Layers.Entities
     {
         public int ProductoID { set; get; }
         public string Nombre { set; get; }
-        public byte[] CodigoBarras { set; get; }
+        public string CodigoBarras { set; get; }
         public TipoDispositivo Tipo { set; get; }
         public Proveedor Proveedor { set; get; }
         public Marca Marca { set; get; }

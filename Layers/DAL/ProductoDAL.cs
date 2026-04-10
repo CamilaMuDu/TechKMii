@@ -176,20 +176,43 @@ namespace TechKMii.Layers.DAL
                 command.CommandText = "dbo.usp_INSERT_Producto";
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@Nombre", producto.Nombre);
-                command.Parameters.AddWithValue("@CodigoBarras", (object)producto.CodigoBarras ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TipoID", producto.Tipo != null ? producto.Tipo.TipoID : (object)DBNull.Value);
-                command.Parameters.AddWithValue("@ProveedorID", producto.Proveedor != null ? producto.Proveedor.ProveedorID : (object)DBNull.Value);
-                command.Parameters.AddWithValue("@MarcaID", producto.Marca != null ? producto.Marca.MarcaID : (object)DBNull.Value);
-                command.Parameters.AddWithValue("@Modelo", producto.Modelo);
-                command.Parameters.AddWithValue("@Precio", producto.Precio);
-                command.Parameters.AddWithValue("@CantidadStock", producto.CantidadStock);
-                command.Parameters.AddWithValue("@Color", (object)producto.Color ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Caracteristicas", (object)producto.Caracteristicas ?? DBNull.Value);
-                command.Parameters.AddWithValue("@DocEspecificaciones", (object)producto.DocEspecificaciones ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Extras", (object)producto.Extras ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Fotografia", (object)producto.Fotografia ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Estado", (int)producto.Estado);
+                command.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value = (object)producto.Nombre ?? DBNull.Value;
+
+                command.Parameters.Add("@CodigoBarras", SqlDbType.VarChar, 20).Value =
+                    (object)producto.CodigoBarras ?? DBNull.Value;
+
+                command.Parameters.Add("@TipoID", SqlDbType.Int).Value =
+                    producto.Tipo != null ? producto.Tipo.TipoID : (object)DBNull.Value;
+
+                command.Parameters.Add("@ProveedorID", SqlDbType.Int).Value =
+                    producto.Proveedor != null ? producto.Proveedor.ProveedorID : (object)DBNull.Value;
+
+                command.Parameters.Add("@MarcaID", SqlDbType.Int).Value =
+                    producto.Marca != null ? producto.Marca.MarcaID : (object)DBNull.Value;
+
+                command.Parameters.Add("@Modelo", SqlDbType.VarChar, 100).Value =
+                    (object)producto.Modelo ?? DBNull.Value;
+
+                command.Parameters.Add("@Precio", SqlDbType.Decimal).Value = producto.Precio;
+
+                command.Parameters.Add("@CantidadStock", SqlDbType.Int).Value = producto.CantidadStock;
+
+                command.Parameters.Add("@Color", SqlDbType.VarChar, 50).Value =
+                    (object)producto.Color ?? DBNull.Value;
+
+                command.Parameters.Add("@Caracteristicas", SqlDbType.VarChar).Value =
+                    (object)producto.Caracteristicas ?? DBNull.Value;
+
+                command.Parameters.Add("@DocEspecificaciones", SqlDbType.VarBinary, -1).Value =
+                    (object)producto.DocEspecificaciones ?? DBNull.Value;
+
+                command.Parameters.Add("@Extras", SqlDbType.VarChar).Value =
+                    (object)producto.Extras ?? DBNull.Value;
+
+                command.Parameters.Add("@Fotografia", SqlDbType.VarBinary, -1).Value =
+                    (object)producto.Fotografia ?? DBNull.Value;
+
+                command.Parameters.Add("@Estado", SqlDbType.Int).Value = (int)producto.Estado;
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
@@ -229,21 +252,46 @@ namespace TechKMii.Layers.DAL
                 command.CommandText = "dbo.usp_UPDATE_Producto";
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@ProductoID", producto.ProductoID);
-                command.Parameters.AddWithValue("@Nombre", producto.Nombre);
-                command.Parameters.AddWithValue("@CodigoBarras", (object)producto.CodigoBarras ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TipoID", producto.Tipo != null ? producto.Tipo.TipoID : (object)DBNull.Value);
-                command.Parameters.AddWithValue("@ProveedorID", producto.Proveedor != null ? producto.Proveedor.ProveedorID : (object)DBNull.Value);
-                command.Parameters.AddWithValue("@MarcaID", producto.Marca != null ? producto.Marca.MarcaID : (object)DBNull.Value);
-                command.Parameters.AddWithValue("@Modelo", producto.Modelo);
-                command.Parameters.AddWithValue("@Precio", producto.Precio);
-                command.Parameters.AddWithValue("@CantidadStock", producto.CantidadStock);
-                command.Parameters.AddWithValue("@Color", (object)producto.Color ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Caracteristicas", (object)producto.Caracteristicas ?? DBNull.Value);
-                command.Parameters.AddWithValue("@DocEspecificaciones", (object)producto.DocEspecificaciones ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Extras", (object)producto.Extras ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Fotografia", (object)producto.Fotografia ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Estado", (int)producto.Estado);
+                command.Parameters.Add("@ProductoID", SqlDbType.Int).Value = producto.ProductoID;
+
+                command.Parameters.Add("@Nombre", SqlDbType.VarChar, 100).Value =
+                    (object)producto.Nombre ?? DBNull.Value;
+
+                command.Parameters.Add("@CodigoBarras", SqlDbType.VarChar, 20).Value =
+                    (object)producto.CodigoBarras ?? DBNull.Value;
+
+                command.Parameters.Add("@TipoID", SqlDbType.Int).Value =
+                    producto.Tipo != null ? producto.Tipo.TipoID : (object)DBNull.Value;
+
+                command.Parameters.Add("@ProveedorID", SqlDbType.Int).Value =
+                    producto.Proveedor != null ? producto.Proveedor.ProveedorID : (object)DBNull.Value;
+
+                command.Parameters.Add("@MarcaID", SqlDbType.Int).Value =
+                    producto.Marca != null ? producto.Marca.MarcaID : (object)DBNull.Value;
+
+                command.Parameters.Add("@Modelo", SqlDbType.VarChar, 100).Value =
+                    (object)producto.Modelo ?? DBNull.Value;
+
+                command.Parameters.Add("@Precio", SqlDbType.Decimal).Value = producto.Precio;
+
+                command.Parameters.Add("@CantidadStock", SqlDbType.Int).Value = producto.CantidadStock;
+
+                command.Parameters.Add("@Color", SqlDbType.VarChar, 50).Value =
+                    (object)producto.Color ?? DBNull.Value;
+
+                command.Parameters.Add("@Caracteristicas", SqlDbType.VarChar).Value =
+                    (object)producto.Caracteristicas ?? DBNull.Value;
+
+                command.Parameters.Add("@DocEspecificaciones", SqlDbType.VarBinary, -1).Value =
+                    (object)producto.DocEspecificaciones ?? DBNull.Value;
+
+                command.Parameters.Add("@Extras", SqlDbType.VarChar).Value =
+                    (object)producto.Extras ?? DBNull.Value;
+
+                command.Parameters.Add("@Fotografia", SqlDbType.VarBinary, -1).Value =
+                    (object)producto.Fotografia ?? DBNull.Value;
+
+                command.Parameters.Add("@Estado", SqlDbType.Int).Value = (int)producto.Estado;
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
@@ -277,7 +325,7 @@ namespace TechKMii.Layers.DAL
             {
                 ProductoID = reader["ProductoID"] != DBNull.Value ? Convert.ToInt32(reader["ProductoID"]) : 0,
                 Nombre = reader["Nombre"] != DBNull.Value ? reader["Nombre"].ToString() : null,
-                CodigoBarras = reader["CodigoBarras"] != DBNull.Value ? (byte[])reader["CodigoBarras"] : null,
+                CodigoBarras = reader["CodigoBarras"] != DBNull.Value ? reader["CodigoBarras"].ToString(): null,
                 Modelo = reader["Modelo"] != DBNull.Value ? reader["Modelo"].ToString() : null,
                 Precio = reader["Precio"] != DBNull.Value ? Convert.ToDouble(reader["Precio"]) : 0,
                 CantidadStock = reader["CantidadStock"] != DBNull.Value ? Convert.ToInt32(reader["CantidadStock"]) : 0,
@@ -317,7 +365,7 @@ namespace TechKMii.Layers.DAL
             {
                 ProductoID = reader["ProductoID"] != DBNull.Value ? Convert.ToInt32(reader["ProductoID"]) : 0,
                 Nombre = reader["Nombre"] != DBNull.Value ? reader["Nombre"].ToString() : null,
-                CodigoBarras = reader["CodigoBarras"] != DBNull.Value ? (byte[])reader["CodigoBarras"] : null,
+                CodigoBarras = reader["CodigoBarras"] != DBNull.Value ? reader["CodigoBarras"].ToString() : null,
                 Modelo = reader["Modelo"] != DBNull.Value ? reader["Modelo"].ToString() : null,
                 Precio = reader["Precio"] != DBNull.Value ? Convert.ToDouble(reader["Precio"]) : 0,
                 CantidadStock = reader["CantidadStock"] != DBNull.Value ? Convert.ToInt32(reader["CantidadStock"]) : 0,

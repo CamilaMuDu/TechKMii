@@ -33,6 +33,7 @@
             this.tspNuevo = new System.Windows.Forms.ToolStripButton();
             this.tspEditar = new System.Windows.Forms.ToolStripButton();
             this.tspBorrar = new System.Windows.Forms.ToolStripButton();
+            this.tspBuscarProduto = new System.Windows.Forms.ToolStripButton();
             this.tspSalir = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.pcbFoto = new System.Windows.Forms.PictureBox();
@@ -59,11 +60,11 @@
             this.txtExtras = new System.Windows.Forms.TextBox();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.nudCantStock = new System.Windows.Forms.NumericUpDown();
-            this.btnCodigoIndustria = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAdjuntarDocumento = new System.Windows.Forms.Button();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.btnCargarFoto = new System.Windows.Forms.Button();
-            this.tspBuscarProduto = new System.Windows.Forms.ToolStripButton();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtCodigoIndustria = new System.Windows.Forms.TextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosProducto)).BeginInit();
@@ -92,14 +93,16 @@
             this.tspNuevo.Name = "tspNuevo";
             this.tspNuevo.Size = new System.Drawing.Size(121, 36);
             this.tspNuevo.Text = "Nuevo";
+            this.tspNuevo.Click += new System.EventHandler(this.tspNuevo_Click);
             // 
             // tspEditar
             // 
             this.tspEditar.Image = ((System.Drawing.Image)(resources.GetObject("tspEditar.Image")));
             this.tspEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspEditar.Name = "tspEditar";
-            this.tspEditar.Size = new System.Drawing.Size(110, 44);
+            this.tspEditar.Size = new System.Drawing.Size(110, 36);
             this.tspEditar.Text = "Editar";
+            this.tspEditar.Click += new System.EventHandler(this.tspEditar_Click);
             // 
             // tspBorrar
             // 
@@ -109,6 +112,14 @@
             this.tspBorrar.Size = new System.Drawing.Size(114, 36);
             this.tspBorrar.Text = "Borrar";
             this.tspBorrar.Click += new System.EventHandler(this.tspBorrar_Click);
+            // 
+            // tspBuscarProduto
+            // 
+            this.tspBuscarProduto.Image = ((System.Drawing.Image)(resources.GetObject("tspBuscarProduto.Image")));
+            this.tspBuscarProduto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspBuscarProduto.Name = "tspBuscarProduto";
+            this.tspBuscarProduto.Size = new System.Drawing.Size(222, 36);
+            this.tspBuscarProduto.Text = "Buscar Producto";
             // 
             // tspSalir
             // 
@@ -228,7 +239,6 @@
             this.dgvDatosProducto.Size = new System.Drawing.Size(968, 964);
             this.dgvDatosProducto.TabIndex = 13;
             this.dgvDatosProducto.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellClick);
-            this.dgvDatosProducto.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosProducto_CellContentClick);
             // 
             // label11
             // 
@@ -332,23 +342,15 @@
             this.nudCantStock.Size = new System.Drawing.Size(241, 31);
             this.nudCantStock.TabIndex = 27;
             // 
-            // btnCodigoIndustria
+            // btnAdjuntarDocumento
             // 
-            this.btnCodigoIndustria.Location = new System.Drawing.Point(756, 439);
-            this.btnCodigoIndustria.Name = "btnCodigoIndustria";
-            this.btnCodigoIndustria.Size = new System.Drawing.Size(201, 94);
-            this.btnCodigoIndustria.TabIndex = 28;
-            this.btnCodigoIndustria.Text = "Codigo de industria";
-            this.btnCodigoIndustria.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(756, 573);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(201, 94);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "Adjuntar Documento";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAdjuntarDocumento.Location = new System.Drawing.Point(735, 439);
+            this.btnAdjuntarDocumento.Name = "btnAdjuntarDocumento";
+            this.btnAdjuntarDocumento.Size = new System.Drawing.Size(201, 94);
+            this.btnAdjuntarDocumento.TabIndex = 29;
+            this.btnAdjuntarDocumento.Text = "Adjuntar Documento";
+            this.btnAdjuntarDocumento.UseVisualStyleBackColor = true;
+            this.btnAdjuntarDocumento.Click += new System.EventHandler(this.btnAdjuntarDocumento_Click_1);
             // 
             // btnAgregarProducto
             // 
@@ -369,24 +371,34 @@
             this.btnCargarFoto.TabIndex = 31;
             this.btnCargarFoto.Text = "Cargar Imagen";
             this.btnCargarFoto.UseVisualStyleBackColor = true;
+            this.btnCargarFoto.Click += new System.EventHandler(this.btnCargarFoto_Click);
             // 
-            // tspBuscarProduto
+            // label13
             // 
-            this.tspBuscarProduto.Image = ((System.Drawing.Image)(resources.GetObject("tspBuscarProduto.Image")));
-            this.tspBuscarProduto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspBuscarProduto.Name = "tspBuscarProduto";
-            this.tspBuscarProduto.Size = new System.Drawing.Size(222, 44);
-            this.tspBuscarProduto.Text = "Buscar Producto";
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(707, 75);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(198, 25);
+            this.label13.TabIndex = 33;
+            this.label13.Text = "Codigo de Industria";
+            // 
+            // txtCodigoIndustria
+            // 
+            this.txtCodigoIndustria.Location = new System.Drawing.Point(712, 128);
+            this.txtCodigoIndustria.Name = "txtCodigoIndustria";
+            this.txtCodigoIndustria.Size = new System.Drawing.Size(309, 31);
+            this.txtCodigoIndustria.TabIndex = 34;
             // 
             // frmProductoMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2056, 1083);
+            this.Controls.Add(this.txtCodigoIndustria);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.btnCargarFoto);
             this.Controls.Add(this.btnAgregarProducto);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnCodigoIndustria);
+            this.Controls.Add(this.btnAdjuntarDocumento);
             this.Controls.Add(this.nudCantStock);
             this.Controls.Add(this.cmbEstado);
             this.Controls.Add(this.txtExtras);
@@ -460,10 +472,11 @@
         private System.Windows.Forms.TextBox txtExtras;
         private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.NumericUpDown nudCantStock;
-        private System.Windows.Forms.Button btnCodigoIndustria;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAdjuntarDocumento;
         private System.Windows.Forms.Button btnAgregarProducto;
         private System.Windows.Forms.Button btnCargarFoto;
         private System.Windows.Forms.ToolStripButton tspBuscarProduto;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtCodigoIndustria;
     }
 }
