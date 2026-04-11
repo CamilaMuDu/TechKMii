@@ -13,6 +13,7 @@ using log4net;
 using TechKMii.Layers.BLL;
 using TechKMii.Layers.Entities;
 using TechKMii.Layers.Interfaces;
+using TechKMii.Layers.UI.Mantenimientos.Filtros;
 using UTN.Winform.Electronics.Extensions;
 
 namespace TechKMii.Layers.UI.Mantenimientos
@@ -651,6 +652,80 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
 
 
+        }
+
+        private void tspBuscarProduto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (frmProductoFiltro frm = new frmProductoFiltro())
+                {
+                    var result = frm.ShowDialog();
+
+                    if (result == DialogResult.OK && frm.oProducto != null)
+                    {
+                        CargarProductoSeleccionado(frm.oProducto);
+                    }
+                }
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show("Error: " + er.Message);
+            }
+        }
+        private void CargarProductoSeleccionado(Producto p)
+        {
+            try
+            {
+                ProductoIdActual = p.ProductoID;
+
+                txtNombre.Text = p.Nombre;
+                txtModelo.Text = p.Modelo;
+                txtPrecio.Text = p.Precio.ToString();
+                txtColor.Text = p.Color;
+                txtCaracteristicas.Text = p.Caracteristicas;
+                txtExtras.Text = p.Extras;
+
+                nudCantStock.Value = p.CantidadStock;
+
+                cmbTipoDispositivo.SelectedValue = p.Tipo.TipoID;
+                cmbProveedor.SelectedValue = p.Proveedor.ProveedorID;
+                cmbMarca.SelectedValue = p.Marca.MarcaID;
+
+                cmbEstado.SelectedItem = p.Estado;
+
+                txtCodigoIndustria.Text = p.CodigoBarras;
+
+                // Imagen
+                if (p.Fotografia != null)
+                {
+                    using (MemoryStream ms = new MemoryStream(p.Fotografia))
+                    {
+                        pcbFoto.Image = Image.FromStream(ms);
+                    }
+
+                    fotoBytes = p.Fotografia;
+                }
+                else
+                {
+                    pcbFoto.Image = null;
+                    fotoBytes = null;
+                }
+
+                // Documento
+                documentoBytes = p.DocEspecificaciones;
+
+                MessageBox.Show("Producto cargado correctamente",
+                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("Error al cargar producto: " + er.Message);
+            }
         }
     }
 }

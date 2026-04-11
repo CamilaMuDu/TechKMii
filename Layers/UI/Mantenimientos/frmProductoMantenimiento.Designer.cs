@@ -120,6 +120,7 @@
             this.tspBuscarProduto.Name = "tspBuscarProduto";
             this.tspBuscarProduto.Size = new System.Drawing.Size(222, 36);
             this.tspBuscarProduto.Text = "Buscar Producto";
+            this.tspBuscarProduto.Click += new System.EventHandler(this.tspBuscarProduto_Click);
             // 
             // tspSalir
             // 
