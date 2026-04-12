@@ -27,7 +27,11 @@ namespace TechKMii.Layers.BLL
             return await productoDAL.GetByFilter(filtro);
         }
 
-        public async Task<Producto> GetById(string id)
+        //public async Task<Producto> GetById(string id)
+        //{
+        //    return await productoDAL.GetById(id);
+        //}
+        public async Task<Producto> GetById(int id)
         {
             return await productoDAL.GetById(id);
         }

@@ -344,6 +344,8 @@ namespace TechKMii.Layers.UI.Mantenimientos
             }
         }
 
+        //Metodo que consulta el servicio de Hacienda
+        //para obtener el nombre completo a partir de la identificación
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -516,6 +518,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
             LimpiarFormulario();
         }
 
+        //Metodo para agregar una foto al cliente
         private void btnAnnadirFoto_Click(object sender, EventArgs e)
         {
             try

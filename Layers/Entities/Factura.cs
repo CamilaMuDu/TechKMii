@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 
 namespace TechKMii.Layers.Entities
 {
-    public class Factura
-    {
-        public int FacturaID { set; get; }
-        public Cliente ClienteID { set; get; }
-        public Usuario UsuarioID { set; get; }
-        public DateTime Fecha { set; get; }
-        public double Subtotal { set; get; }
-        public double IVA { set; get; }
-        public double TotalCRC { set; get; }
-        public double TotalURD { set; get; }
-        public double TipoCambio { set; get; }
-        public TipoMetodoPago MetodoPago { set; get; }
-        public byte[] Documento { set; get; }
-        public string Banco { set; get; }
-        public TipoTarjeta TipoTarjeta { set; get; }
-        public Xml FacturaXML { set; get; }
-        public byte[] Firma { set; get; }
-        public EstadoFactura EstadoFactura { set; get; }
-    }
+        public class Factura
+        {
+            public int FacturaID { get; set; }
+            public Cliente Cliente { get; set; }
+            public Usuario Usuario { get; set; }
+            public DateTime Fecha { get; set; }
+            public double Subtotal { get; set; }
+            public double IVA { get; set; }
+            public double TotalCRC { get; set; }
+            public double TotalUSD { get; set; }
+            public double TipoCambio { get; set; }
+            public TipoMetodoPago MetodoPago { get; set; }
+            public string Banco { get; set; }
+            public string NumeroTarjeta { get; set; }
+            public TipoTarjeta TipoTarjeta { get; set; }
+            public string NumeroTransferencia { get; set; }
+            public string NumeroSinpe { get; set; }
+            public byte[] Documento { get; set; }
+            public string FacturaXML { get; set; }
+            public byte[] Firma { get; set; }
+            public EstadoFactura EstadoFactura { get; set; }
+
+            public List<FacturaDetalle> ListaDetalle = new List<FacturaDetalle>();
+        }
 }

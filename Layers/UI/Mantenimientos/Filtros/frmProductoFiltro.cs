@@ -50,6 +50,7 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
             this.DialogResult = DialogResult.Cancel;
             Close();
         }
+        //metodo para buscar productos por filtro
         private async Task BuscarProductos()
         {
             listaProductos = (await ProductoBll.GetByFilter(txtBuscar.Text.Trim())).ToList();

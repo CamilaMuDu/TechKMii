@@ -17,7 +17,6 @@ namespace TechKMii.Layers.DAL
     public class ClienteDAL : IClienteDAL
     {
         private static readonly ILog _myLogControlEventos = LogManager.GetLogger("MyControlEventos");
-
         public async Task<IEnumerable<Cliente>> GetAll()
         {
             List<Cliente> lista = new List<Cliente>();

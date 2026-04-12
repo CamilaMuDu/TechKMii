@@ -38,6 +38,7 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
             Close();
         }
 
+        //metodo para buscar clientes por filtro
         private void tspBuscarCliente_Click(object sender, EventArgs e)
         {
             ClienteBll = new ClienteBLL(); 

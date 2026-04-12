@@ -10,7 +10,8 @@ namespace TechKMii.Layers.Interfaces
     public interface IProductoBLL
     {
         Task<IEnumerable<Producto>> GetAll();
-        Task<Producto> GetById(string id);
+      //Task<Producto> GetById(string id);
+        Task<Producto> GetById(int id);
         Task<IEnumerable<Producto>> GetByFilter(string filtro);
         Task<Producto> Save(Producto producto);
         Task<Producto> Update(Producto producto);

@@ -126,7 +126,7 @@ namespace TechKMii.Layers.DAL
             }
         }
 
-        public async Task<Producto> GetById(string id)
+        public async Task<Producto> GetById(int id)
         {
             Producto oProducto = null;
             string msg = "";
@@ -136,7 +136,7 @@ namespace TechKMii.Layers.DAL
             {
                 command.CommandText = "dbo.usp_SELECT_Producto_ByID";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@ProductoID", Convert.ToInt32(id));
+                command.Parameters.AddWithValue("@ProductoID", id);
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
@@ -164,6 +164,45 @@ namespace TechKMii.Layers.DAL
                 throw;
             }
         }
+
+        //public async Task<Producto> GetById(string id)
+        //{
+        //    Producto oProducto = null;
+        //    string msg = "";
+        //    SqlCommand command = new SqlCommand();
+
+        //    try
+        //    {
+        //        command.CommandText = "dbo.usp_SELECT_Producto_ByID";
+        //        command.CommandType = CommandType.StoredProcedure;
+        //        command.Parameters.AddWithValue("@ProductoID", Convert.ToInt32(id));
+
+        //        using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
+        //        {
+        //            using (IDataReader reader = await db.ExecuteReaderAsync(command))
+        //            {
+        //                if (reader.Read())
+        //                {
+        //                    oProducto = MapProducto(reader);
+        //                }
+        //            }
+        //        }
+
+        //        return oProducto;
+        //    }
+        //    catch (SqlException er)
+        //    {
+        //        _myLogControlEventos.ErrorFormat("Error {0}",
+        //            msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
+        //        throw new CustomException(msg.ToSqlServerDetailError(er));
+        //    }
+        //    catch (Exception er)
+        //    {
+        //        msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+        //        _myLogControlEventos.ErrorFormat("Error {0}", msg);
+        //        throw;
+        //    }
+        //}
 
         public async Task<Producto> Save(Producto producto)
         {

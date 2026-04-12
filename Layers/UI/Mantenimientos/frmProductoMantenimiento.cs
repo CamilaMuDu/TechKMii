@@ -464,6 +464,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
             this.Close();
         }
 
+        // Método para cargar la foto del producto
         private void btnCargarFoto_Click(object sender, EventArgs e)
         {
             try
@@ -570,6 +571,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
             }
         }
 
+        //metodo para adjuntar documento de especificaciones
         private void btnAdjuntarDocumento_Click_1(object sender, EventArgs e)
         {
             try
@@ -653,6 +655,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
 
         }
+
 
         private void tspBuscarProduto_Click(object sender, EventArgs e)
         {

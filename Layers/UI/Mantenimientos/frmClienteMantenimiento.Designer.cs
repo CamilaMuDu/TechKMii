@@ -33,6 +33,7 @@
             this.tsbNuevo = new System.Windows.Forms.ToolStripButton();
             this.tsbEditar = new System.Windows.Forms.ToolStripButton();
             this.tsbBorrar = new System.Windows.Forms.ToolStripButton();
+            this.tspBuscarCliente = new System.Windows.Forms.ToolStripButton();
             this.tsbSalir = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnAnnadirFoto = new System.Windows.Forms.Button();
@@ -63,7 +64,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.dgvDatosCliente = new System.Windows.Forms.DataGridView();
-            this.tspBuscarCliente = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -117,6 +117,15 @@
             this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
             this.tsbBorrar.Text = "Borrar";
             this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
+            // 
+            // tspBuscarCliente
+            // 
+            this.tspBuscarCliente.Image = ((System.Drawing.Image)(resources.GetObject("tspBuscarCliente.Image")));
+            this.tspBuscarCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspBuscarCliente.Name = "tspBuscarCliente";
+            this.tspBuscarCliente.Size = new System.Drawing.Size(201, 36);
+            this.tspBuscarCliente.Text = "Buscar Cliente";
+            this.tspBuscarCliente.Click += new System.EventHandler(this.tspBuscarCliente_Click);
             // 
             // tsbSalir
             // 
@@ -478,15 +487,6 @@
             this.dgvDatosCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellClick);
             this.dgvDatosCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellContentClick);
             // 
-            // tspBuscarCliente
-            // 
-            this.tspBuscarCliente.Image = ((System.Drawing.Image)(resources.GetObject("tspBuscarCliente.Image")));
-            this.tspBuscarCliente.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspBuscarCliente.Name = "tspBuscarCliente";
-            this.tspBuscarCliente.Size = new System.Drawing.Size(201, 36);
-            this.tspBuscarCliente.Text = "Buscar Cliente";
-            this.tspBuscarCliente.Click += new System.EventHandler(this.tspBuscarCliente_Click);
-            // 
             // frmClienteMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -497,7 +497,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmClienteMantenimiento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmClienteMantenimiento";
+            this.Text = "Mantenimiento de Cliente";
             this.Load += new System.EventHandler(this.frmClienteMantenimiento_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

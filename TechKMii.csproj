@@ -103,6 +103,8 @@
     <Compile Include="Enumeraciones\TipoTarjeta.cs" />
     <Compile Include="Layers\BLL\ClienteBLL.cs" />
     <Compile Include="Layers\BLL\DolarBLL.cs" />
+    <Compile Include="Layers\BLL\FacturaBLL.cs" />
+    <Compile Include="Layers\BLL\FacturaDetalleBLL.cs" />
     <Compile Include="Layers\BLL\MarcaBLL.cs" />
     <Compile Include="Layers\BLL\ProductoBLL.cs" />
     <Compile Include="Layers\BLL\ProveedorBLL.cs" />
@@ -111,6 +113,8 @@
     <Compile Include="Layers\BLL\TipoDispositivoBLL.cs" />
     <Compile Include="Layers\BLL\UsuarioBLL.cs" />
     <Compile Include="Layers\DAL\ClienteDAL.cs" />
+    <Compile Include="Layers\DAL\FacturaDAL.cs" />
+    <Compile Include="Layers\DAL\FacturaDetalleDAL.cs" />
     <Compile Include="Layers\DAL\MarcaDAL.cs" />
     <Compile Include="Layers\DAL\ProductoDAL.cs" />
     <Compile Include="Layers\DAL\ProveedorDAL.cs" />
@@ -134,6 +138,10 @@
     <Compile Include="Layers\Interfaces\IClienteBLL.cs" />
     <Compile Include="Layers\Interfaces\IClienteDAL.cs" />
     <Compile Include="Layers\Interfaces\IDolarBLL.cs" />
+    <Compile Include="Layers\Interfaces\IFacturaBLL.cs" />
+    <Compile Include="Layers\Interfaces\IFacturaDAL.cs" />
+    <Compile Include="Layers\Interfaces\IFacturaDetalleBLL.cs" />
+    <Compile Include="Layers\Interfaces\IFacturaDetalleDAL.cs" />
     <Compile Include="Layers\Interfaces\IMarcaBLL.cs" />
     <Compile Include="Layers\Interfaces\IMarcaDAL.cs" />
     <Compile Include="Layers\Interfaces\IProductoBLL.cs" />
