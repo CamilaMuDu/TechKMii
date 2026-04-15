@@ -46,6 +46,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Plum;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tspNuevo,
@@ -129,32 +130,35 @@
             // 
             // dgvDatos
             // 
+            this.dgvDatos.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatos.Location = new System.Drawing.Point(670, 99);
+            this.dgvDatos.Location = new System.Drawing.Point(715, 99);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.RowHeadersWidth = 82;
             this.dgvDatos.RowTemplate.Height = 33;
-            this.dgvDatos.Size = new System.Drawing.Size(960, 482);
+            this.dgvDatos.Size = new System.Drawing.Size(915, 403);
             this.dgvDatos.TabIndex = 5;
             this.dgvDatos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellClick);
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
             // 
             // btnAgregarProveedor
             // 
+            this.btnAgregarProveedor.BackColor = System.Drawing.Color.Plum;
             this.btnAgregarProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarProveedor.Location = new System.Drawing.Point(182, 495);
+            this.btnAgregarProveedor.Location = new System.Drawing.Point(202, 416);
             this.btnAgregarProveedor.Name = "btnAgregarProveedor";
             this.btnAgregarProveedor.Size = new System.Drawing.Size(320, 86);
             this.btnAgregarProveedor.TabIndex = 6;
             this.btnAgregarProveedor.Text = "Agregar Proveedor";
-            this.btnAgregarProveedor.UseVisualStyleBackColor = true;
+            this.btnAgregarProveedor.UseVisualStyleBackColor = false;
             this.btnAgregarProveedor.Click += new System.EventHandler(this.btnAgregarProveedor_Click);
             // 
             // frmProveedorMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1680, 636);
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.ClientSize = new System.Drawing.Size(1680, 554);
             this.Controls.Add(this.btnAgregarProveedor);
             this.Controls.Add(this.dgvDatos);
             this.Controls.Add(this.cmbEstado);

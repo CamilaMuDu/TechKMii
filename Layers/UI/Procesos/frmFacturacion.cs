@@ -36,14 +36,14 @@ namespace TechKMii.Layers.UI.Procesos
         {
             try
             {
+                // Obtener y mostrar el precio del dólar
                 StpVentaDolar.Text = "Venta Dolar : " + Dolarbll.GetVentaDolar().ToString("N2");
-
+                
                 CargarCombos();
                 GenerarNumeroFactura();
                 ConfigurarControlesIniciales();
                 ConfigurarMetodoPago();
 
-                DeshabilitarCamposTemporales();
             }
             catch (Exception ex)
             {
@@ -52,15 +52,11 @@ namespace TechKMii.Layers.UI.Procesos
             }
         }
 
+        //metodo para cargar los combos del formulario
         private void CargarCombos()
         {
             try
             {
-                cmbTipoMoneda.Items.Clear();
-                cmbTipoMoneda.Items.Add("CRC");
-                cmbTipoMoneda.Items.Add("USD");
-                cmbTipoMoneda.SelectedIndex = 0;
-
                 cmbEstado.Items.Clear();
                 cmbEstado.Items.Add(EstadoFactura.Pendiente);
                 cmbEstado.Items.Add(EstadoFactura.Cancelada);
@@ -94,6 +90,7 @@ namespace TechKMii.Layers.UI.Procesos
             }
         }
 
+        //metodo para generar un numero de factura unico
         private void GenerarNumeroFactura()
         {
             txtNoFactura.Text = "FAC-" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
@@ -102,8 +99,8 @@ namespace TechKMii.Layers.UI.Procesos
         {
             txtNoFactura.ReadOnly = true;
             txtCorreo.ReadOnly = true;
-            txtPrecio.ReadOnly = true;
-            txtCantidad.ReadOnly = true;
+            txtPrecio.ReadOnly = true;            
+            txtCantidadStock.ReadOnly = true;
         }
 
         private void tlpAgrupamiento_Paint(object sender, PaintEventArgs e)
@@ -116,6 +113,7 @@ namespace TechKMii.Layers.UI.Procesos
 
         }
 
+        //metodo para buscar un cliente por su identificacion
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -218,27 +216,12 @@ namespace TechKMii.Layers.UI.Procesos
             }
         }
 
-        private void DeshabilitarCamposTemporales()
-        {
-            tspNuevo.Enabled = false;
-            tspGenerarFactura.Enabled = false;
-            tspEnviarPorCorreo.Enabled = false;
-            tspVistaPDF.Enabled = false;
-
-            txtFirma.Enabled = false;
-            btnLimpiarFirma.Enabled = false;
-
-            txtSubtotalCRC.Enabled = false;
-            txtIVACRC.Enabled = false;
-            txtTotalCRC.Enabled = false;
-            txtTotalUSD.Enabled = false;
-        }
-
         private void tspSalir_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        //metodo para buscar un producto por su codigo
         private async void btnBuscarProducto_Click(object sender, EventArgs e)
         {
             try
@@ -264,11 +247,19 @@ namespace TechKMii.Layers.UI.Procesos
                     return;
                 }
 
+                if (producto.Estado != EstadoCatalogos.Activo)
+                {
+                    MessageBox.Show("El producto está inactivo y no puede ser facturado.");
+                    return;
+                }
+
                 productoSeleccionado = producto;
 
                 txtProducto.Text = producto.Nombre;
                 txtPrecio.Text = producto.Precio.ToString("N2");
-                txtCantidad.Text = producto.CantidadStock.ToString();
+                txtCantidadStock.Text = producto.CantidadStock.ToString();
+                txtCantidad.Text = "";
+                txtCantidad.Focus();
             }
             catch (Exception ex)
             {
@@ -299,28 +290,37 @@ namespace TechKMii.Layers.UI.Procesos
                     return;
                 }
 
+                double precio = productoSeleccionado.Precio;
+                double subtotal = cantidad * precio;
+                double iva = subtotal * 0.13;
+                double total = subtotal + iva;
+
                 FacturaDetalle detalle = new FacturaDetalle
                 {
                     Producto = productoSeleccionado,
                     Cantidad = cantidad,
-                    Precio = productoSeleccionado.Precio
+                    Precio = precio,
+                    Subtotal = subtotal,
+                    IVA = iva,
+                    Total = total
                 };
 
                 listaDetalle.Add(detalle);
 
                 CargarGrid();
+                CalcularTotales();
 
                 productoSeleccionado = null;
                 txtProducto.Text = "";
                 txtPrecio.Text = "";
                 txtCantidad.Text = "";
+                txtCantidadStock.Text = "";
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al agregar producto. " + ex.Message);
             }
         }
-
         private void CargarGrid()
         {
             dgvProductos.DataSource = null;
@@ -330,9 +330,28 @@ namespace TechKMii.Layers.UI.Procesos
                 Codigo = x.Producto.ProductoID,
                 Descripcion = x.Producto.Nombre,
                 Cantidad = x.Cantidad,
-                Precio = x.Precio,
-                Total = x.Cantidad * x.Precio
+                Precio = x.Precio
             }).ToList();
+        }
+
+        private void CalcularTotales()
+        {
+            double subtotal = listaDetalle.Sum(x => x.Subtotal);
+            double iva = listaDetalle.Sum(x => x.IVA);
+            double totalCRC = listaDetalle.Sum(x => x.Total);
+
+            double tipoCambio = Dolarbll.GetVentaDolar();
+            double totalUSD = 0;
+
+            if (tipoCambio > 0)
+            {
+                totalUSD = totalCRC / tipoCambio;
+            }
+
+            txtSubtotalCRC.Text = subtotal.ToString("N2");
+            txtIVACRC.Text = iva.ToString("N2");
+            txtTotalCRC.Text = totalCRC.ToString("N2");
+            txtTotalUSD.Text = totalUSD.ToString("N2");
         }
 
         private void btnEliminarProducto_Click(object sender, EventArgs e)
@@ -341,6 +360,44 @@ namespace TechKMii.Layers.UI.Procesos
             txtProducto.Text = "";
             txtPrecio.Text = "";
             txtCantidad.Text = "";
+            txtCantidadStock.Text = "";
+        }
+
+        private void grbFacturacion_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLimpiarFirma_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEliminarProducto_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvProductos.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Debe seleccionar un producto del detalle.");
+                    return;
+                }
+
+                int index = dgvProductos.SelectedRows[0].Index;
+
+                if (index >= 0 && index < listaDetalle.Count)
+                {
+                    listaDetalle.RemoveAt(index);
+                }
+
+                CargarGrid();
+
+                CalcularTotales();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar producto. " + ex.Message);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TechKMii.Layers.DAL;
 using TechKMii.Layers.Entities;
 using TechKMii.Layers.Interfaces;
@@ -36,26 +37,41 @@ namespace TechKMii.Layers.BLL
         }
 
         public Usuario Save(Usuario pUsuario)
-        { 
+        {
             string mensaje = "";
             Usuario oUsuario = null;
 
-            if (!IsValidPassword(pUsuario.Contrasenna, ref mensaje))
-            {
-                throw new Exception(mensaje);
-            }
+            Usuario usuarioExistente = usuarioDAL.GetById(pUsuario.UsuarioID);
 
-            //Encriptar la contraseña
-            pUsuario.Contrasenna = Cryptography.EncrypthAES(pUsuario.Contrasenna);
-
-            if (usuarioDAL.GetById(pUsuario.UsuarioID)!= null)
+            if (usuarioExistente == null)
             {
-                oUsuario = usuarioDAL.Update(pUsuario);
+                if (!IsValidPassword(pUsuario.Contrasenna, ref mensaje))
+                {
+                    throw new Exception(mensaje);
+                }
+
+                pUsuario.Contrasenna = Cryptography.EncrypthAES(pUsuario.Contrasenna);
+                oUsuario = usuarioDAL.Save(pUsuario);
             }
             else
             {
-                oUsuario = usuarioDAL.Save(pUsuario);
+                if (string.IsNullOrWhiteSpace(pUsuario.Contrasenna))
+                {
+                    pUsuario.Contrasenna = usuarioExistente.Contrasenna;
+                }
+                else
+                {
+                    if (!IsValidPassword(pUsuario.Contrasenna, ref mensaje))
+                    {
+                        throw new Exception(mensaje);
+                    }
+
+                    pUsuario.Contrasenna = Cryptography.EncrypthAES(pUsuario.Contrasenna);
+                }
+
+                oUsuario = usuarioDAL.Update(pUsuario);
             }
+
             return oUsuario;
         }
 

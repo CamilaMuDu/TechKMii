@@ -120,7 +120,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
             oMarca = null;
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        private void btnAgregarMarca_Click(object sender, EventArgs e)
         {
             try
             {

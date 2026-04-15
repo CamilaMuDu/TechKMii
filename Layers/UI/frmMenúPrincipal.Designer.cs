@@ -97,42 +97,42 @@
             // clienteToolStripMenuItem
             // 
             this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(349, 44);
             this.clienteToolStripMenuItem.Text = "Cliente";
             this.clienteToolStripMenuItem.Click += new System.EventHandler(this.clienteToolStripMenuItem_Click);
             // 
             // marcaToolStripMenuItem
             // 
             this.marcaToolStripMenuItem.Name = "marcaToolStripMenuItem";
-            this.marcaToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.marcaToolStripMenuItem.Size = new System.Drawing.Size(349, 44);
             this.marcaToolStripMenuItem.Text = "Marca";
             this.marcaToolStripMenuItem.Click += new System.EventHandler(this.marcaToolStripMenuItem_Click);
             // 
             // productoToolStripMenuItem
             // 
             this.productoToolStripMenuItem.Name = "productoToolStripMenuItem";
-            this.productoToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.productoToolStripMenuItem.Size = new System.Drawing.Size(349, 44);
             this.productoToolStripMenuItem.Text = "Producto";
             this.productoToolStripMenuItem.Click += new System.EventHandler(this.productoToolStripMenuItem_Click);
             // 
             // proveedorToolStripMenuItem
             // 
             this.proveedorToolStripMenuItem.Name = "proveedorToolStripMenuItem";
-            this.proveedorToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.proveedorToolStripMenuItem.Size = new System.Drawing.Size(349, 44);
             this.proveedorToolStripMenuItem.Text = "Proveedor";
             this.proveedorToolStripMenuItem.Click += new System.EventHandler(this.proveedorToolStripMenuItem_Click);
             // 
             // tipoDeDispositivoToolStripMenuItem
             // 
             this.tipoDeDispositivoToolStripMenuItem.Name = "tipoDeDispositivoToolStripMenuItem";
-            this.tipoDeDispositivoToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.tipoDeDispositivoToolStripMenuItem.Size = new System.Drawing.Size(349, 44);
             this.tipoDeDispositivoToolStripMenuItem.Text = "Tipo de dispositivo";
             this.tipoDeDispositivoToolStripMenuItem.Click += new System.EventHandler(this.tipoDeDispositivoToolStripMenuItem_Click);
             // 
             // inventarioToolStripMenuItem
             // 
             this.inventarioToolStripMenuItem.Name = "inventarioToolStripMenuItem";
-            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.inventarioToolStripMenuItem.Size = new System.Drawing.Size(349, 44);
             this.inventarioToolStripMenuItem.Text = "Inventario";
             this.inventarioToolStripMenuItem.Click += new System.EventHandler(this.inventarioToolStripMenuItem_Click);
             // 

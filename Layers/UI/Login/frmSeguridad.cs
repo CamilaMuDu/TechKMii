@@ -82,33 +82,6 @@ namespace TechKMii.Layers.UI.Login
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        //private void Paralelo()
-        //{
-        //    try
-        //    {
-        //        Parallel.Invoke(
-        //                        () => TaskBarMensaje(),
-        //                        () => LlenarUsuarios()
-        //                        );
-        //    }
-        //    catch (Exception er)
-        //    {
-        //        string msg = "";
-        //        _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
-        //        MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        //    }
-        //}
-        //private void TaskBarMensaje()
-        //{
-        //    ntfMensaje.Visible = true;
-        //    ntfMensaje.BalloonTipIcon = ToolTipIcon.Info;
-        //    ntfMensaje.BalloonTipText = "Usuario creado correctamente";
-        //    ntfMensaje.BalloonTipTitle = "Atención";
-        //    ntfMensaje.Text = "";
-        //    ntfMensaje.ShowBalloonTip(3000);
-        //    ntfMensaje.Visible = false;
-        //}
 
         private void toolStripBtnSalir_Click(object sender, EventArgs e)
         {
@@ -146,7 +119,7 @@ namespace TechKMii.Layers.UI.Login
                 Usuario oUsuario = new Usuario();
                 oUsuario.UsuarioID = txtLogin.Text.Trim();
                 oUsuario.Nombre = txtNombre.Text.Trim();
-                oUsuario.Contrasenna = Cryptography.EncrypthAES(txtContrasenna.Text.Trim());
+                oUsuario.Contrasenna = txtContrasenna.Text.Trim();
                 oUsuario.RolID = (Rol)cmbRol.SelectedItem;
                 oUsuario.Estado = EstadoCatalogos.Activo;
 
@@ -207,14 +180,7 @@ namespace TechKMii.Layers.UI.Login
                 txtLogin.Text = oUsuario.UsuarioID;
                 txtNombre.Text = oUsuario.Nombre;
 
-                try
-                {
-                    txtContrasenna.Text = Cryptography.DecrypthAES(oUsuario.Contrasenna);
-                }
-                catch
-                {
-                    txtContrasenna.Text = oUsuario.Contrasenna;
-                }
+                txtContrasenna.Text = "";
 
                 cmbRol.SelectedValue = oUsuario.RolID.RolID;
                 txtLogin.Enabled = false;
@@ -319,11 +285,11 @@ namespace TechKMii.Layers.UI.Login
                 Usuario oUsuario = new Usuario();
                 oUsuario.UsuarioID = _usuarioSeleccionado.UsuarioID;
                 oUsuario.Nombre = txtNombre.Text.Trim();
-                oUsuario.Contrasenna = Cryptography.EncrypthAES(txtContrasenna.Text.Trim());
+                oUsuario.Contrasenna = txtContrasenna.Text.Trim();
                 oUsuario.RolID = (Rol)cmbRol.SelectedItem;
                 oUsuario.Estado = EstadoCatalogos.Activo;
 
-                oUsuario = usuarioBll.Update(oUsuario);
+                oUsuario = usuarioBll.Save(oUsuario);
 
                 MessageBox.Show("Usuario editado con éxito", "Información",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);

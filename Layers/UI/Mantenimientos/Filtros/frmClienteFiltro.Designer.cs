@@ -41,6 +41,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Plum;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tspNuevo,
@@ -88,6 +89,7 @@
             // 
             // dgvBuscar
             // 
+            this.dgvBuscar.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvBuscar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBuscar.Location = new System.Drawing.Point(40, 152);
             this.dgvBuscar.Name = "dgvBuscar";
@@ -101,6 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1185, 544);
             this.Controls.Add(this.dgvBuscar);
             this.Controls.Add(this.txtBuscar);

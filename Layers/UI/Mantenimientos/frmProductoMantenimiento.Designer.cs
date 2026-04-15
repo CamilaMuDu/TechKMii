@@ -73,6 +73,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Plum;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tspNuevo,
@@ -232,6 +233,7 @@
             // 
             // dgvDatosProducto
             // 
+            this.dgvDatosProducto.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDatosProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosProducto.Location = new System.Drawing.Point(1060, 75);
             this.dgvDatosProducto.Name = "dgvDatosProducto";
@@ -345,33 +347,36 @@
             // 
             // btnAdjuntarDocumento
             // 
+            this.btnAdjuntarDocumento.BackColor = System.Drawing.Color.Plum;
             this.btnAdjuntarDocumento.Location = new System.Drawing.Point(735, 439);
             this.btnAdjuntarDocumento.Name = "btnAdjuntarDocumento";
             this.btnAdjuntarDocumento.Size = new System.Drawing.Size(201, 94);
             this.btnAdjuntarDocumento.TabIndex = 29;
             this.btnAdjuntarDocumento.Text = "Adjuntar Documento";
-            this.btnAdjuntarDocumento.UseVisualStyleBackColor = true;
+            this.btnAdjuntarDocumento.UseVisualStyleBackColor = false;
             this.btnAdjuntarDocumento.Click += new System.EventHandler(this.btnAdjuntarDocumento_Click_1);
             // 
             // btnAgregarProducto
             // 
+            this.btnAgregarProducto.BackColor = System.Drawing.Color.Plum;
             this.btnAgregarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.Location = new System.Drawing.Point(735, 945);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(286, 94);
             this.btnAgregarProducto.TabIndex = 30;
             this.btnAgregarProducto.Text = "Agregar Producto";
-            this.btnAgregarProducto.UseVisualStyleBackColor = true;
+            this.btnAgregarProducto.UseVisualStyleBackColor = false;
             this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
             // btnCargarFoto
             // 
+            this.btnCargarFoto.BackColor = System.Drawing.Color.Plum;
             this.btnCargarFoto.Location = new System.Drawing.Point(363, 356);
             this.btnCargarFoto.Name = "btnCargarFoto";
             this.btnCargarFoto.Size = new System.Drawing.Size(196, 51);
             this.btnCargarFoto.TabIndex = 31;
             this.btnCargarFoto.Text = "Cargar Imagen";
-            this.btnCargarFoto.UseVisualStyleBackColor = true;
+            this.btnCargarFoto.UseVisualStyleBackColor = false;
             this.btnCargarFoto.Click += new System.EventHandler(this.btnCargarFoto_Click);
             // 
             // label13
@@ -394,6 +399,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(2056, 1083);
             this.Controls.Add(this.txtCodigoIndustria);
             this.Controls.Add(this.label13);

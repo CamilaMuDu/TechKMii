@@ -76,6 +76,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Plum;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbNuevo,
@@ -138,6 +139,7 @@
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.IsSplitterFixed = true;
@@ -147,6 +149,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitContainer1.Panel1.Controls.Add(this.btnAnnadirFoto);
             this.splitContainer1.Panel1.Controls.Add(this.pcbFotografia);
             this.splitContainer1.Panel1.Controls.Add(this.label9);
@@ -156,20 +159,22 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatosCliente);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(2060, 1094);
+            this.splitContainer1.Size = new System.Drawing.Size(2060, 1044);
             this.splitContainer1.SplitterDistance = 924;
             this.splitContainer1.TabIndex = 2;
             // 
             // btnAnnadirFoto
             // 
+            this.btnAnnadirFoto.BackColor = System.Drawing.Color.Plum;
             this.btnAnnadirFoto.Location = new System.Drawing.Point(348, 60);
             this.btnAnnadirFoto.Name = "btnAnnadirFoto";
             this.btnAnnadirFoto.Size = new System.Drawing.Size(154, 61);
             this.btnAnnadirFoto.TabIndex = 16;
             this.btnAnnadirFoto.Text = "Añadir";
-            this.btnAnnadirFoto.UseVisualStyleBackColor = true;
+            this.btnAnnadirFoto.UseVisualStyleBackColor = false;
             this.btnAnnadirFoto.Click += new System.EventHandler(this.btnAnnadirFoto_Click);
             // 
             // pcbFotografia
@@ -253,13 +258,14 @@
             // 
             // btnAgregar
             // 
+            this.btnAgregar.BackColor = System.Drawing.Color.Plum;
             this.btnAgregar.Location = new System.Drawing.Point(202, 535);
             this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(209, 79);
+            this.btnAgregar.Size = new System.Drawing.Size(259, 79);
             this.btnAgregar.TabIndex = 15;
             this.btnAgregar.Text = "Agregar Cliente";
-            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // rdbFemenino
@@ -394,13 +400,14 @@
             // 
             // btnBuscarCliente
             // 
+            this.btnBuscarCliente.BackColor = System.Drawing.Color.Plum;
             this.btnBuscarCliente.Location = new System.Drawing.Point(612, 51);
             this.btnBuscarCliente.Margin = new System.Windows.Forms.Padding(6);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
             this.btnBuscarCliente.Size = new System.Drawing.Size(130, 46);
             this.btnBuscarCliente.TabIndex = 14;
             this.btnBuscarCliente.Text = "Buscar";
-            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.UseVisualStyleBackColor = false;
             this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
             // label4
@@ -476,13 +483,14 @@
             // 
             // dgvDatosCliente
             // 
+            this.dgvDatosCliente.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDatosCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatosCliente.Location = new System.Drawing.Point(18, 15);
+            this.dgvDatosCliente.Location = new System.Drawing.Point(18, 60);
             this.dgvDatosCliente.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDatosCliente.Name = "dgvDatosCliente";
             this.dgvDatosCliente.RowHeadersWidth = 82;
             this.dgvDatosCliente.RowTemplate.Height = 33;
-            this.dgvDatosCliente.Size = new System.Drawing.Size(1099, 1017);
+            this.dgvDatosCliente.Size = new System.Drawing.Size(1099, 906);
             this.dgvDatosCliente.TabIndex = 0;
             this.dgvDatosCliente.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellClick);
             this.dgvDatosCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosCliente_CellContentClick);
@@ -491,7 +499,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2060, 1136);
+            this.ClientSize = new System.Drawing.Size(2060, 1086);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);

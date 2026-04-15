@@ -50,7 +50,6 @@
             this.toolStripBtnGuardarUsuario = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnNuevo = new System.Windows.Forms.ToolStripButton();
             this.tspBarraPrincipal = new System.Windows.Forms.ToolStrip();
-            this.sttBarraInferior = new System.Windows.Forms.StatusStrip();
             this.tsbEditar = new System.Windows.Forms.ToolStripButton();
             this.cmdMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epError)).BeginInit();
@@ -94,7 +93,7 @@
             this.trvUsuarios.Margin = new System.Windows.Forms.Padding(6);
             this.trvUsuarios.Name = "trvUsuarios";
             this.trvUsuarios.SelectedImageIndex = 0;
-            this.trvUsuarios.Size = new System.Drawing.Size(901, 614);
+            this.trvUsuarios.Size = new System.Drawing.Size(901, 604);
             this.trvUsuarios.TabIndex = 5;
             this.trvUsuarios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvUsuarios_AfterSelect);
             this.trvUsuarios.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvUsuarios_NodeMouseClick);
@@ -179,6 +178,7 @@
             // cmbRol
             // 
             this.cmbRol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbRol.BackColor = System.Drawing.SystemColors.Control;
             this.cmbRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRol.FormattingEnabled = true;
             this.cmbRol.Location = new System.Drawing.Point(141, 171);
@@ -189,20 +189,22 @@
             // 
             // spcContenedor
             // 
+            this.spcContenedor.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.spcContenedor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spcContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spcContenedor.Location = new System.Drawing.Point(0, 42);
+            this.spcContenedor.Location = new System.Drawing.Point(0, 74);
             this.spcContenedor.Margin = new System.Windows.Forms.Padding(6);
             this.spcContenedor.Name = "spcContenedor";
             // 
             // spcContenedor.Panel1
             // 
+            this.spcContenedor.Panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.spcContenedor.Panel1.Controls.Add(this.tplPanel);
             // 
             // spcContenedor.Panel2
             // 
             this.spcContenedor.Panel2.Controls.Add(this.trvUsuarios);
-            this.spcContenedor.Size = new System.Drawing.Size(1567, 618);
+            this.spcContenedor.Size = new System.Drawing.Size(1567, 608);
             this.spcContenedor.SplitterDistance = 654;
             this.spcContenedor.SplitterWidth = 8;
             this.spcContenedor.TabIndex = 5;
@@ -233,64 +235,57 @@
             // 
             // toolStripBtnSalir
             // 
+            this.toolStripBtnSalir.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnSalir.Image")));
             this.toolStripBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnSalir.Name = "toolStripBtnSalir";
-            this.toolStripBtnSalir.Size = new System.Drawing.Size(63, 36);
+            this.toolStripBtnSalir.Size = new System.Drawing.Size(127, 68);
             this.toolStripBtnSalir.Text = "&Salir";
             this.toolStripBtnSalir.Click += new System.EventHandler(this.toolStripBtnSalir_Click);
             // 
             // toolStripBtnGuardarUsuario
             // 
+            this.toolStripBtnGuardarUsuario.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnGuardarUsuario.Image")));
             this.toolStripBtnGuardarUsuario.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnGuardarUsuario.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnGuardarUsuario.Name = "toolStripBtnGuardarUsuario";
-            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(102, 36);
+            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(166, 68);
             this.toolStripBtnGuardarUsuario.Text = "&Guardar";
             this.toolStripBtnGuardarUsuario.Click += new System.EventHandler(this.toolStripBtnGuardarUsuario_Click);
             // 
             // toolStripBtnNuevo
             // 
+            this.toolStripBtnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnNuevo.Image")));
             this.toolStripBtnNuevo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnNuevo.Name = "toolStripBtnNuevo";
-            this.toolStripBtnNuevo.Size = new System.Drawing.Size(89, 36);
+            this.toolStripBtnNuevo.Size = new System.Drawing.Size(153, 68);
             this.toolStripBtnNuevo.Text = "&Nuevo";
             this.toolStripBtnNuevo.Click += new System.EventHandler(this.toolStripBtnNuevo_Click);
             // 
             // tspBarraPrincipal
             // 
+            this.tspBarraPrincipal.BackColor = System.Drawing.Color.Plum;
             this.tspBarraPrincipal.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tspBarraPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripBtnNuevo,
-            this.toolStripBtnGuardarUsuario,
             this.tsbEditar,
+            this.toolStripBtnGuardarUsuario,
             this.toolStripBtnSalir});
             this.tspBarraPrincipal.Location = new System.Drawing.Point(0, 0);
             this.tspBarraPrincipal.Name = "tspBarraPrincipal";
             this.tspBarraPrincipal.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 42);
+            this.tspBarraPrincipal.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 74);
             this.tspBarraPrincipal.TabIndex = 4;
             this.tspBarraPrincipal.Text = "toolStrip1";
             // 
-            // sttBarraInferior
-            // 
-            this.sttBarraInferior.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.sttBarraInferior.Location = new System.Drawing.Point(0, 660);
-            this.sttBarraInferior.Name = "sttBarraInferior";
-            this.sttBarraInferior.Padding = new System.Windows.Forms.Padding(2, 0, 28, 0);
-            this.sttBarraInferior.Size = new System.Drawing.Size(1567, 22);
-            this.sttBarraInferior.TabIndex = 3;
-            this.sttBarraInferior.Text = "statusStrip1";
-            this.sttBarraInferior.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.sttBarraInferior_ItemClicked);
-            // 
             // tsbEditar
             // 
-            this.tsbEditar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
-            this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Plum;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(78, 36);
+            this.tsbEditar.Size = new System.Drawing.Size(98, 68);
             this.tsbEditar.Text = "&Editar";
             this.tsbEditar.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -298,10 +293,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1567, 682);
             this.Controls.Add(this.spcContenedor);
             this.Controls.Add(this.tspBarraPrincipal);
-            this.Controls.Add(this.sttBarraInferior);
             this.IsMdiContainer = true;
             this.Name = "frmSeguridad";
             this.Text = "Seguridad de usuarios";
@@ -343,7 +338,6 @@
         private System.Windows.Forms.ToolStripButton toolStripBtnNuevo;
         private System.Windows.Forms.ToolStripButton toolStripBtnGuardarUsuario;
         private System.Windows.Forms.ToolStripButton toolStripBtnSalir;
-        private System.Windows.Forms.StatusStrip sttBarraInferior;
         private System.Windows.Forms.ToolStripButton tsbEditar;
     }
 }
