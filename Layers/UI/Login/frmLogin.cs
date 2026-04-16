@@ -106,12 +106,25 @@ namespace TechKMii.Layers.UI.Login
         private async Task<bool> EfectoConexion()
         {
             toolStripProgressBar1.Visible = true;
+            toolStripProgressBar1.Minimum = 0;
+            toolStripProgressBar1.Maximum = 100;
+            toolStripProgressBar1.Value = 0;
+
             for (int i = 0; i < 10; i++)
             {
                 await Task.Delay(150);
-                this.toolStripProgressBar1.Value += 10;
+
+                if (toolStripProgressBar1.Value + 10 <= toolStripProgressBar1.Maximum)
+                {
+                    toolStripProgressBar1.Value += 10;
+                }
+
                 this.sttBarraInferior.Refresh();
             }
+
+            toolStripProgressBar1.Value = 0;
+            toolStripProgressBar1.Visible = false;
+
             return true;
         }
 

@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFacturacion));
             this.erpError = new System.Windows.Forms.ErrorProvider(this.components);
             this.grbFacturacion = new System.Windows.Forms.GroupBox();
-            this.cmbUsuario = new System.Windows.Forms.ComboBox();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
             this.btnEliminarCliente = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnBuscarCliente = new System.Windows.Forms.Button();
@@ -54,7 +54,6 @@
             this.tspNuevo = new System.Windows.Forms.ToolStripButton();
             this.tspGenerarFactura = new System.Windows.Forms.ToolStripButton();
             this.tspEnviarPorCorreo = new System.Windows.Forms.ToolStripButton();
-            this.tspVistaPDF = new System.Windows.Forms.ToolStripButton();
             this.tspSalir = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbBancoTransferencia = new System.Windows.Forms.ComboBox();
@@ -78,7 +77,7 @@
             this.rdbTransferencia = new System.Windows.Forms.RadioButton();
             this.rdbTarjeta = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtFirma = new System.Windows.Forms.TextBox();
+            this.ptbFirma = new System.Windows.Forms.PictureBox();
             this.btnLimpiarFirma = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnEliminarProducto = new System.Windows.Forms.Button();
@@ -108,6 +107,7 @@
             this.tspBarraSuperior.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbFirma)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
@@ -118,7 +118,7 @@
             // 
             // grbFacturacion
             // 
-            this.grbFacturacion.Controls.Add(this.cmbUsuario);
+            this.grbFacturacion.Controls.Add(this.txtUsuario);
             this.grbFacturacion.Controls.Add(this.btnEliminarCliente);
             this.grbFacturacion.Controls.Add(this.label2);
             this.grbFacturacion.Controls.Add(this.btnBuscarCliente);
@@ -144,14 +144,13 @@
             this.grbFacturacion.Text = "Datos de Facturación";
             this.grbFacturacion.Enter += new System.EventHandler(this.grbFacturacion_Enter);
             // 
-            // cmbUsuario
+            // txtUsuario
             // 
-            this.cmbUsuario.FormattingEnabled = true;
-            this.cmbUsuario.Location = new System.Drawing.Point(1356, 107);
-            this.cmbUsuario.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbUsuario.Name = "cmbUsuario";
-            this.cmbUsuario.Size = new System.Drawing.Size(286, 33);
-            this.cmbUsuario.TabIndex = 20;
+            this.txtUsuario.Location = new System.Drawing.Point(1356, 116);
+            this.txtUsuario.Margin = new System.Windows.Forms.Padding(4);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(286, 31);
+            this.txtUsuario.TabIndex = 26;
             // 
             // btnEliminarCliente
             // 
@@ -319,7 +318,6 @@
             this.tspNuevo,
             this.tspGenerarFactura,
             this.tspEnviarPorCorreo,
-            this.tspVistaPDF,
             this.tspSalir});
             this.tspBarraSuperior.Location = new System.Drawing.Point(0, 0);
             this.tspBarraSuperior.Name = "tspBarraSuperior";
@@ -345,6 +343,7 @@
             this.tspGenerarFactura.Name = "tspGenerarFactura";
             this.tspGenerarFactura.Size = new System.Drawing.Size(249, 68);
             this.tspGenerarFactura.Text = "Generar Factura";
+            this.tspGenerarFactura.Click += new System.EventHandler(this.tspGenerarFactura_Click);
             // 
             // tspEnviarPorCorreo
             // 
@@ -353,14 +352,6 @@
             this.tspEnviarPorCorreo.Name = "tspEnviarPorCorreo";
             this.tspEnviarPorCorreo.Size = new System.Drawing.Size(220, 68);
             this.tspEnviarPorCorreo.Text = "Enviar por correo";
-            // 
-            // tspVistaPDF
-            // 
-            this.tspVistaPDF.Image = ((System.Drawing.Image)(resources.GetObject("tspVistaPDF.Image")));
-            this.tspVistaPDF.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspVistaPDF.Name = "tspVistaPDF";
-            this.tspVistaPDF.Size = new System.Drawing.Size(138, 68);
-            this.tspVistaPDF.Text = "Vista PDF";
             // 
             // tspSalir
             // 
@@ -604,7 +595,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.txtFirma);
+            this.groupBox2.Controls.Add(this.ptbFirma);
             this.groupBox2.Controls.Add(this.btnLimpiarFirma);
             this.groupBox2.Location = new System.Drawing.Point(16, 1460);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
@@ -615,14 +606,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Firma del Cliente";
             // 
-            // txtFirma
+            // ptbFirma
             // 
-            this.txtFirma.Location = new System.Drawing.Point(258, 31);
-            this.txtFirma.Margin = new System.Windows.Forms.Padding(4);
-            this.txtFirma.Multiline = true;
-            this.txtFirma.Name = "txtFirma";
-            this.txtFirma.Size = new System.Drawing.Size(1196, 171);
-            this.txtFirma.TabIndex = 1;
+            this.ptbFirma.BackColor = System.Drawing.SystemColors.Control;
+            this.ptbFirma.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ptbFirma.Location = new System.Drawing.Point(315, 40);
+            this.ptbFirma.Name = "ptbFirma";
+            this.ptbFirma.Size = new System.Drawing.Size(952, 147);
+            this.ptbFirma.TabIndex = 1;
+            this.ptbFirma.TabStop = false;
+            this.ptbFirma.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picFirma_MouseDown);
+            this.ptbFirma.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picFirma_MouseMove);
+            this.ptbFirma.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picFirma_MouseUp);
             // 
             // btnLimpiarFirma
             // 
@@ -859,7 +854,7 @@
             this.btnEliminar.TabIndex = 1;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = false;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminarProducto_Click);
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnBuscarProducto
             // 
@@ -899,7 +894,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbFirma)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
@@ -921,7 +916,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel StpVentaDolar;
         private System.Windows.Forms.DateTimePicker dtpFecha;
-        private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.TextBox txtCorreo;
         private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.TextBox txtNoFactura;
@@ -932,7 +926,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscarCliente;
         private System.Windows.Forms.ToolStripButton tspEnviarPorCorreo;
-        private System.Windows.Forms.ToolStripButton tspVistaPDF;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rdbSINPE;
@@ -957,7 +950,6 @@
         private System.Windows.Forms.TextBox txtNumeroTransfer;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnLimpiarFirma;
-        private System.Windows.Forms.TextBox txtFirma;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtProducto;
@@ -980,7 +972,9 @@
         private System.Windows.Forms.Button btnAgregarProducto;
         private System.Windows.Forms.TextBox txtCantidadStock;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cmbUsuario;
         private System.Windows.Forms.Button btnEliminarProducto;
+        private System.Windows.Forms.TextBox txtUsuario;
+        private System.Windows.Forms.ComboBox cmbEstado;
+        private System.Windows.Forms.PictureBox ptbFirma;
     }
 }

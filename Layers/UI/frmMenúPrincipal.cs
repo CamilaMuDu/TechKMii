@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
+using TechKMii.Layers.Entities;
 using TechKMii.Layers.UI;
 using TechKMii.Layers.UI.Login;
 using TechKMii.Layers.UI.Mantenimientos;
@@ -152,6 +153,15 @@ namespace TechKMii
         private void facturacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmFacturacion facturacion = new frmFacturacion();
+
+            Usuario usuario = new Usuario
+            {
+                UsuarioID = Settings.Default.Usuario,
+                Nombre = Settings.Default.Nombre
+            };
+
+            facturacion.SetUsuario(usuario);
+
             facturacion.ShowDialog();
 
         }

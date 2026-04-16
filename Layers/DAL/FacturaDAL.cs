@@ -150,13 +150,24 @@ namespace TechKMii.Layers.DAL
                 command.Parameters.AddWithValue("@TipoCambio", factura.TipoCambio);
                 command.Parameters.AddWithValue("@MetodoPago", factura.MetodoPago.ToString());
                 command.Parameters.AddWithValue("@Banco", (object)factura.Banco ?? DBNull.Value);
-                command.Parameters.AddWithValue("@TipoTarjeta",factura.MetodoPago == TipoMetodoPago.TarjetaCredito ? (object)factura.TipoTarjeta.ToString(): DBNull.Value);
+                command.Parameters.AddWithValue("@TipoTarjeta",
+                    factura.MetodoPago == TipoMetodoPago.TarjetaCredito
+                        ? (object)factura.TipoTarjeta.ToString()
+                        : DBNull.Value);
                 command.Parameters.AddWithValue("@FacturaXML", (object)factura.FacturaXML ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Documento", (object)factura.Documento ?? DBNull.Value);
+
+                SqlParameter pDocumento = new SqlParameter("@Documento", SqlDbType.VarBinary, -1);
+                pDocumento.Value = factura.Documento != null ? (object)factura.Documento : DBNull.Value;
+                command.Parameters.Add(pDocumento);
+
                 command.Parameters.AddWithValue("@NumeroTarjeta", (object)factura.NumeroTarjeta ?? DBNull.Value);
                 command.Parameters.AddWithValue("@NumeroTransferencia", (object)factura.NumeroTransferencia ?? DBNull.Value);
                 command.Parameters.AddWithValue("@NumeroSinpe", (object)factura.NumeroSinpe ?? DBNull.Value);
-                command.Parameters.AddWithValue("@Firma", (object)factura.Firma ?? DBNull.Value);
+
+                SqlParameter pFirma = new SqlParameter("@Firma", SqlDbType.VarBinary, -1);
+                pFirma.Value = factura.Firma != null ? (object)factura.Firma : DBNull.Value;
+                command.Parameters.Add(pFirma);
+
                 command.Parameters.AddWithValue("@EstadoFactura", (int)factura.EstadoFactura);
 
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
