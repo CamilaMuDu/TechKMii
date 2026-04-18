@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HambXSLT_CamilaMuñoz;
 using log4net;
 using TechKMii.Layers.BLL;
 using TechKMii.Layers.Entities;
 using TechKMii.Layers.Entities.BCCR;
 using TechKMii.Layers.Interfaces;
+using TechKMii.Util;
 using UTN.Winform.Electronics.Extensions;
 
 namespace TechKMii.Layers.UI.Procesos
@@ -27,17 +30,19 @@ namespace TechKMii.Layers.UI.Procesos
         IFacturaBLL facturaBLL = new FacturaBLL();
         IClienteBLL clienteBLL = new ClienteBLL();
         IProductoBLL productoBLL = new ProductoBLL();
-        IFacturaDetalleBLL facturaDetalleBLL = new FacturaDetalleBLL();
 
         private Cliente clienteSeleccionado = null;
         private Producto productoSeleccionado = null;
-        private Usuario usuarioActual = null;   
+        private Usuario usuarioActual = null;
         private List<FacturaDetalle> listaDetalle = new List<FacturaDetalle>();
 
         private bool dibujando = false;
         private Point puntoAnterior;
         private Bitmap bitmapFirma;
         private Graphics graphicsFirma;
+
+        private string rutaPdfGlobal = "";
+        private string rutaXmlGlobal = "";  
 
         public frmFacturacion()
         {
@@ -47,7 +52,7 @@ namespace TechKMii.Layers.UI.Procesos
         public void SetUsuario(Usuario usuario)
         {
             usuarioActual = usuario;
-        }   
+        }
 
         private void frmFacturacion_Load(object sender, EventArgs e)
         {
@@ -57,7 +62,7 @@ namespace TechKMii.Layers.UI.Procesos
                 StpVentaDolar.Text = "Venta Dolar : " + Dolarbll.GetVentaDolar().ToString("N2");
                 if (usuarioActual != null)
                 {
-                    txtUsuario.Text = usuarioActual.Nombre; 
+                    txtUsuario.Text = usuarioActual.Nombre;
                 }
 
                 CargarCombos();
@@ -167,7 +172,7 @@ namespace TechKMii.Layers.UI.Procesos
         {
             txtNoFactura.ReadOnly = true;
             txtCorreo.ReadOnly = true;
-            txtPrecio.ReadOnly = true;            
+            txtPrecio.ReadOnly = true;
             txtCantidadStock.ReadOnly = true;
             txtUsuario.ReadOnly = true;
         }
@@ -444,7 +449,7 @@ namespace TechKMii.Layers.UI.Procesos
 
         private void btnLimpiarFirma_Click(object sender, EventArgs e)
         {
-           InicializarAreaFirma();
+            InicializarAreaFirma();
         }
 
         private void btnEliminarProducto_Click_1(object sender, EventArgs e)
@@ -493,7 +498,7 @@ namespace TechKMii.Layers.UI.Procesos
                 {
                     MessageBox.Show("No se encontró el usuario actual.");
                     return;
-                }               
+                }
 
                 if (listaDetalle.Count == 0)
                 {
@@ -580,6 +585,7 @@ namespace TechKMii.Layers.UI.Procesos
                     EstadoFactura = (EstadoFactura)cmbEstado.SelectedItem,
                     Firma = ObtenerFirmaComoBytes()
                 };
+
                 oFactura.ListaDetalle = listaDetalle;
 
                 if (rdbTarjeta.Checked)
@@ -599,7 +605,6 @@ namespace TechKMii.Layers.UI.Procesos
                     oFactura.NumeroSinpe = txtNumeroSinpe.Text.Trim();
                 }
 
-                //encabezado
                 int facturaId = facturaBLL.Save(oFactura);
 
                 if (facturaId <= 0)
@@ -607,6 +612,31 @@ namespace TechKMii.Layers.UI.Procesos
                     MessageBox.Show("No se pudo guardar la factura.");
                     return;
                 }
+
+                oFactura.FacturaXML = FacturaDocumento.GenerarFacturaXML(
+                    oFactura,
+                    txtNoFactura.Text,
+                    clienteSeleccionado.Nombre + " " + clienteSeleccionado.Apellidos,
+                    clienteSeleccionado.Correo,
+                    usuarioActual.Nombre
+                );
+
+                rutaXmlGlobal = FacturaDocumento.GuardarXMLEnDisco(
+                    oFactura.FacturaXML,
+                    txtNoFactura.Text
+                );
+
+                string codigoQr = txtNoFactura.Text;
+                //string codigoQr = $"FAC:{txtNoFactura.Text};TOT:{oFactura.TotalCRC:N2}";
+
+                rutaPdfGlobal = FacturaDocumento.GenerarPDF(
+                    oFactura,
+                    txtNoFactura.Text,
+                    clienteSeleccionado.Nombre + " " + clienteSeleccionado.Apellidos,
+                    clienteSeleccionado.Correo,
+                    usuarioActual.Nombre,
+                    codigoQr
+                );
 
                 MessageBox.Show("Factura guardada correctamente.");
             }
@@ -616,8 +646,7 @@ namespace TechKMii.Layers.UI.Procesos
                 _myLogControlEventos.ErrorFormat("Error {0}",
                     msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
 
-                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(er.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -628,6 +657,97 @@ namespace TechKMii.Layers.UI.Procesos
             txtPrecio.Text = "";
             txtCantidad.Text = "";
             txtCantidadStock.Text = "";
+        }     
+
+        private void tspEnviarPorCorreo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clienteSeleccionado == null)
+                {
+                    MessageBox.Show("Debe seleccionar un cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtCorreo.Text))
+                {
+                    MessageBox.Show("El cliente no tiene correo electrónico.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(rutaPdfGlobal) || !File.Exists(rutaPdfGlobal))
+                {
+                    MessageBox.Show("Primero debe generar la factura en PDF.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(rutaXmlGlobal) || !File.Exists(rutaXmlGlobal))
+                {
+                    MessageBox.Show("No se encontró el archivo XML de la factura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string metodoPago = "";
+
+                if (rdbTarjeta.Checked)
+                    metodoPago = "Tarjeta de Crédito";
+                else if (rdbTransferencia.Checked)
+                    metodoPago = "Transferencia";
+                else if (rdbSINPE.Checked)
+                    metodoPago = "SINPE Móvil";
+
+                String mensaje = "";
+
+                mensaje += "<table width='100%' border='1' cellpadding='0' cellspacing='0'>";
+                mensaje += "<tr>";
+                mensaje += "<td bgcolor='#004080' style='color:white; padding:4px;' width='40%'><strong><div align='center'>TECHKMii FACTURACIÓN</div></strong></td>";
+                mensaje += "<td style='padding:4px;'>Le enviamos su factura electrónica generada correctamente.</td>";
+                mensaje += "</tr>";
+                mensaje += "</table><br>";
+
+                mensaje += "<table width='100%' border='1' cellpadding='0' cellspacing='0'>";
+                mensaje += "<tr><th colspan='5' style='padding:4px;'>DATOS DE SU FACTURA</th></tr>";
+
+                mensaje += "<tr>";
+                mensaje += "<th bgcolor='#004080' style='color:white; padding:4px;'><div align='center'>NÚMERO FACTURA</div></th>";
+                mensaje += "<th bgcolor='#004080' style='color:white; padding:4px;'><div align='center'>FECHA</div></th>";
+                mensaje += "<th bgcolor='#004080' style='color:white; padding:4px;'><div align='center'>CLIENTE</div></th>";
+                mensaje += "<th bgcolor='#004080' style='color:white; padding:4px;'><div align='center'>MÉTODO PAGO</div></th>";
+                mensaje += "<th bgcolor='#004080' style='color:white; padding:4px;'><div align='center'>TOTAL CRC</div></th>";
+                mensaje += "</tr>";
+
+                mensaje += "<tr>";
+                mensaje += String.Format("<td style='padding:4px;'><div align='center'>{0}</div></td>", txtNoFactura.Text);
+                mensaje += String.Format("<td style='padding:4px;'><div align='center'>{0}</div></td>", dtpFecha.Value.ToString("dd/MM/yyyy HH:mm:ss"));
+                mensaje += String.Format("<td style='padding:4px;'><div align='center'>{0}</div></td>", txtCliente.Text);
+                mensaje += String.Format("<td style='padding:4px;'><div align='center'>{0}</div></td>", metodoPago);
+                mensaje += String.Format("<td style='padding:4px;'><div align='center'>{0}</div></td>", txtTotalCRC.Text);
+                mensaje += "</tr>";
+
+                mensaje += "</table><br>";
+                mensaje += "<p>Adjunto encontrará su factura en PDF y XML.</p>";
+
+                String asunto = "Factura Electrónica " + txtNoFactura.Text;
+                String receptor = txtCorreo.Text;
+
+                EnviarCorreo envioCorreo = new EnviarCorreo();
+
+                envioCorreo.enviarCorreoGmail(
+                    mensaje,
+                    receptor,
+                    asunto,
+                    rutaPdfGlobal,
+                    rutaXmlGlobal
+                );
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show(er.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

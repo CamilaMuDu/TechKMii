@@ -352,6 +352,7 @@
             this.tspEnviarPorCorreo.Name = "tspEnviarPorCorreo";
             this.tspEnviarPorCorreo.Size = new System.Drawing.Size(220, 68);
             this.tspEnviarPorCorreo.Text = "Enviar por correo";
+            this.tspEnviarPorCorreo.Click += new System.EventHandler(this.tspEnviarPorCorreo_Click);
             // 
             // tspSalir
             // 
@@ -882,7 +883,7 @@
             this.Controls.Add(this.tspBarraSuperior);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmFacturacion";
-            this.Text = "frmFacturacion";
+            this.Text = "Proceso de facturación";
             this.Load += new System.EventHandler(this.frmFacturacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.erpError)).EndInit();
             this.grbFacturacion.ResumeLayout(false);
