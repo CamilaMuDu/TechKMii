@@ -46,6 +46,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.reporteDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDePorductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDeVentasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteDeFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -153,6 +157,11 @@
             // 
             // reportesToolStripMenuItem
             // 
+            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteDeClienteToolStripMenuItem,
+            this.reporteDePorductosToolStripMenuItem,
+            this.reporteDeVentasToolStripMenuItem,
+            this.reporteDeFacturasToolStripMenuItem});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Size = new System.Drawing.Size(127, 38);
             this.reportesToolStripMenuItem.Text = "Reportes";
@@ -186,6 +195,31 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // reporteDeClienteToolStripMenuItem
+            // 
+            this.reporteDeClienteToolStripMenuItem.Name = "reporteDeClienteToolStripMenuItem";
+            this.reporteDeClienteToolStripMenuItem.Size = new System.Drawing.Size(377, 44);
+            this.reporteDeClienteToolStripMenuItem.Text = "Reporte de Clientes";
+            // 
+            // reporteDePorductosToolStripMenuItem
+            // 
+            this.reporteDePorductosToolStripMenuItem.Name = "reporteDePorductosToolStripMenuItem";
+            this.reporteDePorductosToolStripMenuItem.Size = new System.Drawing.Size(377, 44);
+            this.reporteDePorductosToolStripMenuItem.Text = "Reporte de Productos";
+            this.reporteDePorductosToolStripMenuItem.Click += new System.EventHandler(this.reporteDePorductosToolStripMenuItem_Click);
+            // 
+            // reporteDeVentasToolStripMenuItem
+            // 
+            this.reporteDeVentasToolStripMenuItem.Name = "reporteDeVentasToolStripMenuItem";
+            this.reporteDeVentasToolStripMenuItem.Size = new System.Drawing.Size(377, 44);
+            this.reporteDeVentasToolStripMenuItem.Text = "Reporte de Ventas";
+            // 
+            // reporteDeFacturasToolStripMenuItem
+            // 
+            this.reporteDeFacturasToolStripMenuItem.Name = "reporteDeFacturasToolStripMenuItem";
+            this.reporteDeFacturasToolStripMenuItem.Size = new System.Drawing.Size(377, 44);
+            this.reporteDeFacturasToolStripMenuItem.Text = "Reporte de Facturas";
             // 
             // frmMenúPrincipal
             // 
@@ -229,6 +263,10 @@
         private System.Windows.Forms.ToolStripMenuItem facturacionToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem inventarioToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteDeClienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteDePorductosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteDeVentasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteDeFacturasToolStripMenuItem;
     }
 }
 

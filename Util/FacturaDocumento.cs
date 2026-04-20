@@ -161,7 +161,7 @@ namespace TechKMii.Util
             return xmlDoc.OuterXml;
         }
 
-        public static string GenerarPDF(Factura factura,string numeroFactura,string nombreCliente,string correoCliente,string nombreUsuario,string codigoQrTexto)
+        public static string GenerarPDF(Factura factura, string numeroFactura, string nombreCliente, string correoCliente, string nombreUsuario, string codigoQrTexto)
         {
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             string carpetaFacturas = Path.Combine(basePath, "FacturasGeneradas");
@@ -175,13 +175,21 @@ namespace TechKMii.Util
 
             byte[] qrBytes = null;
             byte[] firmaBytes = factura.Firma;
+            byte[] logoBytes = null;
 
-            // genera código QR
+            // QR
             var qrImage = QuickResponse.QuickResponseGenerador(codigoQrTexto, 5);
             using (MemoryStream msQr = new MemoryStream())
             {
                 qrImage.Save(msQr, System.Drawing.Imaging.ImageFormat.Png);
                 qrBytes = msQr.ToArray();
+            }
+
+            // LOGO
+            string rutaLogo = Path.Combine(basePath, "Logo.png");
+            if (File.Exists(rutaLogo))
+            {
+                logoBytes = File.ReadAllBytes(rutaLogo);
             }
 
             var pdfBytes = Document.Create(document =>
@@ -191,43 +199,55 @@ namespace TechKMii.Util
                     page.Size(PageSizes.Letter);
                     page.Margin(25);
                     page.PageColor(Colors.White);
+                    page.DefaultTextStyle(x => x.FontSize(11));
 
-                    page.Header().Column(col =>
+                    page.Content().Column(col =>
                     {
-                        col.Item().Text("FACTURA ELECTRÓNICA")
-                            .FontSize(24)
-                            .Bold();
+                        col.Spacing(10);
 
-                        col.Item().Text($"No. Factura: {numeroFactura}");
-                        col.Item().Text($"Fecha: {factura.Fecha:dd/MM/yyyy HH:mm:ss}");
-                        col.Item().Text($"Cliente: {nombreCliente}");
-                        col.Item().Text($"Correo: {correoCliente}");
-                        col.Item().Text($"Tipo de Pago: {factura.MetodoPago}");
-                        col.Item().Text($"Estado: {factura.EstadoFactura}");
-                    });
-
-                    page.Content().PaddingVertical(10).Column(col =>
-                    {
+                        // ENCABEZADO SUPERIOR
                         col.Item().Row(row =>
                         {
-                            row.RelativeItem(3).Column(info =>
+                            row.RelativeItem().AlignCenter().Column(c =>
                             {
-                                info.Item().Text($"Usuario: {nombreUsuario}");
-                                info.Item().Text($"Banco: {factura.Banco ?? ""}");
-
-                                if (!string.IsNullOrWhiteSpace(factura.NumeroTarjeta))
-                                    info.Item().Text($"Tarjeta: {factura.NumeroTarjeta}");
-
-                                if (!string.IsNullOrWhiteSpace(factura.NumeroTransferencia))
-                                    info.Item().Text($"Transferencia: {factura.NumeroTransferencia}");
-
-                                if (!string.IsNullOrWhiteSpace(factura.NumeroSinpe))
-                                    info.Item().Text($"SINPE: {factura.NumeroSinpe}");
+                                c.Item().PaddingTop(8).Text("FACTURA ELECTRÓNICA")
+                                    .FontSize(24)
+                                    .Bold()
+                                    .AlignCenter();
                             });
 
-                            row.ConstantItem(90).Height(90).Image(qrBytes);
+                            row.ConstantItem(95).Height(95).AlignRight().Element(e =>
+                            {
+                                if (logoBytes != null)
+                                    e.Image(logoBytes).FitArea();
+                            });
                         });
 
+                        // DATOS PRINCIPALES
+                        col.Item().PaddingTop(5).Column(info =>
+                        {
+                            info.Spacing(3);
+                            info.Item().Text($"No. Factura: {numeroFactura}");
+                            info.Item().Text($"Fecha: {factura.Fecha:dd/MM/yyyy HH:mm:ss}");
+                            info.Item().Text($"Cliente: {nombreCliente}");
+                            info.Item().Text($"Correo: {correoCliente}");
+                            info.Item().Text($"Tipo de Pago: {factura.MetodoPago}");
+                            info.Item().Text($"Estado: {factura.EstadoFactura}");
+
+                            info.Item().PaddingTop(8).Text($"Usuario: {nombreUsuario}");
+                            info.Item().Text($"Banco: {factura.Banco ?? ""}");
+
+                            if (!string.IsNullOrWhiteSpace(factura.NumeroTarjeta))
+                                info.Item().Text($"Tarjeta: {factura.NumeroTarjeta}");
+
+                            if (!string.IsNullOrWhiteSpace(factura.NumeroTransferencia))
+                                info.Item().Text($"Transferencia: {factura.NumeroTransferencia}");
+
+                            if (!string.IsNullOrWhiteSpace(factura.NumeroSinpe))
+                                info.Item().Text($"SINPE: {factura.NumeroSinpe}");
+                        });
+
+                        // TABLA DETALLE
                         col.Item().PaddingTop(10).Table(tabla =>
                         {
                             tabla.ColumnsDefinition(columns =>
@@ -242,31 +262,33 @@ namespace TechKMii.Util
 
                             tabla.Header(header =>
                             {
-                                header.Cell().Background("#D9D9D9").Padding(4).Text("#").Bold();
-                                header.Cell().Background("#D9D9D9").Padding(4).Text("Producto").Bold();
-                                header.Cell().Background("#D9D9D9").Padding(4).Text("Cantidad").Bold();
-                                header.Cell().Background("#D9D9D9").Padding(4).Text("Precio").Bold();
-                                header.Cell().Background("#D9D9D9").Padding(4).Text("Total Línea").Bold();
-                                header.Cell().Background("#D9D9D9").Padding(4).Text("Detalle Compra").Bold();
+                                header.Cell().Element(EstiloHeaderTabla).Text("#").Bold();
+                                header.Cell().Element(EstiloHeaderTabla).Text("Producto").Bold();
+                                header.Cell().Element(EstiloHeaderTabla).Text("Cantidad").Bold();
+                                header.Cell().Element(EstiloHeaderTabla).Text("Precio").Bold();
+                                header.Cell().Element(EstiloHeaderTabla).Text("Total Línea").Bold();
+                                header.Cell().Element(EstiloHeaderTabla).Text("Detalle Compra").Bold();
                             });
 
                             int linea = 1;
                             foreach (var item in factura.ListaDetalle)
                             {
-                                tabla.Cell().Border(1).Padding(4).Text(linea.ToString());
-                                tabla.Cell().Border(1).Padding(4).Text(item.Producto?.Nombre ?? "");
-                                tabla.Cell().Border(1).Padding(4).Text(item.Cantidad.ToString());
-                                tabla.Cell().Border(1).Padding(4).Text(item.Precio.ToString("N2"));
-                                tabla.Cell().Border(1).Padding(4).Text(item.Total.ToString("N2"));
-                                tabla.Cell().Border(1).Padding(4).Text("Compra");
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(linea.ToString());
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto?.Nombre ?? "");
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Cantidad.ToString());
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Precio.ToString("N2"));
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Total.ToString("N2"));
+                                tabla.Cell().Element(EstiloCeldaTabla).Text("Compra");
                                 linea++;
                             }
                         });
+
+                        // TOTALES
                         col.Item().PaddingTop(10).Row(row =>
                         {
                             row.RelativeItem();
 
-                            row.ConstantItem(220).Table(tabla =>
+                            row.ConstantItem(240).Table(tabla =>
                             {
                                 tabla.ColumnsDefinition(columns =>
                                 {
@@ -276,8 +298,21 @@ namespace TechKMii.Util
 
                                 void fila(string titulo, string valor)
                                 {
-                                    tabla.Cell().Border(1).Padding(3).Text(titulo).FontSize(9).Bold();
-                                    tabla.Cell().Border(1).Padding(3).AlignRight().Text(valor).FontSize(9);
+                                    tabla.Cell()
+                                        .Border(1)
+                                        .BorderColor("#BFA7B0")
+                                        .Padding(5)
+                                        .Text(titulo)
+                                        .FontSize(9)
+                                        .Bold();
+
+                                    tabla.Cell()
+                                        .Border(1)
+                                        .BorderColor("#BFA7B0")
+                                        .Padding(5)
+                                        .AlignRight()
+                                        .Text(valor)
+                                        .FontSize(9);
                                 }
 
                                 fila("Subtotal (CR)", factura.Subtotal.ToString("N2"));
@@ -285,8 +320,19 @@ namespace TechKMii.Util
                                 fila("Total (CR)", factura.TotalCRC.ToString("N2"));
                                 fila("Total (USD)", factura.TotalUSD.ToString("N2"));
                             });
-                        });                      
+                        });
+
+                        // QR ABAJO DE LA TABLA Y CENTRADO
+                        col.Item().PaddingTop(20).AlignCenter().Element(e =>
+                        {
+                            if (qrBytes != null)
+                                e.Width(120).Height(120).Image(qrBytes);
+                        });
+
+                        // EMPUJA EL PIE HACIA ABAJO
+                        col.Item().ExtendVertical();
                     });
+
                     page.Footer().Column(col =>
                     {
                         col.Item().Row(row =>
@@ -296,10 +342,10 @@ namespace TechKMii.Util
                                 c.Item().Text("Firma de validación").FontSize(9);
 
                                 if (firmaBytes != null && firmaBytes.Length > 0)
-                                    c.Item().Height(35).Image(firmaBytes);
+                                    c.Item().PaddingTop(3).Height(35).Image(firmaBytes);
                             });
 
-                            row.RelativeItem().AlignRight().Text("TechKMii").FontSize(9);
+                            row.RelativeItem().AlignRight().AlignBottom().Text("TechKMii").FontSize(9);
                         });
 
                         col.Item().PaddingTop(5).AlignCenter().Text(txt =>
@@ -314,6 +360,24 @@ namespace TechKMii.Util
             File.WriteAllBytes(rutaPdf, pdfBytes);
 
             return rutaPdf;
+        }
+        private static IContainer EstiloHeaderTabla(IContainer container)
+        {
+            return container
+                .Background("#F6D6E0")
+                .Border(1)
+                .BorderColor("#BFA7B0")
+                .Padding(5)
+                .AlignMiddle();
+        }
+
+        private static IContainer EstiloCeldaTabla(IContainer container)
+        {
+            return container
+                .Border(1)
+                .BorderColor("#999999")
+                .Padding(4)
+                .AlignMiddle();
         }
         public static string GuardarXMLEnDisco(string xmlString, string numeroFactura)
         {

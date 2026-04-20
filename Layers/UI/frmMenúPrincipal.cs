@@ -16,6 +16,7 @@ using TechKMii.Layers.UI;
 using TechKMii.Layers.UI.Login;
 using TechKMii.Layers.UI.Mantenimientos;
 using TechKMii.Layers.UI.Procesos;
+using TechKMii.Layers.UI.Reportes;
 using TechKMii.Properties;
 using UTN.Winform.Electronics.Extensions;
 
@@ -176,6 +177,12 @@ namespace TechKMii
         {
             frmInventarioMantenimiento inventario = new frmInventarioMantenimiento();
             inventario.ShowDialog();
+        }
+
+        private void reporteDePorductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmReporteProducto reporteProducto = new frmReporteProducto();
+            reporteProducto.ShowDialog();
         }
     }
 }
