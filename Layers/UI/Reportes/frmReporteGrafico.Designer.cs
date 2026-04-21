@@ -31,6 +31,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReporteGrafico));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpFechaFinal = new System.Windows.Forms.DateTimePicker();
@@ -47,81 +48,75 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(406, 800);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(203, 416);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(125, 25);
+            this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 20;
             this.label2.Text = "Fecha Final";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(406, 717);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(203, 373);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 25);
+            this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 19;
             this.label1.Text = "Fecha Inicial";
             // 
             // dtpFechaFinal
             // 
-            this.dtpFechaFinal.Location = new System.Drawing.Point(558, 799);
-            this.dtpFechaFinal.Margin = new System.Windows.Forms.Padding(6);
+            this.dtpFechaFinal.Location = new System.Drawing.Point(279, 415);
             this.dtpFechaFinal.Name = "dtpFechaFinal";
-            this.dtpFechaFinal.Size = new System.Drawing.Size(396, 31);
+            this.dtpFechaFinal.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaFinal.TabIndex = 18;
             this.dtpFechaFinal.Value = new System.DateTime(2035, 6, 23, 11, 31, 0, 0);
             // 
             // dtpFechaInicial
             // 
-            this.dtpFechaInicial.Location = new System.Drawing.Point(562, 711);
-            this.dtpFechaInicial.Margin = new System.Windows.Forms.Padding(6);
+            this.dtpFechaInicial.Location = new System.Drawing.Point(281, 370);
             this.dtpFechaInicial.Name = "dtpFechaInicial";
-            this.dtpFechaInicial.Size = new System.Drawing.Size(396, 31);
+            this.dtpFechaInicial.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaInicial.TabIndex = 17;
             this.dtpFechaInicial.Value = new System.DateTime(2000, 6, 23, 11, 31, 0, 0);
             // 
             // lblTipoGrafico
             // 
             this.lblTipoGrafico.AutoSize = true;
-            this.lblTipoGrafico.Location = new System.Drawing.Point(17, 717);
-            this.lblTipoGrafico.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblTipoGrafico.Location = new System.Drawing.Point(8, 373);
             this.lblTipoGrafico.Name = "lblTipoGrafico";
-            this.lblTipoGrafico.Size = new System.Drawing.Size(129, 25);
+            this.lblTipoGrafico.Size = new System.Drawing.Size(65, 13);
             this.lblTipoGrafico.TabIndex = 15;
             this.lblTipoGrafico.Text = "Tipo Grafico";
             // 
             // cmbTipoGrafico
             // 
             this.cmbTipoGrafico.FormattingEnabled = true;
-            this.cmbTipoGrafico.Location = new System.Drawing.Point(23, 762);
-            this.cmbTipoGrafico.Margin = new System.Windows.Forms.Padding(6);
+            this.cmbTipoGrafico.Location = new System.Drawing.Point(12, 396);
             this.cmbTipoGrafico.Name = "cmbTipoGrafico";
-            this.cmbTipoGrafico.Size = new System.Drawing.Size(280, 33);
+            this.cmbTipoGrafico.Size = new System.Drawing.Size(142, 21);
             this.cmbTipoGrafico.TabIndex = 14;
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(1525, 855);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(6);
+            this.btnSalir.BackColor = System.Drawing.Color.LightGreen;
+            this.btnSalir.Location = new System.Drawing.Point(762, 445);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(128, 55);
+            this.btnSalir.Size = new System.Drawing.Size(64, 29);
             this.btnSalir.TabIndex = 13;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.UseVisualStyleBackColor = false;
             // 
             // btnMostrarGrafico
             // 
-            this.btnMostrarGrafico.Location = new System.Drawing.Point(1069, 717);
-            this.btnMostrarGrafico.Margin = new System.Windows.Forms.Padding(6);
+            this.btnMostrarGrafico.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnMostrarGrafico.Location = new System.Drawing.Point(534, 373);
             this.btnMostrarGrafico.Name = "btnMostrarGrafico";
-            this.btnMostrarGrafico.Size = new System.Drawing.Size(221, 87);
+            this.btnMostrarGrafico.Size = new System.Drawing.Size(110, 45);
             this.btnMostrarGrafico.TabIndex = 12;
             this.btnMostrarGrafico.Text = "Mostrar Grafico";
             this.btnMostrarGrafico.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnMostrarGrafico.UseVisualStyleBackColor = true;
+            this.btnMostrarGrafico.UseVisualStyleBackColor = false;
             // 
             // chart1
             // 
@@ -129,32 +124,34 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(22, 21);
+            this.chart1.Location = new System.Drawing.Point(11, 11);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(1619, 657);
+            this.chart1.Size = new System.Drawing.Size(810, 342);
             this.chart1.TabIndex = 21;
             this.chart1.Text = "chart1";
             // 
             // btnGuardarGrafico
             // 
-            this.btnGuardarGrafico.Location = new System.Drawing.Point(1347, 717);
-            this.btnGuardarGrafico.Margin = new System.Windows.Forms.Padding(6);
+            this.btnGuardarGrafico.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnGuardarGrafico.Location = new System.Drawing.Point(674, 373);
             this.btnGuardarGrafico.Name = "btnGuardarGrafico";
-            this.btnGuardarGrafico.Size = new System.Drawing.Size(215, 87);
+            this.btnGuardarGrafico.Size = new System.Drawing.Size(108, 45);
             this.btnGuardarGrafico.TabIndex = 16;
             this.btnGuardarGrafico.Text = "Guardar Grafico";
             this.btnGuardarGrafico.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnGuardarGrafico.UseVisualStyleBackColor = true;
+            this.btnGuardarGrafico.UseVisualStyleBackColor = false;
             // 
             // frmReporteGrafico
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1668, 925);
+            this.BackColor = System.Drawing.Color.Plum;
+            this.ClientSize = new System.Drawing.Size(834, 481);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -165,8 +162,10 @@
             this.Controls.Add(this.cmbTipoGrafico);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnMostrarGrafico);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "frmReporteGrafico";
-            this.Text = "Reporte Gráfico de Ventas";
+            this.Text = "Reporte de Gráfico de Ventas";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

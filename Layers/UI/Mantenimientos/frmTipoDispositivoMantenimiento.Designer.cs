@@ -55,7 +55,7 @@
             // 
             this.dgvDatos.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDatos.Location = new System.Drawing.Point(12, 42);
+            this.dgvDatos.Location = new System.Drawing.Point(37, 42);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.RowHeadersWidth = 82;
             this.dgvDatos.RowTemplate.Height = 33;
@@ -85,7 +85,7 @@
             this.tsbSalir});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1682, 42);
+            this.toolStrip1.Size = new System.Drawing.Size(1728, 42);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -143,8 +143,8 @@
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatos);
-            this.splitContainer1.Size = new System.Drawing.Size(1682, 514);
-            this.splitContainer1.SplitterDistance = 718;
+            this.splitContainer1.Size = new System.Drawing.Size(1728, 514);
+            this.splitContainer1.SplitterDistance = 737;
             this.splitContainer1.TabIndex = 8;
             // 
             // tlpPanel
@@ -208,11 +208,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1682, 556);
+            this.ClientSize = new System.Drawing.Size(1728, 556);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "frmTipoDispositivoMantenimiento";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mantenimiento de Tipo Dispositivo";
             this.Load += new System.EventHandler(this.frmTipoDispositivoMantenimiento_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();

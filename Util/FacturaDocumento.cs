@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -178,12 +179,9 @@ namespace TechKMii.Util
             byte[] logoBytes = null;
 
             // QR
-            var qrImage = QuickResponse.QuickResponseGenerador(codigoQrTexto, 5);
-            using (MemoryStream msQr = new MemoryStream())
-            {
-                qrImage.Save(msQr, System.Drawing.Imaging.ImageFormat.Png);
-                qrBytes = msQr.ToArray();
-            }
+            var qrImage = QuickResponse.QuickResponseGenerador(codigoQrTexto, 53);
+            MemoryStream msQr = new MemoryStream();
+            qrImage.Save(msQr, System.Drawing.Imaging.ImageFormat.Png);
 
             // LOGO
             string rutaLogo = Path.Combine(basePath, "Logo.png");
@@ -323,10 +321,10 @@ namespace TechKMii.Util
                         });
 
                         // QR ABAJO DE LA TABLA Y CENTRADO
-                        col.Item().PaddingTop(20).AlignCenter().Element(e =>
+                        col.Item().PaddingTop(20).AlignCenter().Row(e =>
                         {
-                            if (qrBytes != null)
-                                e.Width(120).Height(120).Image(qrBytes);
+                            if (msQr != null)
+                                e.ConstantItem(90).Image(msQr.ToArray());
                         });
 
                         // EMPUJA EL PIE HACIA ABAJO
@@ -358,7 +356,7 @@ namespace TechKMii.Util
             }).GeneratePdf();
 
             File.WriteAllBytes(rutaPdf, pdfBytes);
-
+            Process.Start(rutaPdf);
             return rutaPdf;
         }
         private static IContainer EstiloHeaderTabla(IContainer container)

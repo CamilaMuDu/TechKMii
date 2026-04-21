@@ -166,7 +166,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProveedorMantenimiento";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mantenimiento de Proveedor";
             this.Load += new System.EventHandler(this.frmProveedorMantenimiento_Load);
             this.toolStrip1.ResumeLayout(false);

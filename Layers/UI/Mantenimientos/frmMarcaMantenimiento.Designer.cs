@@ -65,11 +65,12 @@
             this.MarcaID,
             this.Nombre,
             this.Estado});
-            this.dgvDatos.Location = new System.Drawing.Point(38, 95);
+            this.dgvDatos.Location = new System.Drawing.Point(38, 94);
+            this.dgvDatos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.RowHeadersWidth = 82;
             this.dgvDatos.RowTemplate.Height = 33;
-            this.dgvDatos.Size = new System.Drawing.Size(1071, 410);
+            this.dgvDatos.Size = new System.Drawing.Size(1072, 410);
             this.dgvDatos.TabIndex = 0;
             this.dgvDatos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellContentClick);
             // 
@@ -98,8 +99,9 @@
             // 
             this.btnAgregarMarca.BackColor = System.Drawing.Color.Plum;
             this.btnAgregarMarca.Location = new System.Drawing.Point(208, 375);
+            this.btnAgregarMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAgregarMarca.Name = "btnAgregarMarca";
-            this.btnAgregarMarca.Size = new System.Drawing.Size(266, 72);
+            this.btnAgregarMarca.Size = new System.Drawing.Size(266, 71);
             this.btnAgregarMarca.TabIndex = 15;
             this.btnAgregarMarca.Text = "Agregar Marca";
             this.btnAgregarMarca.UseVisualStyleBackColor = false;
@@ -138,7 +140,8 @@
             this.tsbSalir});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1816, 50);
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
+            this.toolStrip1.Size = new System.Drawing.Size(1816, 42);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -147,7 +150,7 @@
             this.tsbNuevo.Image = ((System.Drawing.Image)(resources.GetObject("tsbNuevo.Image")));
             this.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNuevo.Name = "tsbNuevo";
-            this.tsbNuevo.Size = new System.Drawing.Size(121, 44);
+            this.tsbNuevo.Size = new System.Drawing.Size(121, 36);
             this.tsbNuevo.Text = "Nuevo";
             this.tsbNuevo.Click += new System.EventHandler(this.tsbNuevo_Click);
             // 
@@ -156,7 +159,7 @@
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
             this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(110, 44);
+            this.tsbEditar.Size = new System.Drawing.Size(110, 36);
             this.tsbEditar.Text = "Editar";
             this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
@@ -165,7 +168,7 @@
             this.tsbBorrar.Image = ((System.Drawing.Image)(resources.GetObject("tsbBorrar.Image")));
             this.tsbBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbBorrar.Name = "tsbBorrar";
-            this.tsbBorrar.Size = new System.Drawing.Size(114, 44);
+            this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
             this.tsbBorrar.Text = "Borrar";
             this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
             // 
@@ -174,7 +177,7 @@
             this.tsbSalir.Image = ((System.Drawing.Image)(resources.GetObject("tsbSalir.Image")));
             this.tsbSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSalir.Name = "tsbSalir";
-            this.tsbSalir.Size = new System.Drawing.Size(95, 44);
+            this.tsbSalir.Size = new System.Drawing.Size(95, 36);
             this.tsbSalir.Text = "Salir";
             this.tsbSalir.Click += new System.EventHandler(this.tsbSalir_Click);
             // 
@@ -190,21 +193,21 @@
             this.tlpPanel.Controls.Add(this.label1, 0, 0);
             this.tlpPanel.Controls.Add(this.label2, 0, 1);
             this.tlpPanel.Controls.Add(this.txtCodigo, 1, 0);
-            this.tlpPanel.Location = new System.Drawing.Point(53, 119);
-            this.tlpPanel.Margin = new System.Windows.Forms.Padding(6);
+            this.tlpPanel.Location = new System.Drawing.Point(52, 119);
+            this.tlpPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tlpPanel.Name = "tlpPanel";
             this.tlpPanel.RowCount = 3;
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpPanel.Size = new System.Drawing.Size(543, 130);
+            this.tlpPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tlpPanel.Size = new System.Drawing.Size(544, 131);
             this.tlpPanel.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 95);
+            this.label3.Location = new System.Drawing.Point(6, 96);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 25);
@@ -214,15 +217,16 @@
             // cmbEstado
             // 
             this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Location = new System.Drawing.Point(102, 89);
+            this.cmbEstado.Location = new System.Drawing.Point(103, 90);
+            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(399, 33);
+            this.cmbEstado.Size = new System.Drawing.Size(400, 33);
             this.cmbEstado.TabIndex = 17;
             // 
             // txtNombre
             // 
             this.txtNombre.Location = new System.Drawing.Point(105, 49);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(6);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(396, 31);
             this.txtNombre.TabIndex = 15;
@@ -230,7 +234,7 @@
             // txtCodigo
             // 
             this.txtCodigo.Location = new System.Drawing.Point(105, 6);
-            this.txtCodigo.Margin = new System.Windows.Forms.Padding(6);
+            this.txtCodigo.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(396, 31);
             this.txtCodigo.TabIndex = 1;
@@ -240,6 +244,7 @@
             this.splitContainer1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -254,14 +259,15 @@
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.splitContainer1.Panel2.Controls.Add(this.dgvDatos);
-            this.splitContainer1.Size = new System.Drawing.Size(1816, 557);
-            this.splitContainer1.SplitterDistance = 659;
+            this.splitContainer1.Size = new System.Drawing.Size(1816, 558);
+            this.splitContainer1.SplitterDistance = 658;
             this.splitContainer1.TabIndex = 5;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(29, 15);
+            this.label9.Location = new System.Drawing.Point(28, 15);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(109, 25);
             this.label9.TabIndex = 11;
@@ -271,11 +277,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1816, 557);
+            this.ClientSize = new System.Drawing.Size(1816, 558);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmMarcaMantenimiento";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mantenimiento de Marca";
             this.Load += new System.EventHandler(this.frmMarcaMantenimiento_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).EndInit();

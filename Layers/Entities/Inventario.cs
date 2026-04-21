@@ -10,10 +10,9 @@ namespace TechKMii.Layers.Entities
     {
         public int InventarioID { set; get; }
         public TipoEntradaSalida TipoEntradaSalida { set; get; }
-        public Producto ProductoID { set; get; }
+        public Producto Producto { set; get; }
         public DateTime Fecha { set; get; }
         public string Observaciones { set; get; }
         public EstadoCatalogos Estado { set; get; }
-        public byte[] Documento { set; get; }
     }
 }

@@ -297,6 +297,7 @@
             this.ClientSize = new System.Drawing.Size(1567, 682);
             this.Controls.Add(this.spcContenedor);
             this.Controls.Add(this.tspBarraPrincipal);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "frmSeguridad";
             this.Text = "Seguridad de usuarios";

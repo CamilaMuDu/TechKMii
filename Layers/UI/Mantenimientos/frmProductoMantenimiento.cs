@@ -730,5 +730,10 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 MessageBox.Show("Error al cargar producto: " + er.Message);
             }
         }
+
+        private void nudCantStock_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
