@@ -43,7 +43,7 @@
             // txtDescripcionProducto
             // 
             this.txtDescripcionProducto.Location = new System.Drawing.Point(408, 119);
-            this.txtDescripcionProducto.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.txtDescripcionProducto.Margin = new System.Windows.Forms.Padding(6);
             this.txtDescripcionProducto.Name = "txtDescripcionProducto";
             this.txtDescripcionProducto.Size = new System.Drawing.Size(506, 31);
             this.txtDescripcionProducto.TabIndex = 4;
@@ -52,7 +52,7 @@
             // lblDescripcionProducto
             // 
             this.lblDescripcionProducto.AutoSize = true;
-            this.lblDescripcionProducto.BackColor = System.Drawing.SystemColors.Control;
+            this.lblDescripcionProducto.BackColor = System.Drawing.Color.Plum;
             this.lblDescripcionProducto.Location = new System.Drawing.Point(60, 119);
             this.lblDescripcionProducto.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDescripcionProducto.Name = "lblDescripcionProducto";
@@ -62,9 +62,9 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.BackColor = System.Drawing.Color.LightGreen;
+            this.btnSalir.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.btnSalir.Location = new System.Drawing.Point(1016, 433);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(6);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(140, 58);
             this.btnSalir.TabIndex = 7;
@@ -75,9 +75,9 @@
             // 
             // btnMostrarReporte
             // 
-            this.btnMostrarReporte.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnMostrarReporte.BackColor = System.Drawing.Color.SkyBlue;
             this.btnMostrarReporte.Location = new System.Drawing.Point(642, 258);
-            this.btnMostrarReporte.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnMostrarReporte.Margin = new System.Windows.Forms.Padding(6);
             this.btnMostrarReporte.Name = "btnMostrarReporte";
             this.btnMostrarReporte.Size = new System.Drawing.Size(272, 113);
             this.btnMostrarReporte.TabIndex = 6;
@@ -88,7 +88,7 @@
             // 
             // grbOrdenamiento
             // 
-            this.grbOrdenamiento.BackColor = System.Drawing.SystemColors.Control;
+            this.grbOrdenamiento.BackColor = System.Drawing.Color.Plum;
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoProveedor);
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoMarca);
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoTipoDispositivo);
@@ -149,7 +149,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnMostrarReporte);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmReporteProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Productos";

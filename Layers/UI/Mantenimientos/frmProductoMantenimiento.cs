@@ -24,10 +24,13 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
         IProductoBLL productoBll = new ProductoBLL();
         Producto producto = null;
+
         private byte[] fotoBytes = null;
         private byte[] documentoBytes = null;
         private string nombreDocumento = "";
         private int ProductoIdActual = 0;
+        private string rutaDocumentoTemporal = "";
+
         private List<Producto> listaProductos = new List<Producto>();
 
         ITipoDispositivoBLL tipoDispositivoBLL = new TipoDispositivoBLL();
@@ -109,6 +112,10 @@ namespace TechKMii.Layers.UI.Mantenimientos
             fotoBytes = null;
             documentoBytes = null;
             nombreDocumento = "";
+
+            lblVistaPrevia.Visible = false;
+            lblVistaPrevia.ForeColor = Color.Green;
+            lblVistaPrevia.Cursor = Cursors.Hand;
         }
         private void ConfigurarColumnasGrid()
         {
@@ -585,6 +592,11 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     {
                         documentoBytes = File.ReadAllBytes(open.FileName);
                         nombreDocumento = Path.GetFileName(open.FileName);
+                        rutaDocumentoTemporal = open.FileName;
+
+                        lblVistaPrevia.Text = "Vista Previa";
+                        lblVistaPrevia.ForeColor = Color.Green;
+                        lblVistaPrevia.Visible = true;
 
                         MessageBox.Show($"Se agregó el documento '{nombreDocumento}' correctamente",
                             "Documento cargado",
@@ -604,6 +616,42 @@ namespace TechKMii.Layers.UI.Mantenimientos
             }
         }
 
+        private void lblVistaPrevia_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (documentoBytes == null || documentoBytes.Length == 0)
+                {
+                    MessageBox.Show("No hay documento adjunto para abrir.",
+                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string extension = Path.GetExtension(nombreDocumento);
+
+                if (string.IsNullOrWhiteSpace(extension))
+                    extension = ".tmp";
+
+                string rutaTemporal = Path.Combine(
+                    Path.GetTempPath(),
+                    Guid.NewGuid().ToString() + extension
+                );
+
+                File.WriteAllBytes(rutaTemporal, documentoBytes);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                {
+                    FileName = rutaTemporal,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo abrir el documento: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void LimpiarFormulario()
         {
             ProductoIdActual = 0;
@@ -612,6 +660,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
             fotoBytes = null;
             documentoBytes = null;
             nombreDocumento = "";
+            rutaDocumentoTemporal = "";
 
             txtNombre.Clear();
             txtModelo.Clear();
@@ -633,6 +682,9 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 cmbEstado.SelectedIndex = -1;
 
             pcbFoto.Image = null;
+
+            lblVistaPrevia.Visible = false;
+            lblVistaPrevia.Text = "Vista Previa";
         }
 
         private void tspNuevo_Click(object sender, EventArgs e)
@@ -721,6 +773,20 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
                 // Documento
                 documentoBytes = p.DocEspecificaciones;
+
+                if (documentoBytes != null && documentoBytes.Length > 0)
+                {
+                    if (string.IsNullOrWhiteSpace(nombreDocumento))
+                        nombreDocumento = "DocumentoAdjunto.pdf";
+
+                    lblVistaPrevia.Text = "Vista Previa";
+                    lblVistaPrevia.ForeColor = Color.Green;
+                    lblVistaPrevia.Visible = true;
+                }
+                else
+                {
+                    lblVistaPrevia.Visible = false;
+                }
 
                 MessageBox.Show("Producto cargado correctamente",
                     "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);

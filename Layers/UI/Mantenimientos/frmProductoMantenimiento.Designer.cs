@@ -65,6 +65,7 @@
             this.txtCodigoIndustria = new System.Windows.Forms.TextBox();
             this.nudCantStock = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
+            this.lblVistaPrevia = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosProducto)).BeginInit();
@@ -84,7 +85,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(2068, 42);
+            this.toolStrip1.Size = new System.Drawing.Size(2068, 50);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -93,7 +94,7 @@
             this.tspNuevo.Image = ((System.Drawing.Image)(resources.GetObject("tspNuevo.Image")));
             this.tspNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspNuevo.Name = "tspNuevo";
-            this.tspNuevo.Size = new System.Drawing.Size(121, 36);
+            this.tspNuevo.Size = new System.Drawing.Size(121, 44);
             this.tspNuevo.Text = "Nuevo";
             this.tspNuevo.Click += new System.EventHandler(this.tspNuevo_Click);
             // 
@@ -102,7 +103,7 @@
             this.tspEditar.Image = ((System.Drawing.Image)(resources.GetObject("tspEditar.Image")));
             this.tspEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspEditar.Name = "tspEditar";
-            this.tspEditar.Size = new System.Drawing.Size(110, 44);
+            this.tspEditar.Size = new System.Drawing.Size(110, 36);
             this.tspEditar.Text = "Editar";
             this.tspEditar.Click += new System.EventHandler(this.tspEditar_Click);
             // 
@@ -111,7 +112,7 @@
             this.tspBorrar.Image = ((System.Drawing.Image)(resources.GetObject("tspBorrar.Image")));
             this.tspBorrar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspBorrar.Name = "tspBorrar";
-            this.tspBorrar.Size = new System.Drawing.Size(114, 44);
+            this.tspBorrar.Size = new System.Drawing.Size(114, 36);
             this.tspBorrar.Text = "Borrar";
             this.tspBorrar.Click += new System.EventHandler(this.tspBorrar_Click);
             // 
@@ -120,7 +121,7 @@
             this.tspBuscarProduto.Image = ((System.Drawing.Image)(resources.GetObject("tspBuscarProduto.Image")));
             this.tspBuscarProduto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspBuscarProduto.Name = "tspBuscarProduto";
-            this.tspBuscarProduto.Size = new System.Drawing.Size(222, 44);
+            this.tspBuscarProduto.Size = new System.Drawing.Size(222, 36);
             this.tspBuscarProduto.Text = "Buscar Producto";
             this.tspBuscarProduto.Click += new System.EventHandler(this.tspBuscarProduto_Click);
             // 
@@ -129,7 +130,7 @@
             this.tspSalir.Image = ((System.Drawing.Image)(resources.GetObject("tspSalir.Image")));
             this.tspSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspSalir.Name = "tspSalir";
-            this.tspSalir.Size = new System.Drawing.Size(95, 44);
+            this.tspSalir.Size = new System.Drawing.Size(95, 36);
             this.tspSalir.Text = "Salir";
             this.tspSalir.Click += new System.EventHandler(this.tspSalir_Click);
             // 
@@ -147,7 +148,7 @@
             // 
             this.pcbFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pcbFoto.Location = new System.Drawing.Point(36, 129);
-            this.pcbFoto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pcbFoto.Margin = new System.Windows.Forms.Padding(4);
             this.pcbFoto.Name = "pcbFoto";
             this.pcbFoto.Size = new System.Drawing.Size(302, 279);
             this.pcbFoto.TabIndex = 3;
@@ -248,7 +249,7 @@
             this.dgvDatosProducto.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDatosProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatosProducto.Location = new System.Drawing.Point(1060, 75);
-            this.dgvDatosProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvDatosProducto.Margin = new System.Windows.Forms.Padding(4);
             this.dgvDatosProducto.Name = "dgvDatosProducto";
             this.dgvDatosProducto.RowHeadersWidth = 82;
             this.dgvDatosProducto.RowTemplate.Height = 33;
@@ -270,7 +271,7 @@
             // 
             this.txtNombre.AcceptsReturn = true;
             this.txtNombre.Location = new System.Drawing.Point(248, 438);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(4);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(448, 31);
             this.txtNombre.TabIndex = 17;
@@ -279,7 +280,7 @@
             // 
             this.cmbTipoDispositivo.FormattingEnabled = true;
             this.cmbTipoDispositivo.Location = new System.Drawing.Point(248, 492);
-            this.cmbTipoDispositivo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbTipoDispositivo.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoDispositivo.Name = "cmbTipoDispositivo";
             this.cmbTipoDispositivo.Size = new System.Drawing.Size(448, 33);
             this.cmbTipoDispositivo.TabIndex = 18;
@@ -288,7 +289,7 @@
             // 
             this.cmbProveedor.FormattingEnabled = true;
             this.cmbProveedor.Location = new System.Drawing.Point(248, 548);
-            this.cmbProveedor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbProveedor.Margin = new System.Windows.Forms.Padding(4);
             this.cmbProveedor.Name = "cmbProveedor";
             this.cmbProveedor.Size = new System.Drawing.Size(448, 33);
             this.cmbProveedor.TabIndex = 19;
@@ -297,7 +298,7 @@
             // 
             this.cmbMarca.FormattingEnabled = true;
             this.cmbMarca.Location = new System.Drawing.Point(248, 606);
-            this.cmbMarca.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbMarca.Margin = new System.Windows.Forms.Padding(4);
             this.cmbMarca.Name = "cmbMarca";
             this.cmbMarca.Size = new System.Drawing.Size(448, 33);
             this.cmbMarca.TabIndex = 20;
@@ -305,7 +306,7 @@
             // txtModelo
             // 
             this.txtModelo.Location = new System.Drawing.Point(248, 663);
-            this.txtModelo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtModelo.Margin = new System.Windows.Forms.Padding(4);
             this.txtModelo.Name = "txtModelo";
             this.txtModelo.Size = new System.Drawing.Size(448, 31);
             this.txtModelo.TabIndex = 21;
@@ -313,7 +314,7 @@
             // txtPrecio
             // 
             this.txtPrecio.Location = new System.Drawing.Point(248, 719);
-            this.txtPrecio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPrecio.Margin = new System.Windows.Forms.Padding(4);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(240, 31);
             this.txtPrecio.TabIndex = 22;
@@ -321,7 +322,7 @@
             // txtColor
             // 
             this.txtColor.Location = new System.Drawing.Point(248, 775);
-            this.txtColor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtColor.Margin = new System.Windows.Forms.Padding(4);
             this.txtColor.Name = "txtColor";
             this.txtColor.Size = new System.Drawing.Size(240, 31);
             this.txtColor.TabIndex = 23;
@@ -329,7 +330,7 @@
             // txtCaracteristicas
             // 
             this.txtCaracteristicas.Location = new System.Drawing.Point(248, 831);
-            this.txtCaracteristicas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCaracteristicas.Margin = new System.Windows.Forms.Padding(4);
             this.txtCaracteristicas.Multiline = true;
             this.txtCaracteristicas.Name = "txtCaracteristicas";
             this.txtCaracteristicas.Size = new System.Drawing.Size(448, 64);
@@ -338,7 +339,7 @@
             // txtExtras
             // 
             this.txtExtras.Location = new System.Drawing.Point(248, 919);
-            this.txtExtras.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtExtras.Margin = new System.Windows.Forms.Padding(4);
             this.txtExtras.Multiline = true;
             this.txtExtras.Name = "txtExtras";
             this.txtExtras.Size = new System.Drawing.Size(448, 64);
@@ -348,7 +349,7 @@
             // 
             this.cmbEstado.FormattingEnabled = true;
             this.cmbEstado.Location = new System.Drawing.Point(248, 1006);
-            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbEstado.Margin = new System.Windows.Forms.Padding(4);
             this.cmbEstado.Name = "cmbEstado";
             this.cmbEstado.Size = new System.Drawing.Size(448, 33);
             this.cmbEstado.TabIndex = 26;
@@ -357,9 +358,9 @@
             // 
             this.btnAdjuntarDocumento.BackColor = System.Drawing.Color.Plum;
             this.btnAdjuntarDocumento.Location = new System.Drawing.Point(736, 438);
-            this.btnAdjuntarDocumento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAdjuntarDocumento.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdjuntarDocumento.Name = "btnAdjuntarDocumento";
-            this.btnAdjuntarDocumento.Size = new System.Drawing.Size(200, 94);
+            this.btnAdjuntarDocumento.Size = new System.Drawing.Size(256, 58);
             this.btnAdjuntarDocumento.TabIndex = 29;
             this.btnAdjuntarDocumento.Text = "Adjuntar Documento";
             this.btnAdjuntarDocumento.UseVisualStyleBackColor = false;
@@ -370,7 +371,7 @@
             this.btnAgregarProducto.BackColor = System.Drawing.Color.Plum;
             this.btnAgregarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.Location = new System.Drawing.Point(736, 944);
-            this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(286, 94);
             this.btnAgregarProducto.TabIndex = 30;
@@ -382,7 +383,7 @@
             // 
             this.btnCargarFoto.BackColor = System.Drawing.Color.Plum;
             this.btnCargarFoto.Location = new System.Drawing.Point(364, 356);
-            this.btnCargarFoto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCargarFoto.Margin = new System.Windows.Forms.Padding(4);
             this.btnCargarFoto.Name = "btnCargarFoto";
             this.btnCargarFoto.Size = new System.Drawing.Size(196, 52);
             this.btnCargarFoto.TabIndex = 31;
@@ -403,7 +404,7 @@
             // txtCodigoIndustria
             // 
             this.txtCodigoIndustria.Location = new System.Drawing.Point(707, 144);
-            this.txtCodigoIndustria.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCodigoIndustria.Margin = new System.Windows.Forms.Padding(4);
             this.txtCodigoIndustria.Name = "txtCodigoIndustria";
             this.txtCodigoIndustria.Size = new System.Drawing.Size(308, 31);
             this.txtCodigoIndustria.TabIndex = 34;
@@ -428,12 +429,23 @@
             this.label11.TabIndex = 14;
             this.label11.Text = "Cantidad en Stock";
             // 
+            // lblVistaPrevia
+            // 
+            this.lblVistaPrevia.AutoSize = true;
+            this.lblVistaPrevia.Location = new System.Drawing.Point(800, 500);
+            this.lblVistaPrevia.Name = "lblVistaPrevia";
+            this.lblVistaPrevia.Size = new System.Drawing.Size(127, 25);
+            this.lblVistaPrevia.TabIndex = 35;
+            this.lblVistaPrevia.Text = "Vista Previa";
+            this.lblVistaPrevia.Click += new System.EventHandler(this.lblVistaPrevia_Click);
+            // 
             // frmProductoMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(2068, 1062);
+            this.Controls.Add(this.lblVistaPrevia);
             this.Controls.Add(this.txtCodigoIndustria);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.btnCargarFoto);
@@ -466,7 +478,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmProductoMantenimiento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mantenimiento de Producto";
@@ -519,5 +531,6 @@
         private System.Windows.Forms.TextBox txtCodigoIndustria;
         private System.Windows.Forms.NumericUpDown nudCantStock;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblVistaPrevia;
     }
 }

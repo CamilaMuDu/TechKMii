@@ -16,5 +16,10 @@ namespace TechKMii.Layers.UI.Reportes
         {
             InitializeComponent();
         }
+
+        private void btnGuardarGrafico_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -69,7 +69,6 @@
             this.acercaDeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1476, 42);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -87,7 +86,7 @@
             // 
             this.usuariosToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
-            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.usuariosToolStripMenuItem.Size = new System.Drawing.Size(288, 44);
             this.usuariosToolStripMenuItem.Text = "Usuarios";
             this.usuariosToolStripMenuItem.Click += new System.EventHandler(this.usuariosToolStripMenuItem_Click);
             // 
@@ -95,7 +94,7 @@
             // 
             this.cerrarSesiónToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.cerrarSesiónToolStripMenuItem.Name = "cerrarSesiónToolStripMenuItem";
-            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
+            this.cerrarSesiónToolStripMenuItem.Size = new System.Drawing.Size(288, 44);
             this.cerrarSesiónToolStripMenuItem.Text = "Cerrar Sesión";
             this.cerrarSesiónToolStripMenuItem.Click += new System.EventHandler(this.cerrarSesiónToolStripMenuItem_Click);
             // 
@@ -193,6 +192,7 @@
             this.reporteDeClienteToolStripMenuItem.Name = "reporteDeClienteToolStripMenuItem";
             this.reporteDeClienteToolStripMenuItem.Size = new System.Drawing.Size(377, 44);
             this.reporteDeClienteToolStripMenuItem.Text = "Reporte de Clientes";
+            this.reporteDeClienteToolStripMenuItem.Click += new System.EventHandler(this.reporteDeClienteToolStripMenuItem_Click);
             // 
             // reporteDePorductosToolStripMenuItem
             // 
@@ -208,6 +208,7 @@
             this.reporteDeVentasToolStripMenuItem.Name = "reporteDeVentasToolStripMenuItem";
             this.reporteDeVentasToolStripMenuItem.Size = new System.Drawing.Size(377, 44);
             this.reporteDeVentasToolStripMenuItem.Text = "Reporte de Ventas";
+            this.reporteDeVentasToolStripMenuItem.Click += new System.EventHandler(this.reporteDeVentasToolStripMenuItem_Click);
             // 
             // reporteDeFacturasToolStripMenuItem
             // 
@@ -260,7 +261,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMenúPrincipal";
             this.Text = "Menú Principal";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

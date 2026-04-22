@@ -221,5 +221,17 @@ namespace TechKMii
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void reporteDeClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmReporteCliente reporteCliente = new frmReporteCliente();
+            reporteCliente.ShowDialog();
+        }
+
+        private void reporteDeVentasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmReporteGrafico ReporteGrafico = new frmReporteGrafico();
+            ReporteGrafico.ShowDialog();
+        }
     }
 }

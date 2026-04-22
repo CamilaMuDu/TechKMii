@@ -68,7 +68,7 @@
             // dtpFechaFinal
             // 
             this.dtpFechaFinal.Location = new System.Drawing.Point(558, 798);
-            this.dtpFechaFinal.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dtpFechaFinal.Margin = new System.Windows.Forms.Padding(6);
             this.dtpFechaFinal.Name = "dtpFechaFinal";
             this.dtpFechaFinal.Size = new System.Drawing.Size(396, 31);
             this.dtpFechaFinal.TabIndex = 18;
@@ -77,7 +77,7 @@
             // dtpFechaInicial
             // 
             this.dtpFechaInicial.Location = new System.Drawing.Point(562, 712);
-            this.dtpFechaInicial.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.dtpFechaInicial.Margin = new System.Windows.Forms.Padding(6);
             this.dtpFechaInicial.Name = "dtpFechaInicial";
             this.dtpFechaInicial.Size = new System.Drawing.Size(396, 31);
             this.dtpFechaInicial.TabIndex = 17;
@@ -97,16 +97,16 @@
             // 
             this.cmbTipoGrafico.FormattingEnabled = true;
             this.cmbTipoGrafico.Location = new System.Drawing.Point(24, 762);
-            this.cmbTipoGrafico.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.cmbTipoGrafico.Margin = new System.Windows.Forms.Padding(6);
             this.cmbTipoGrafico.Name = "cmbTipoGrafico";
             this.cmbTipoGrafico.Size = new System.Drawing.Size(280, 33);
             this.cmbTipoGrafico.TabIndex = 14;
             // 
             // btnSalir
             // 
-            this.btnSalir.BackColor = System.Drawing.Color.LightGreen;
+            this.btnSalir.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.btnSalir.Location = new System.Drawing.Point(1524, 856);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(6);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(128, 56);
             this.btnSalir.TabIndex = 13;
@@ -116,11 +116,11 @@
             // 
             // btnMostrarGrafico
             // 
-            this.btnMostrarGrafico.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.btnMostrarGrafico.Location = new System.Drawing.Point(1068, 717);
-            this.btnMostrarGrafico.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnMostrarGrafico.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnMostrarGrafico.Location = new System.Drawing.Point(1111, 721);
+            this.btnMostrarGrafico.Margin = new System.Windows.Forms.Padding(6);
             this.btnMostrarGrafico.Name = "btnMostrarGrafico";
-            this.btnMostrarGrafico.Size = new System.Drawing.Size(220, 87);
+            this.btnMostrarGrafico.Size = new System.Drawing.Size(202, 87);
             this.btnMostrarGrafico.TabIndex = 12;
             this.btnMostrarGrafico.Text = "Mostrar Grafico";
             this.btnMostrarGrafico.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -133,7 +133,7 @@
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(22, 21);
-            this.chart1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chart1.Margin = new System.Windows.Forms.Padding(4);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
@@ -145,15 +145,16 @@
             // 
             // btnGuardarGrafico
             // 
-            this.btnGuardarGrafico.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.btnGuardarGrafico.Location = new System.Drawing.Point(1348, 717);
-            this.btnGuardarGrafico.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnGuardarGrafico.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnGuardarGrafico.Location = new System.Drawing.Point(1339, 747);
+            this.btnGuardarGrafico.Margin = new System.Windows.Forms.Padding(6);
             this.btnGuardarGrafico.Name = "btnGuardarGrafico";
-            this.btnGuardarGrafico.Size = new System.Drawing.Size(216, 87);
+            this.btnGuardarGrafico.Size = new System.Drawing.Size(138, 61);
             this.btnGuardarGrafico.TabIndex = 16;
-            this.btnGuardarGrafico.Text = "Guardar Grafico";
+            this.btnGuardarGrafico.Text = "Guardar";
             this.btnGuardarGrafico.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnGuardarGrafico.UseVisualStyleBackColor = false;
+            this.btnGuardarGrafico.Click += new System.EventHandler(this.btnGuardarGrafico_Click);
             // 
             // frmReporteGrafico
             // 
@@ -172,7 +173,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnMostrarGrafico);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmReporteGrafico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Gráfico de Ventas";

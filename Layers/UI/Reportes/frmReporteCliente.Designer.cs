@@ -30,16 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReporteCliente));
             this.label1 = new System.Windows.Forms.Label();
-            this.txtIentificacionCliente = new System.Windows.Forms.TextBox();
+            this.txtIdentificacionCliente = new System.Windows.Forms.TextBox();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnMostrarReporte = new System.Windows.Forms.Button();
             this.rdbOrdenadoCedula = new System.Windows.Forms.RadioButton();
             this.rdbOrdenadoNombre = new System.Windows.Forms.RadioButton();
-            this.grbMostrar = new System.Windows.Forms.GroupBox();
-            this.rdbCorreo = new System.Windows.Forms.RadioButton();
-            this.rdbPantalla = new System.Windows.Forms.RadioButton();
             this.grbOrdenamiento = new System.Windows.Forms.GroupBox();
-            this.grbMostrar.SuspendLayout();
             this.grbOrdenamiento.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,19 +49,20 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Descripcion del Cliente";
             // 
-            // txtIentificacionCliente
+            // txtIdentificacionCliente
             // 
-            this.txtIentificacionCliente.Location = new System.Drawing.Point(388, 144);
-            this.txtIentificacionCliente.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.txtIentificacionCliente.Name = "txtIentificacionCliente";
-            this.txtIentificacionCliente.Size = new System.Drawing.Size(720, 31);
-            this.txtIentificacionCliente.TabIndex = 14;
+            this.txtIdentificacionCliente.Location = new System.Drawing.Point(388, 144);
+            this.txtIdentificacionCliente.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtIdentificacionCliente.Name = "txtIdentificacionCliente";
+            this.txtIdentificacionCliente.Size = new System.Drawing.Size(720, 31);
+            this.txtIdentificacionCliente.TabIndex = 14;
+            this.txtIdentificacionCliente.TextChanged += new System.EventHandler(this.txtIentificacionCliente_TextChanged);
             // 
             // btnSalir
             // 
-            this.btnSalir.BackColor = System.Drawing.Color.LightGreen;
-            this.btnSalir.Location = new System.Drawing.Point(1126, 492);
-            this.btnSalir.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnSalir.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnSalir.Location = new System.Drawing.Point(1083, 407);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(6);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(142, 58);
             this.btnSalir.TabIndex = 12;
@@ -76,15 +73,16 @@
             // 
             // btnMostrarReporte
             // 
-            this.btnMostrarReporte.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.btnMostrarReporte.Location = new System.Drawing.Point(828, 340);
-            this.btnMostrarReporte.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.btnMostrarReporte.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnMostrarReporte.Location = new System.Drawing.Point(714, 267);
+            this.btnMostrarReporte.Margin = new System.Windows.Forms.Padding(6);
             this.btnMostrarReporte.Name = "btnMostrarReporte";
             this.btnMostrarReporte.Size = new System.Drawing.Size(260, 96);
             this.btnMostrarReporte.TabIndex = 11;
             this.btnMostrarReporte.Text = "Mostrar Reporte";
             this.btnMostrarReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMostrarReporte.UseVisualStyleBackColor = false;
+            this.btnMostrarReporte.Click += new System.EventHandler(this.btnMostrarReporte_Click);
             // 
             // rdbOrdenadoCedula
             // 
@@ -108,50 +106,15 @@
             this.rdbOrdenadoNombre.Text = "Ordenado por Nombre";
             this.rdbOrdenadoNombre.UseVisualStyleBackColor = true;
             // 
-            // grbMostrar
-            // 
-            this.grbMostrar.Controls.Add(this.rdbCorreo);
-            this.grbMostrar.Controls.Add(this.rdbPantalla);
-            this.grbMostrar.Location = new System.Drawing.Point(440, 313);
-            this.grbMostrar.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.grbMostrar.Name = "grbMostrar";
-            this.grbMostrar.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.grbMostrar.Size = new System.Drawing.Size(274, 156);
-            this.grbMostrar.TabIndex = 16;
-            this.grbMostrar.TabStop = false;
-            this.grbMostrar.Text = "Mostrar";
-            // 
-            // rdbCorreo
-            // 
-            this.rdbCorreo.AutoSize = true;
-            this.rdbCorreo.Location = new System.Drawing.Point(30, 92);
-            this.rdbCorreo.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.rdbCorreo.Name = "rdbCorreo";
-            this.rdbCorreo.Size = new System.Drawing.Size(108, 29);
-            this.rdbCorreo.TabIndex = 1;
-            this.rdbCorreo.Text = "Correo";
-            this.rdbCorreo.UseVisualStyleBackColor = true;
-            // 
-            // rdbPantalla
-            // 
-            this.rdbPantalla.AutoSize = true;
-            this.rdbPantalla.Location = new System.Drawing.Point(30, 50);
-            this.rdbPantalla.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.rdbPantalla.Name = "rdbPantalla";
-            this.rdbPantalla.Size = new System.Drawing.Size(85, 29);
-            this.rdbPantalla.TabIndex = 0;
-            this.rdbPantalla.Text = "PDF";
-            this.rdbPantalla.UseVisualStyleBackColor = true;
-            // 
             // grbOrdenamiento
             // 
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoCedula);
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoNombre);
-            this.grbOrdenamiento.Location = new System.Drawing.Point(92, 313);
+            this.grbOrdenamiento.Location = new System.Drawing.Point(93, 247);
             this.grbOrdenamiento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.grbOrdenamiento.Name = "grbOrdenamiento";
             this.grbOrdenamiento.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.grbOrdenamiento.Size = new System.Drawing.Size(300, 156);
+            this.grbOrdenamiento.Size = new System.Drawing.Size(300, 148);
             this.grbOrdenamiento.TabIndex = 15;
             this.grbOrdenamiento.TabStop = false;
             this.grbOrdenamiento.Text = "Ordenamiento";
@@ -161,20 +124,18 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Plum;
-            this.ClientSize = new System.Drawing.Size(1304, 565);
-            this.Controls.Add(this.txtIentificacionCliente);
+            this.ClientSize = new System.Drawing.Size(1240, 480);
+            this.Controls.Add(this.txtIdentificacionCliente);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnMostrarReporte);
-            this.Controls.Add(this.grbMostrar);
             this.Controls.Add(this.grbOrdenamiento);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmReporteCliente";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Clientes";
-            this.grbMostrar.ResumeLayout(false);
-            this.grbMostrar.PerformLayout();
+            this.Load += new System.EventHandler(this.frmReporteCliente_Load);
             this.grbOrdenamiento.ResumeLayout(false);
             this.grbOrdenamiento.PerformLayout();
             this.ResumeLayout(false);
@@ -185,14 +146,11 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtIentificacionCliente;
+        private System.Windows.Forms.TextBox txtIdentificacionCliente;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnMostrarReporte;
         private System.Windows.Forms.RadioButton rdbOrdenadoCedula;
         private System.Windows.Forms.RadioButton rdbOrdenadoNombre;
-        private System.Windows.Forms.GroupBox grbMostrar;
-        private System.Windows.Forms.RadioButton rdbCorreo;
-        private System.Windows.Forms.RadioButton rdbPantalla;
         private System.Windows.Forms.GroupBox grbOrdenamiento;
     }
 }
