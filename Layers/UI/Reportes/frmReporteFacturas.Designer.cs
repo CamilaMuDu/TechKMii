@@ -39,6 +39,7 @@
             this.ClientSize = new System.Drawing.Size(1285, 542);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmReporteFacturas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Facturas";
             this.ResumeLayout(false);
 

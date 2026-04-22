@@ -39,15 +39,16 @@ namespace TechKMii.Layers.UI.Login
         {
             epError.Clear();
             Usuario oUsuario = null;
+
             try
             {
-                //Validacion de datos 
                 if (string.IsNullOrEmpty(this.txtNombre.Text))
                 {
-                    epError.SetError(txtNombre, " El usuario es requerido");
+                    epError.SetError(txtNombre, "El usuario es requerido");
                     this.txtNombre.Focus();
                     return;
                 }
+
                 if (string.IsNullOrEmpty(this.txtContrasenna.Text))
                 {
                     epError.SetError(txtContrasenna, "La contraseña es requerida");
@@ -55,19 +56,18 @@ namespace TechKMii.Layers.UI.Login
                     return;
                 }
 
-                //Creacion de instancia con los datos 
                 oUsuario = usuariobll.Login(this.txtNombre.Text, this.txtContrasenna.Text);
 
                 if (oUsuario == null)
                 {
-                    //validacion contador de intentos fallidos
                     ++contador;
                     MessageBox.Show("Error en el acceso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     if (contador == 3)
                     {
+                        MessageBox.Show("Se equivocó en 3 ocasiones, el Sistema se cerrará por seguridad",
+                                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                        MessageBox.Show("Se equivocó en 3 ocasiones, el Sistema se Cerrará por seguridad", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         _myLogControlEventos.WarnFormat("Se equivocó + de 3 ocasiones Login: {0}", this.txtNombre.Text);
                         this.DialogResult = DialogResult.Cancel;
                         Application.Exit();
@@ -76,29 +76,39 @@ namespace TechKMii.Layers.UI.Login
                 }
                 else
                 {
-                    //valida configuracion del default en el app.config
                     Settings.Default.Usuario = oUsuario.UsuarioID;
                     Settings.Default.Nombre = oUsuario.Nombre.Trim();
                     Settings.Default.Rol = oUsuario.RolID.RolID.ToString();
+                    Settings.Default.Save();
 
-                    //conexion no async
                     bool respuesta = await EfectoConexion();
 
                     _myLogControlEventos.InfoFormat("Accedió a la aplicación :{0}", Settings.Default.Nombre);
-                    this.DialogResult = DialogResult.OK;
 
                     frmMenúPrincipal frmMenuPrincipal = new frmMenúPrincipal();
+
                     this.Hide();
                     frmMenuPrincipal.ShowDialog();
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+
+                    if (frmMenuPrincipal.CerrarSesion)
+                    {
+                        this.txtNombre.Clear();
+                        this.txtContrasenna.Clear();
+                        this.txtNombre.Focus();
+                        this.Show();
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
                 }
             }
             catch (Exception er)
             {
                 string msg = "";
                 _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
-                MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -134,6 +144,9 @@ namespace TechKMii.Layers.UI.Login
             {
                 this.Text = $"{this.Text}. Versión TechKMii : {Application.ProductVersion}";
                 _myLogControlEventos.InfoFormat("Inicio Login");
+
+                this.txtNombre.Clear();
+                this.txtContrasenna.Clear();
             }
             catch (Exception er)
             {

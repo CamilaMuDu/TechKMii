@@ -59,7 +59,9 @@ namespace TechKMii.Layers.UI.Procesos
             try
             {
                 // Obtener y mostrar el precio del dólar
-                StpVentaDolar.Text = "Venta Dolar : " + Dolarbll.GetVentaDolar().ToString("N2");
+                double tipoCambio = ObtenerTipoCambioSeguro();
+                StpVentaDolar.Text = "Venta Dolar : " + tipoCambio.ToString("N2");
+
                 if (usuarioActual != null)
                 {
                     txtUsuario.Text = usuarioActual.Nombre;
@@ -121,7 +123,7 @@ namespace TechKMii.Layers.UI.Procesos
                 return ms.ToArray();
             }
         }
-        //fin de los metodos 
+
 
         private void CargarCombos()
         {
@@ -187,7 +189,6 @@ namespace TechKMii.Layers.UI.Procesos
 
         }
 
-        //metodo para buscar un cliente por su identificacion
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
             try
@@ -367,28 +368,45 @@ namespace TechKMii.Layers.UI.Procesos
                     return;
                 }
 
-                if (cantidad > productoSeleccionado.CantidadStock)
+                FacturaDetalle detalleExistente = listaDetalle
+                    .FirstOrDefault(x => x.Producto.ProductoID == productoSeleccionado.ProductoID);
+
+                int cantidadActualEnLista = detalleExistente != null ? detalleExistente.Cantidad : 0;
+                int cantidadTotal = cantidadActualEnLista + cantidad;
+
+                if (cantidadTotal > productoSeleccionado.CantidadStock)
                 {
                     MessageBox.Show("No hay suficiente stock.");
                     return;
                 }
 
                 double precio = productoSeleccionado.Precio;
-                double subtotal = cantidad * precio;
-                double iva = subtotal * 0.13;
-                double total = subtotal + iva;
 
-                FacturaDetalle detalle = new FacturaDetalle
+                if (detalleExistente != null)
                 {
-                    Producto = productoSeleccionado,
-                    Cantidad = cantidad,
-                    Precio = precio,
-                    Subtotal = subtotal,
-                    IVA = iva,
-                    Total = total
-                };
+                    detalleExistente.Cantidad = cantidadTotal;
+                    detalleExistente.Subtotal = detalleExistente.Cantidad * precio;
+                    detalleExistente.IVA = detalleExistente.Subtotal * 0.13;
+                    detalleExistente.Total = detalleExistente.Subtotal + detalleExistente.IVA;
+                }
+                else
+                {
+                    double subtotal = cantidad * precio;
+                    double iva = subtotal * 0.13;
+                    double total = subtotal + iva;
 
-                listaDetalle.Add(detalle);
+                    FacturaDetalle detalle = new FacturaDetalle
+                    {
+                        Producto = productoSeleccionado,
+                        Cantidad = cantidad,
+                        Precio = precio,
+                        Subtotal = subtotal,
+                        IVA = iva,
+                        Total = total
+                    };
+
+                    listaDetalle.Add(detalle);
+                }
 
                 CargarGrid();
                 CalcularTotales();
@@ -428,7 +446,7 @@ namespace TechKMii.Layers.UI.Procesos
             double iva = listaDetalle.Sum(x => x.IVA);
             double totalCRC = listaDetalle.Sum(x => x.Total);
 
-            double tipoCambio = Dolarbll.GetVentaDolar();
+            double tipoCambio = ObtenerTipoCambioSeguro();
             double totalUSD = 0;
 
             if (tipoCambio > 0)
@@ -440,6 +458,8 @@ namespace TechKMii.Layers.UI.Procesos
             txtIVACRC.Text = iva.ToString("N2");
             txtTotalCRC.Text = totalCRC.ToString("N2");
             txtTotalUSD.Text = totalUSD.ToString("N2");
+
+            StpVentaDolar.Text = "Venta Dolar : " + tipoCambio.ToString("N2");
         }
 
         private void grbFacturacion_Enter(object sender, EventArgs e)
@@ -569,7 +589,7 @@ namespace TechKMii.Layers.UI.Procesos
                     metodoPago = TipoMetodoPago.SINPEMovil;
                 }
 
-                double tipoCambio = Dolarbll.GetVentaDolar();
+                double tipoCambio = ObtenerTipoCambioSeguro();
 
                 Factura oFactura = new Factura
                 {
@@ -626,8 +646,7 @@ namespace TechKMii.Layers.UI.Procesos
                     txtNoFactura.Text
                 );
 
-                string codigoQr = txtNoFactura.Text;
-                //string codigoQr = $"FAC:{txtNoFactura.Text};TOT:{oFactura.TotalCRC:N2}";
+                string codigoQr = txtNoFactura.Text;             
 
                 rutaPdfGlobal = FacturaDocumento.GenerarPDF(
                     oFactura,
@@ -639,6 +658,12 @@ namespace TechKMii.Layers.UI.Procesos
                 );
 
                 MessageBox.Show("Factura guardada correctamente.");
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                {
+                    FileName = rutaPdfGlobal,
+                    UseShellExecute = true
+                });
             }
             catch (Exception er)
             {
@@ -747,6 +772,98 @@ namespace TechKMii.Layers.UI.Procesos
                     msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
 
                 MessageBox.Show(er.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void tspNuevo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clienteSeleccionado = null;
+                txtCliente.Text = "";
+                txtCorreo.Text = "";
+                txtCliente.Tag = null;
+
+                productoSeleccionado = null;
+                txtProducto.Text = "";
+                txtPrecio.Text = "";
+                txtCantidad.Text = "";
+                txtCantidadStock.Text = "";
+
+                listaDetalle.Clear();
+                CargarGrid();
+
+                txtSubtotalCRC.Text = "0.00";
+                txtIVACRC.Text = "0.00";
+                txtTotalCRC.Text = "0.00";
+                txtTotalUSD.Text = "0.00";
+
+                rdbTarjeta.Checked = false;
+                rdbTransferencia.Checked = false;
+                rdbSINPE.Checked = false;
+
+                txtNumeroTarjeta.Text = "";
+                cmbBancoTarjeta.SelectedIndex = -1;
+                cmbTipoTarjeta.SelectedIndex = -1;
+
+                txtNumeroTransfer.Text = "";
+                cmbBancoTransferencia.SelectedIndex = -1;
+
+                txtNumeroSinpe.Text = "";
+                cmbBancoSINPE.SelectedIndex = -1;
+
+                ConfigurarMetodoPago();
+
+                cmbEstado.SelectedItem = EstadoFactura.Pendiente;
+
+                GenerarNumeroFactura();
+                dtpFecha.Value = DateTime.Now;
+
+                InicializarAreaFirma();
+
+                rutaPdfGlobal = "";
+                rutaXmlGlobal = "";
+
+                if (usuarioActual != null)
+                    txtUsuario.Text = usuarioActual.Nombre;
+                else
+                    txtUsuario.Text = "";
+
+                txtCliente.Focus();
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private double ObtenerTipoCambioSeguro()
+        {
+            try
+            {
+                double tipoCambio = Dolarbll.GetVentaDolar();
+
+                if (tipoCambio <= 0)
+                {
+                    throw new Exception("Tipo de cambio inválido");
+                }
+
+                return tipoCambio;
+            }
+            catch
+            {
+                MessageBox.Show(
+                    "El sistema del Banco Central no está disponible en este momento.\nSe utilizará un tipo de cambio por defecto.",
+                    "Tipo de cambio",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return 460.00; 
             }
         }
     }

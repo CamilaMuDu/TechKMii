@@ -26,6 +26,7 @@ namespace TechKMii
     {
         private static readonly ILog _myLogControlEventos = log4net.LogManager.GetLogger("MyControlEventos");
 
+        public bool CerrarSesion { get; set; } = false;
         public frmMenúPrincipal()
         {
             InitializeComponent();
@@ -64,7 +65,7 @@ namespace TechKMii
         private void tipoDeDispositivoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmTipoDispositivoMantenimiento tipoDispositivo = new frmTipoDispositivoMantenimiento();
-            tipoDispositivo.ShowDialog();   
+            tipoDispositivo.ShowDialog();
         }
 
         private void frmMenúPrincipal_Load(object sender, EventArgs e)
@@ -80,7 +81,7 @@ namespace TechKMii
 
                 _myLogControlEventos.InfoFormat("Conectado al Form Principal");
 
-                Seguridad(); 
+                Seguridad();
             }
             catch (Exception er)
             {
@@ -89,11 +90,11 @@ namespace TechKMii
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-            private void Seguridad()
+
+        private void Seguridad()
         {
             List<string> menus = new List<string>();
 
-            // Deshabilitar todo primero
             foreach (ToolStripItem opcionMenu in this.menuStrip1.Items)
             {
                 opcionMenu.Enabled = false;
@@ -108,17 +109,17 @@ namespace TechKMii
             }
 
             menus.Add("acercaDeToolStripMenuItem");
+            menus.Add("administraciónToolStripMenuItem"); 
 
-            // Rol 1 = Administrador
+            // Rol Administrador
             if (Settings.Default.Rol.Equals("1"))
             {
-                menus.Add("administraciónToolStripMenuItem");
                 menus.Add("mantenimientosToolStripMenuItem");
                 menus.Add("procesosToolStripMenuItem");
                 menus.Add("reportesToolStripMenuItem");
             }
 
-            // Rol 2 = Vendedor
+            // Rol Vendedor
             if (Settings.Default.Rol.Equals("2"))
             {
                 menus.Add("mantenimientosToolStripMenuItem");
@@ -126,13 +127,12 @@ namespace TechKMii
                 menus.Add("reportesToolStripMenuItem");
             }
 
-            // Rol 3 = Reportes
+            // Rol Reportes
             if (Settings.Default.Rol.Equals("3"))
             {
                 menus.Add("reportesToolStripMenuItem");
             }
 
-            // Habilitar solo lo permitido
             foreach (ToolStripItem opcionMenu in this.menuStrip1.Items)
             {
                 bool menuPermitido = menus.Exists(p =>
@@ -144,10 +144,15 @@ namespace TechKMii
                 {
                     foreach (ToolStripItem subItem in menuPadre.DropDownItems)
                     {
-                        // Si el menú padre está permitido, habilita también sus hijos
                         subItem.Enabled = menuPermitido;
                     }
                 }
+            }
+
+            if (administraciónToolStripMenuItem.Enabled)
+            {
+                cerrarSesiónToolStripMenuItem.Enabled = true;
+                usuariosToolStripMenuItem.Enabled = Settings.Default.Rol.Equals("1");
             }
         }
 
@@ -183,6 +188,38 @@ namespace TechKMii
         {
             frmReporteProducto reporteProducto = new frmReporteProducto();
             reporteProducto.ShowDialog();
+        }
+
+        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult r = MessageBox.Show(
+                    "¿Desea cerrar la sesión actual?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (r == DialogResult.No)
+                    return;
+
+                Settings.Default.Usuario = string.Empty;
+                Settings.Default.Nombre = string.Empty;
+                Settings.Default.Rol = string.Empty;
+                Settings.Default.Save();
+
+                _myLogControlEventos.Info("El usuario cerró sesión.");
+
+                CerrarSesion = true;
+                this.Close();
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

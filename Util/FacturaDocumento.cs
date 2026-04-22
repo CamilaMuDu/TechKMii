@@ -174,7 +174,6 @@ namespace TechKMii.Util
 
             QuestPDF.Settings.License = LicenseType.Community;
 
-            byte[] qrBytes = null;
             byte[] firmaBytes = factura.Firma;
             byte[] logoBytes = null;
 
@@ -183,7 +182,7 @@ namespace TechKMii.Util
             MemoryStream msQr = new MemoryStream();
             qrImage.Save(msQr, System.Drawing.Imaging.ImageFormat.Png);
 
-            // LOGO
+            // LOGO        
             string rutaLogo = Path.Combine(basePath, "Logo.png");
             if (File.Exists(rutaLogo))
             {
@@ -221,7 +220,7 @@ namespace TechKMii.Util
                             });
                         });
 
-                        // DATOS PRINCIPALES
+                        //DATOS FACTURA
                         col.Item().PaddingTop(5).Column(info =>
                         {
                             info.Spacing(3);
@@ -245,7 +244,6 @@ namespace TechKMii.Util
                                 info.Item().Text($"SINPE: {factura.NumeroSinpe}");
                         });
 
-                        // TABLA DETALLE
                         col.Item().PaddingTop(10).Table(tabla =>
                         {
                             tabla.ColumnsDefinition(columns =>
@@ -281,7 +279,6 @@ namespace TechKMii.Util
                             }
                         });
 
-                        // TOTALES
                         col.Item().PaddingTop(10).Row(row =>
                         {
                             row.RelativeItem();
@@ -320,14 +317,12 @@ namespace TechKMii.Util
                             });
                         });
 
-                        // QR ABAJO DE LA TABLA Y CENTRADO
                         col.Item().PaddingTop(20).AlignCenter().Row(e =>
                         {
                             if (msQr != null)
                                 e.ConstantItem(90).Image(msQr.ToArray());
                         });
 
-                        // EMPUJA EL PIE HACIA ABAJO
                         col.Item().ExtendVertical();
                     });
 
@@ -356,7 +351,8 @@ namespace TechKMii.Util
             }).GeneratePdf();
 
             File.WriteAllBytes(rutaPdf, pdfBytes);
-            Process.Start(rutaPdf);
+
+            File.WriteAllBytes(rutaPdf, pdfBytes);
             return rutaPdf;
         }
         private static IContainer EstiloHeaderTabla(IContainer container)

@@ -426,7 +426,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Util\Factura.xslt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

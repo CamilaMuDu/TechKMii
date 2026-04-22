@@ -42,9 +42,10 @@
             // 
             // txtDescripcionProducto
             // 
-            this.txtDescripcionProducto.Location = new System.Drawing.Point(204, 62);
+            this.txtDescripcionProducto.Location = new System.Drawing.Point(408, 119);
+            this.txtDescripcionProducto.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.txtDescripcionProducto.Name = "txtDescripcionProducto";
-            this.txtDescripcionProducto.Size = new System.Drawing.Size(255, 20);
+            this.txtDescripcionProducto.Size = new System.Drawing.Size(506, 31);
             this.txtDescripcionProducto.TabIndex = 4;
             this.txtDescripcionProducto.TextChanged += new System.EventHandler(this.txtDescripcionProducto_TextChanged);
             // 
@@ -52,18 +53,20 @@
             // 
             this.lblDescripcionProducto.AutoSize = true;
             this.lblDescripcionProducto.BackColor = System.Drawing.SystemColors.Control;
-            this.lblDescripcionProducto.Location = new System.Drawing.Point(30, 62);
+            this.lblDescripcionProducto.Location = new System.Drawing.Point(60, 119);
+            this.lblDescripcionProducto.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblDescripcionProducto.Name = "lblDescripcionProducto";
-            this.lblDescripcionProducto.Size = new System.Drawing.Size(126, 13);
+            this.lblDescripcionProducto.Size = new System.Drawing.Size(252, 25);
             this.lblDescripcionProducto.TabIndex = 8;
             this.lblDescripcionProducto.Text = "Descripción del Producto";
             // 
             // btnSalir
             // 
             this.btnSalir.BackColor = System.Drawing.Color.LightGreen;
-            this.btnSalir.Location = new System.Drawing.Point(508, 225);
+            this.btnSalir.Location = new System.Drawing.Point(1016, 433);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(70, 30);
+            this.btnSalir.Size = new System.Drawing.Size(140, 58);
             this.btnSalir.TabIndex = 7;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -73,9 +76,10 @@
             // btnMostrarReporte
             // 
             this.btnMostrarReporte.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.btnMostrarReporte.Location = new System.Drawing.Point(321, 134);
+            this.btnMostrarReporte.Location = new System.Drawing.Point(642, 258);
+            this.btnMostrarReporte.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnMostrarReporte.Name = "btnMostrarReporte";
-            this.btnMostrarReporte.Size = new System.Drawing.Size(136, 59);
+            this.btnMostrarReporte.Size = new System.Drawing.Size(272, 113);
             this.btnMostrarReporte.TabIndex = 6;
             this.btnMostrarReporte.Text = "Mostrar Reporte";
             this.btnMostrarReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -88,11 +92,11 @@
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoProveedor);
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoMarca);
             this.grbOrdenamiento.Controls.Add(this.rdbOrdenadoTipoDispositivo);
-            this.grbOrdenamiento.Location = new System.Drawing.Point(32, 109);
-            this.grbOrdenamiento.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.grbOrdenamiento.Location = new System.Drawing.Point(64, 210);
+            this.grbOrdenamiento.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.grbOrdenamiento.Name = "grbOrdenamiento";
-            this.grbOrdenamiento.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.grbOrdenamiento.Size = new System.Drawing.Size(214, 99);
+            this.grbOrdenamiento.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.grbOrdenamiento.Size = new System.Drawing.Size(428, 190);
             this.grbOrdenamiento.TabIndex = 16;
             this.grbOrdenamiento.TabStop = false;
             this.grbOrdenamiento.Text = "Ordenamiento";
@@ -100,10 +104,10 @@
             // rdbOrdenadoProveedor
             // 
             this.rdbOrdenadoProveedor.AutoSize = true;
-            this.rdbOrdenadoProveedor.Location = new System.Drawing.Point(14, 69);
-            this.rdbOrdenadoProveedor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.rdbOrdenadoProveedor.Location = new System.Drawing.Point(28, 133);
+            this.rdbOrdenadoProveedor.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.rdbOrdenadoProveedor.Name = "rdbOrdenadoProveedor";
-            this.rdbOrdenadoProveedor.Size = new System.Drawing.Size(141, 17);
+            this.rdbOrdenadoProveedor.Size = new System.Drawing.Size(278, 29);
             this.rdbOrdenadoProveedor.TabIndex = 9;
             this.rdbOrdenadoProveedor.TabStop = true;
             this.rdbOrdenadoProveedor.Text = "Ordenado por proveedor";
@@ -112,10 +116,10 @@
             // rdbOrdenadoMarca
             // 
             this.rdbOrdenadoMarca.AutoSize = true;
-            this.rdbOrdenadoMarca.Location = new System.Drawing.Point(14, 28);
-            this.rdbOrdenadoMarca.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.rdbOrdenadoMarca.Location = new System.Drawing.Point(28, 54);
+            this.rdbOrdenadoMarca.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.rdbOrdenadoMarca.Name = "rdbOrdenadoMarca";
-            this.rdbOrdenadoMarca.Size = new System.Drawing.Size(122, 17);
+            this.rdbOrdenadoMarca.Size = new System.Drawing.Size(240, 29);
             this.rdbOrdenadoMarca.TabIndex = 7;
             this.rdbOrdenadoMarca.Text = "Ordenado por marca";
             this.rdbOrdenadoMarca.UseVisualStyleBackColor = true;
@@ -124,10 +128,10 @@
             // rdbOrdenadoTipoDispositivo
             // 
             this.rdbOrdenadoTipoDispositivo.AutoSize = true;
-            this.rdbOrdenadoTipoDispositivo.Location = new System.Drawing.Point(14, 49);
-            this.rdbOrdenadoTipoDispositivo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.rdbOrdenadoTipoDispositivo.Location = new System.Drawing.Point(28, 94);
+            this.rdbOrdenadoTipoDispositivo.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.rdbOrdenadoTipoDispositivo.Name = "rdbOrdenadoTipoDispositivo";
-            this.rdbOrdenadoTipoDispositivo.Size = new System.Drawing.Size(179, 17);
+            this.rdbOrdenadoTipoDispositivo.Size = new System.Drawing.Size(357, 29);
             this.rdbOrdenadoTipoDispositivo.TabIndex = 8;
             this.rdbOrdenadoTipoDispositivo.TabStop = true;
             this.rdbOrdenadoTipoDispositivo.Text = "Ordenado por tipo de Dispositivo";
@@ -135,18 +139,19 @@
             // 
             // frmReporteProducto
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Plum;
-            this.ClientSize = new System.Drawing.Size(585, 263);
+            this.ClientSize = new System.Drawing.Size(1170, 506);
             this.Controls.Add(this.grbOrdenamiento);
             this.Controls.Add(this.txtDescripcionProducto);
             this.Controls.Add(this.lblDescripcionProducto);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnMostrarReporte);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmReporteProducto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Productos";
             this.Load += new System.EventHandler(this.frmReporteProducto_Load);
             this.grbOrdenamiento.ResumeLayout(false);
