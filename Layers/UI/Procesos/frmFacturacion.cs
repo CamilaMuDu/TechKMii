@@ -209,6 +209,12 @@ namespace TechKMii.Layers.UI.Procesos
                     return;
                 }
 
+                if (cliente.Estado != EstadoCatalogos.Activo)
+                {
+                    MessageBox.Show("El cliente está inactivo y no puede ser utilizado en facturación.");
+                    return;
+                }              
+
                 clienteSeleccionado = cliente;
                 txtCliente.Text = cliente.Nombre + " " + cliente.Apellidos;
                 txtCorreo.Text = cliente.Correo;

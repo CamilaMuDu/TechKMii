@@ -41,8 +41,9 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
         //metodo para buscar clientes por filtro
         private void tspBuscarCliente_Click(object sender, EventArgs e)
         {
-            ClienteBll = new ClienteBLL(); 
+            ClienteBll = new ClienteBLL();
             string filtro = string.Empty;
+
             try
             {
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))
@@ -57,8 +58,12 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
                 filtro = filtro.Replace(' ', '%');
                 filtro = "%" + filtro + "%";
 
+                var lista = ClienteBll.GetByFilter(filtro);
+
                 dgvBuscar.AutoGenerateColumns = true;
-                dgvBuscar.DataSource = ClienteBll.GetByFilter(filtro);
+                dgvBuscar.DataSource = lista;
+
+                ConfigurarColumnasGrid(dgvBuscar);
 
                 if (dgvBuscar.Rows.Count == 0)
                 {
@@ -69,8 +74,11 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
             catch (Exception er)
             {
                 string msg = "";
-                _myLogControlEventos.ErrorFormat("Error {0}", msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
-                MessageBox.Show("Se ha producido el siguiente error: " + er.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -105,6 +113,38 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ConfigurarColumnasGrid(DataGridView dgv)
+        {
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                col.Visible = false;
+            }
+
+            string[] columnasVisibles =
+            {
+            "Identificacion",
+            "Nombre",
+            "Apellidos",
+            "Sexo",
+            "Telefono",
+            "Correo",
+            "Provincia",
+            "Estado"
+            };
+
+            foreach (string nombreColumna in columnasVisibles)
+            {
+                if (dgv.Columns[nombreColumna] != null)
+                    dgv.Columns[nombreColumna].Visible = true;
+            }
+
+            if (dgv.Columns["Identificacion"] != null)
+                dgv.Columns["Identificacion"].HeaderText = "Identificación";
+
+            if (dgv.Columns["Telefono"] != null)
+                dgv.Columns["Telefono"].HeaderText = "Teléfono";
         }
     }
 }

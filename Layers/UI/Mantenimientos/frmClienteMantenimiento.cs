@@ -20,6 +20,7 @@ using TechKMii.Layers.Interfaces;
 using TechKMii.Layers.UI.Mantenimientos.Filtros;
 using UTN.Winform.Electronics.Extensions;
 using UTNLeccion8B.Layer.Entities.PersonaHacienda;
+using System.Net.Mail;
 
 namespace TechKMii.Layers.UI.Mantenimientos
 {
@@ -60,6 +61,8 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 cmbEstado.DataSource = Enum.GetValues(typeof(EstadoCatalogos));
                 cmbEstado.SelectedIndex = -1;
 
+                lblValidacionCorreo.Visible = false;
+
                 CargarClientes();
             }
             catch (Exception er)
@@ -81,11 +84,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 dgvDatosCliente.AutoGenerateColumns = true;
                 dgvDatosCliente.DataSource = lista;
 
-                if (dgvDatosCliente.Columns["Fotografia"] != null)
-                    dgvDatosCliente.Columns["Fotografia"].Visible = false;
-
-                if (dgvDatosCliente.Columns["ClienteID"] != null)
-                    dgvDatosCliente.Columns["ClienteID"].Visible = false;
+                ConfigurarColumnasGrid(dgvDatosCliente);
             }
             catch (Exception er)
             {
@@ -102,7 +101,6 @@ namespace TechKMii.Layers.UI.Mantenimientos
         {
             try
             {
-                //Validaciones
                 if (cmbTipoIdentificacion.SelectedIndex == -1)
                 {
                     MessageBox.Show("Debe seleccionar el tipo de identificación.", "Atención",
@@ -117,6 +115,19 @@ namespace TechKMii.Layers.UI.Mantenimientos
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtIdentificacion.Focus();
                     return;
+                }
+
+                if ((TipoIdentificacion)cmbTipoIdentificacion.SelectedItem == TipoIdentificacion.Extranjero)
+                {
+                    string identificacion = txtIdentificacion.Text.Trim().ToUpper();
+
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(identificacion, @"^[A-Z]{1}[0-9]{6}$"))
+                    {
+                        MessageBox.Show("La identificación extranjera debe tener 1 letra y 6 dígitos. Ejemplo: A123456",
+                            "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtIdentificacion.Focus();
+                        return;
+                    }
                 }
 
                 if (txtIdentificacion.Text.Trim().Length > 20)
@@ -179,6 +190,24 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 oCliente.TipoIdentificacion = (TipoIdentificacion)cmbTipoIdentificacion.SelectedItem;
                 oCliente.Estado = (EstadoCatalogos)cmbEstado.SelectedItem;
 
+                if (!string.IsNullOrWhiteSpace(txtCorreo.Text))
+                {
+                    try
+                    {
+                        MailAddress mail = new MailAddress(txtCorreo.Text.Trim());
+
+                        if (mail.Address != txtCorreo.Text.Trim())
+                            throw new Exception();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Debe ingresar un correo válido.", "Atención",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtCorreo.Focus();
+                        return;
+                    }
+                }
+
                 if (clienteIdActual == 0)
                 {
                     oCliente.ClienteID = 0;
@@ -231,6 +260,9 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
             pcbFotografia.Image = null;
             txtIdentificacion.Enabled = true;
+
+            lblValidacionCorreo.Visible = false;
+            lblValidacionCorreo.Text = "";
         }
 
         private async void tsbEditar_Click(object sender, EventArgs e)
@@ -258,6 +290,19 @@ namespace TechKMii.Layers.UI.Mantenimientos
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtIdentificacion.Focus();
                     return;
+                }
+
+                if ((TipoIdentificacion)cmbTipoIdentificacion.SelectedItem == TipoIdentificacion.Extranjero)
+                {
+                    string identificacion = txtIdentificacion.Text.Trim().ToUpper();
+
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(identificacion, @"^[A-Z]{1}[0-9]{6}$"))
+                    {
+                        MessageBox.Show("La identificación extranjera debe tener 1 letra y 6 dígitos. Ejemplo: A123456",
+                            "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtIdentificacion.Focus();
+                        return;
+                    }
                 }
 
                 if (txtIdentificacion.Text.Trim().Length > 20)
@@ -320,6 +365,24 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 oCliente.TipoIdentificacion = (TipoIdentificacion)cmbTipoIdentificacion.SelectedItem;
                 oCliente.Estado = (EstadoCatalogos)cmbEstado.SelectedItem;
 
+                if (!string.IsNullOrWhiteSpace(txtCorreo.Text))
+                {
+                    try
+                    {
+                        MailAddress mail = new MailAddress(txtCorreo.Text.Trim());
+
+                        if (mail.Address != txtCorreo.Text.Trim())
+                            throw new Exception();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Debe ingresar un correo válido.", "Atención",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtCorreo.Focus();
+                        return;
+                    }
+                }
+
                 if (rdbFemenino.Checked)
                     oCliente.Sexo = Sexo.Femenino;
                 else
@@ -344,6 +407,63 @@ namespace TechKMii.Layers.UI.Mantenimientos
             }
         }
 
+        private void txtIdentificacion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (cmbTipoIdentificacion.SelectedIndex == -1)
+                return;
+
+            if ((TipoIdentificacion)cmbTipoIdentificacion.SelectedItem == TipoIdentificacion.Extranjero)
+            {
+                string textoActual = txtIdentificacion.Text;
+
+                if (char.IsControl(e.KeyChar))
+                    return;
+
+                if (txtIdentificacion.SelectionStart == 0)
+                {
+                    if (!char.IsLetter(e.KeyChar))
+                        e.Handled = true;
+                }
+                else
+                {
+                    if (!char.IsDigit(e.KeyChar))
+                        e.Handled = true;
+                }
+
+                if (textoActual.Length >= 7 && txtIdentificacion.SelectionLength == 0)
+                    e.Handled = true;
+            }
+        }
+
+        private void txtIdentificacion_TextChanged(object sender, EventArgs e)
+        {
+            if (cmbTipoIdentificacion.SelectedIndex == -1)
+                return;
+
+            if ((TipoIdentificacion)cmbTipoIdentificacion.SelectedItem == TipoIdentificacion.Extranjero)
+            {
+                int posicion = txtIdentificacion.SelectionStart;
+                txtIdentificacion.Text = txtIdentificacion.Text.ToUpper();
+                txtIdentificacion.SelectionStart = posicion;
+            }
+        }
+        private void cmbTipoIdentificacion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtIdentificacion.Clear();
+
+            if (cmbTipoIdentificacion.SelectedIndex == -1)
+                return;
+
+            if ((TipoIdentificacion)cmbTipoIdentificacion.SelectedItem == TipoIdentificacion.Extranjero)
+            {
+                txtIdentificacion.MaxLength = 7;
+            }
+            else
+            {
+                txtIdentificacion.MaxLength = 20;
+            }
+        }
+
         //Metodo que consulta el servicio de Hacienda
         //para obtener el nombre completo a partir de la identificación
         private void btnBuscarCliente_Click(object sender, EventArgs e)
@@ -355,6 +475,22 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     MessageBox.Show("No existe una identificación para buscar", "Atención",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtIdentificacion.Focus();
+                    return;
+                }
+
+                if (cmbTipoIdentificacion.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar el tipo de identificación.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbTipoIdentificacion.Focus();
+                    return;
+                }
+
+                if ((TipoIdentificacion)cmbTipoIdentificacion.SelectedItem == TipoIdentificacion.Extranjero)
+                {
+                    MessageBox.Show("Para identificación extranjera no se permite consultar el API de Hacienda. Debe ingresar los datos manualmente.",
+                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNombre.Focus();
                     return;
                 }
 
@@ -372,7 +508,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     myWebRequest.UserAgent = "Mozilla/5.0";
                     myWebRequest.Credentials = CredentialCache.DefaultCredentials;
                     myWebRequest.Proxy = null;
-                    myWebRequest.Timeout = 5000; 
+                    myWebRequest.Timeout = 5000;
 
                     using (HttpWebResponse myHttpWebResponse = (HttpWebResponse)myWebRequest.GetResponse())
                     using (Stream myStream = myHttpWebResponse.GetResponseStream())
@@ -583,25 +719,43 @@ namespace TechKMii.Layers.UI.Mantenimientos
             {
                 if (clienteIdActual <= 0)
                 {
-                    MessageBox.Show("Debe seleccionar un cliente para eliminar.", "Atención",
+                    MessageBox.Show("Debe seleccionar un cliente para borrarlo.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                Cliente clienteSeleccionado = dgvDatosCliente.CurrentRow?.DataBoundItem as Cliente;
+
+                if (clienteSeleccionado == null)
+                {
+                    MessageBox.Show("No se pudo obtener la información del cliente seleccionado.", "Atención",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (clienteSeleccionado.Estado == EstadoCatalogos.Inactivo)
+                {
+                    MessageBox.Show("El cliente ya se encuentra.", "Atención",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 DialogResult respuesta = MessageBox.Show(
-                    "¿Está seguro de eliminar el cliente seleccionado?",
-                    "Confirmar eliminación",
+                    "¿Está seguro de borrar el cliente seleccionado?",
+                    "Confirmar borrado",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (respuesta == DialogResult.No)
                     return;
 
-                bool eliminado = await clienteBll.Delete(clienteIdActual);
+                clienteSeleccionado.Estado = EstadoCatalogos.Inactivo;
 
-                if (eliminado)
+                Cliente clienteActualizado = await clienteBll.Update(clienteSeleccionado);
+
+                if (clienteActualizado != null)
                 {
-                    MessageBox.Show("Cliente eliminado correctamente.", "Información",
+                    MessageBox.Show("Cliente borrado correctamente.", "Información",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     LimpiarFormulario();
@@ -609,7 +763,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo eliminar el cliente.", "Atención",
+                    MessageBox.Show("No se pudo borrar el cliente.", "Atención",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
@@ -656,7 +810,75 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 MessageBox.Show("Error al abrir el filtro: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void txtCorreo_TextChanged(object sender, EventArgs e)
+        {
+            string correo = txtCorreo.Text.Trim();
 
+            if (string.IsNullOrWhiteSpace(correo))
+            {
+                lblValidacionCorreo.Visible = false;
+                return;
+            }
+
+            lblValidacionCorreo.Visible = true;
+
+            try
+            {
+                MailAddress mail = new MailAddress(correo);
+
+                if (mail.Address == correo)
+                {
+                    lblValidacionCorreo.Text = "Valido";
+                    lblValidacionCorreo.ForeColor = Color.Green;
+                }
+                else
+                {
+                    lblValidacionCorreo.Text = "No valido";
+                    lblValidacionCorreo.ForeColor = Color.Red;
+                }
+            }
+            catch
+            {
+                lblValidacionCorreo.Text = "No valido";
+                lblValidacionCorreo.ForeColor = Color.Red;
+            }
+        }
+
+        private void tlpPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void ConfigurarColumnasGrid(DataGridView dgv)
+        {
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                col.Visible = false;
+            }
+
+            string[] columnasVisibles =
+            {
+            "Identificacion",
+            "Nombre",
+            "Apellidos",
+            "Sexo",
+            "Telefono",
+            "Correo",
+            "Provincia",
+            "Estado"
+            };
+
+            foreach (string nombreColumna in columnasVisibles)
+            {
+                if (dgv.Columns[nombreColumna] != null)
+                    dgv.Columns[nombreColumna].Visible = true;
+            }
+
+            if (dgv.Columns["Identificacion"] != null)
+                dgv.Columns["Identificacion"].HeaderText = "Identificación";
+
+            if (dgv.Columns["Telefono"] != null)
+                dgv.Columns["Telefono"].HeaderText = "Teléfono";
         }
     }
 }
