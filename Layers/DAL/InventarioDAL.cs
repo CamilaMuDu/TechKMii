@@ -84,7 +84,8 @@ namespace TechKMii.Layers.DAL
                                 Producto = new Producto
                                 {
                                     ProductoID = reader["ProductoID"] != DBNull.Value ? Convert.ToInt32(reader["ProductoID"]) : 0
-                                }
+                                },
+                                Cantidad = reader["Cantidad"] != DBNull.Value ? Convert.ToInt32(reader["Cantidad"]) : 0,
                             });
                         }
                     }
@@ -137,7 +138,8 @@ namespace TechKMii.Layers.DAL
                                 Producto = new Producto
                                 {
                                     ProductoID = reader["ProductoID"] != DBNull.Value ? Convert.ToInt32(reader["ProductoID"]) : 0
-                                }
+                                },
+                                Cantidad = reader["Cantidad"] != DBNull.Value ? Convert.ToInt32(reader["Cantidad"]) : 0,
                             };
                         }
                     }
@@ -181,6 +183,8 @@ namespace TechKMii.Layers.DAL
 
                 command.Parameters.Add("@Estado", SqlDbType.Int).Value = (int)inventario.Estado;
 
+                command.Parameters.Add("@Cantidad", SqlDbType.Int).Value = inventario.Cantidad;
+
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
                     using (IDataReader reader = await db.ExecuteReaderAsync(command))
@@ -201,7 +205,8 @@ namespace TechKMii.Layers.DAL
                                 Producto = new Producto
                                 {
                                     ProductoID = reader["ProductoID"] != DBNull.Value ? Convert.ToInt32(reader["ProductoID"]) : 0
-                                }
+                                },
+                                Cantidad = reader["Cantidad"] != DBNull.Value ? Convert.ToInt32(reader["Cantidad"]) : 0,
                             };
                         }
                     }
@@ -247,6 +252,8 @@ namespace TechKMii.Layers.DAL
 
                 command.Parameters.Add("@Estado", SqlDbType.Int).Value = (int)inventario.Estado;
 
+                command.Parameters.Add("@Cantidad", SqlDbType.Int).Value = inventario.Cantidad;
+
                 using (IDataBase db = FactoryDatabase.CreateDataBase(FactoryConexion.CreateConnection()))
                 {
                     using (IDataReader reader = await db.ExecuteReaderAsync(command))
@@ -267,7 +274,8 @@ namespace TechKMii.Layers.DAL
                                 Producto = new Producto
                                 {
                                     ProductoID = reader["ProductoID"] != DBNull.Value ? Convert.ToInt32(reader["ProductoID"]) : 0
-                                }
+                                },
+                                Cantidad = reader["Cantidad"] != DBNull.Value ? Convert.ToInt32(reader["Cantidad"]) : 0,
                             };
                         }
                     }

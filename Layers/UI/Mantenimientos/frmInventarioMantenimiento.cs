@@ -29,6 +29,9 @@ namespace TechKMii.Layers.UI.Mantenimientos
         Producto oProducto = null;
         private int idProductoSeleccionado = 0;
 
+        private int inventarioIdActual = 0;
+        private bool editando = false;
+
 
         public frmInventarioMantenimiento()
         {
@@ -142,11 +145,17 @@ namespace TechKMii.Layers.UI.Mantenimientos
             txtStockActual.Clear();
             txtMotivo.Clear();
             nudCantidad.Value = 0;
-            cmbTipoMovimiento.SelectedIndex = 0;
+            cmbTipoMovimiento.SelectedIndex = -1;
             dtpFecha.Value = DateTime.Now;
 
             idProductoSeleccionado = 0;
+            inventarioIdActual = 0;
+            editando = false;
             oProducto = null;
+            oInventario = null;
+
+            txtProducto.ReadOnly = false;
+            btnBuscar.Enabled = true;
         }
 
         private void tsbNuevo_Click(object sender, EventArgs e)
@@ -179,6 +188,12 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     return;
                 }
 
+                if (cmbTipoMovimiento.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar un tipo de movimiento.");
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(txtMotivo.Text))
                 {
                     MessageBox.Show("Debe ingresar un motivo.");
@@ -191,42 +206,78 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     return;
                 }
 
-                TipoEntradaSalida movimiento = (TipoEntradaSalida)cmbTipoMovimiento.SelectedItem;
-                int cantidad = Convert.ToInt32(nudCantidad.Value);
-                int stockActual = oProducto.CantidadStock;
-                int nuevoStock = stockActual;
+                TipoEntradaSalida movimientoNuevo = (TipoEntradaSalida)cmbTipoMovimiento.SelectedItem;
+                int cantidadNueva = Convert.ToInt32(nudCantidad.Value);
 
-                if (movimiento == TipoEntradaSalida.Salida)
+                Producto productoActualizado = await productoBLL.GetById(oProducto.ProductoID);
+
+                if (productoActualizado == null)
                 {
-                    if (cantidad > stockActual)
+                    MessageBox.Show("No se encontró el producto.");
+                    return;
+                }
+
+                int stockBase = productoActualizado.CantidadStock;
+
+                if (editando)
+                {
+                    if (oInventario.TipoEntradaSalida == TipoEntradaSalida.Entrada)
+                        stockBase -= oInventario.Cantidad;
+                    else
+                        stockBase += oInventario.Cantidad;
+                }
+
+                int nuevoStock = stockBase;
+
+                if (movimientoNuevo == TipoEntradaSalida.Salida)
+                {
+                    if (cantidadNueva > stockBase)
                     {
                         MessageBox.Show("No hay suficiente stock.");
                         return;
                     }
 
-                    nuevoStock = stockActual - cantidad;
+                    nuevoStock = stockBase - cantidadNueva;
                 }
                 else
                 {
-                    nuevoStock = stockActual + cantidad;
+                    nuevoStock = stockBase + cantidadNueva;
                 }
 
-                Inventario inv = new Inventario
+                if (!editando)
                 {
-                    Producto = new Producto { ProductoID = oProducto.ProductoID },
-                    TipoEntradaSalida = movimiento,
-                    Fecha = dtpFecha.Value,
-                    Observaciones = txtMotivo.Text,
-                    Estado = EstadoCatalogos.Activo
-                };
+                    Inventario inv = new Inventario
+                    {
+                        Producto = new Producto { ProductoID = oProducto.ProductoID },
+                        TipoEntradaSalida = movimientoNuevo,
+                        Fecha = dtpFecha.Value,
+                        Observaciones = txtMotivo.Text,
+                        Estado = EstadoCatalogos.Activo,
+                        Cantidad = cantidadNueva
+                    };
 
-                await invertarioBLL.Save(inv);
+                    await invertarioBLL.Save(inv);
+                    MessageBox.Show("Movimiento guardado correctamente.");
+                }
+                else
+                {
+                    Inventario inv = new Inventario
+                    {
+                        InventarioID = inventarioIdActual,
+                        Producto = new Producto { ProductoID = oProducto.ProductoID },
+                        TipoEntradaSalida = movimientoNuevo,
+                        Fecha = dtpFecha.Value,
+                        Observaciones = txtMotivo.Text,
+                        Estado = EstadoCatalogos.Activo,
+                        Cantidad = cantidadNueva
+                    };
 
-                //manejo del stock del producto
-                oProducto.CantidadStock = nuevoStock;
-                await productoBLL.Update(oProducto);
+                    await invertarioBLL.Update(inv);
+                    MessageBox.Show("Movimiento actualizado correctamente.");
+                }
 
-                MessageBox.Show("Movimiento guardado correctamente.");
+                productoActualizado.CantidadStock = nuevoStock;
+                await productoBLL.Update(productoActualizado);
 
                 txtStockActual.Text = nuevoStock.ToString();
                 CargarGrid();
@@ -250,14 +301,50 @@ namespace TechKMii.Layers.UI.Mantenimientos
         {
             try
             {
+                var lista = (await invertarioBLL.GetAll()).ToList();
+
+                var datos = lista.Select(x => new
+                {
+                    x.InventarioID,
+                    ProductoID = x.Producto != null ? x.Producto.ProductoID : 0,
+                    TipoEntradaSalida = x.TipoEntradaSalida.ToString(),
+                    x.Cantidad,
+                    x.Fecha,
+                    Motivo = x.Observaciones,
+                    Estado = x.Estado.ToString()
+                }).ToList();
+
                 dgvDatosInventario.DataSource = null;
-                dgvDatosInventario.DataSource = (await invertarioBLL.GetAll()).ToList();
+                dgvDatosInventario.DataSource = datos;
 
                 dgvDatosInventario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvDatosInventario.ReadOnly = true;
                 dgvDatosInventario.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvDatosInventario.AllowUserToAddRows = false;
+                dgvDatosInventario.AllowUserToDeleteRows = false;
+                dgvDatosInventario.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
 
-                //moviemirntos 
+                if (dgvDatosInventario.Columns["InventarioID"] != null)
+                    dgvDatosInventario.Columns["InventarioID"].HeaderText = "ID";
+
+                if (dgvDatosInventario.Columns["ProductoID"] != null)
+                    dgvDatosInventario.Columns["ProductoID"].HeaderText = "Producto ID";
+
+                if (dgvDatosInventario.Columns["TipoEntradaSalida"] != null)
+                    dgvDatosInventario.Columns["TipoEntradaSalida"].HeaderText = "Movimiento";
+
+                if (dgvDatosInventario.Columns["Cantidad"] != null)
+                    dgvDatosInventario.Columns["Cantidad"].HeaderText = "Cantidad";
+
+                if (dgvDatosInventario.Columns["Fecha"] != null)
+                    dgvDatosInventario.Columns["Fecha"].HeaderText = "Fecha";
+
+                if (dgvDatosInventario.Columns["Motivo"] != null)
+                    dgvDatosInventario.Columns["Motivo"].HeaderText = "Motivo";
+
+                if (dgvDatosInventario.Columns["Estado"] != null)
+                    dgvDatosInventario.Columns["Estado"].Visible = false;
+
                 foreach (DataGridViewRow row in dgvDatosInventario.Rows)
                 {
                     if (row.Cells["TipoEntradaSalida"].Value != null)
@@ -267,19 +354,188 @@ namespace TechKMii.Layers.UI.Mantenimientos
                         if (tipo == "Salida")
                         {
                             row.Cells["TipoEntradaSalida"].Style.ForeColor = Color.Red;
+                            row.Cells["TipoEntradaSalida"].Style.SelectionForeColor = Color.Red;
                             row.Cells["TipoEntradaSalida"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
                         }
                         else if (tipo == "Entrada")
                         {
                             row.Cells["TipoEntradaSalida"].Style.ForeColor = Color.Green;
+                            row.Cells["TipoEntradaSalida"].Style.SelectionForeColor = Color.Green;
                             row.Cells["TipoEntradaSalida"].Style.Font = new Font("Arial", 10, FontStyle.Bold);
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception er)
             {
-                MessageBox.Show(ex.Message);
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg);
+                throw;
+            }
+        }
+
+        private async void tsbEditar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!editando || inventarioIdActual == 0)
+                {
+                    MessageBox.Show("Debe seleccionar una fila del grid para editar.");
+                    return;
+                }
+
+                if (oProducto == null)
+                {
+                    MessageBox.Show("No se encontró el producto asociado.");
+                    return;
+                }
+
+                if (cmbTipoMovimiento.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar un tipo de movimiento.");
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtMotivo.Text))
+                {
+                    MessageBox.Show("Debe ingresar un motivo.");
+                    return;
+                }
+
+                if (nudCantidad.Value <= 0)
+                {
+                    MessageBox.Show("La cantidad debe ser mayor a 0.");
+                    return;
+                }
+
+                TipoEntradaSalida movimientoNuevo = (TipoEntradaSalida)cmbTipoMovimiento.SelectedItem;
+                int cantidadNueva = Convert.ToInt32(nudCantidad.Value);
+
+                Producto productoActualizado = await productoBLL.GetById(oProducto.ProductoID);
+
+                if (productoActualizado == null)
+                {
+                    MessageBox.Show("No se encontró el producto.");
+                    return;
+                }
+
+                int stockBase = productoActualizado.CantidadStock;
+
+                if (oInventario.TipoEntradaSalida == TipoEntradaSalida.Entrada)
+                    stockBase -= oInventario.Cantidad;
+                else
+                    stockBase += oInventario.Cantidad;
+
+                int nuevoStock = stockBase;
+
+                if (movimientoNuevo == TipoEntradaSalida.Salida)
+                {
+                    if (cantidadNueva > stockBase)
+                    {
+                        MessageBox.Show("No hay suficiente stock.");
+                        return;
+                    }
+
+                    nuevoStock = stockBase - cantidadNueva;
+                }
+                else
+                {
+                    nuevoStock = stockBase + cantidadNueva;
+                }
+
+                Inventario inv = new Inventario
+                {
+                    InventarioID = inventarioIdActual,
+                    Producto = new Producto { ProductoID = oProducto.ProductoID },
+                    TipoEntradaSalida = movimientoNuevo,
+                    Fecha = dtpFecha.Value,
+                    Observaciones = txtMotivo.Text,
+                    Estado = EstadoCatalogos.Activo,
+                    Cantidad = cantidadNueva
+                };
+
+                await invertarioBLL.Update(inv);
+
+                productoActualizado.CantidadStock = nuevoStock;
+                await productoBLL.Update(productoActualizado);
+
+                MessageBox.Show("Movimiento actualizado correctamente.");
+
+                CargarGrid();
+                Limpiar();
+            }
+            catch (SqlException er)
+            {
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
+                throw new CustomException(msg.ToSqlServerDetailError(er));
+            }
+            catch (Exception er)
+            {
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg);
+                throw;
+            }
+        }
+
+        private void dgvDatosInventario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private async void dgvDatosInventario_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgvDatosInventario.CurrentRow == null)
+                    return;
+
+                if (dgvDatosInventario.CurrentRow.Cells["InventarioID"] == null ||
+                    dgvDatosInventario.CurrentRow.Cells["InventarioID"].Value == null)
+                    return;
+
+                inventarioIdActual = Convert.ToInt32(dgvDatosInventario.CurrentRow.Cells["InventarioID"].Value);
+
+                oInventario = await invertarioBLL.GetById(inventarioIdActual);
+
+                if (oInventario == null)
+                {
+                    MessageBox.Show("No se encontró el movimiento seleccionado.");
+                    return;
+                }
+
+                oProducto = await productoBLL.GetById(oInventario.Producto.ProductoID);
+
+                if (oProducto == null)
+                {
+                    MessageBox.Show("No se encontró el producto asociado.");
+                    return;
+                }
+
+                idProductoSeleccionado = oProducto.ProductoID;
+                editando = true;
+
+                txtProducto.Text = oProducto.Nombre;
+                txtStockActual.Text = oProducto.CantidadStock.ToString();
+                txtMotivo.Text = oInventario.Observaciones;
+                nudCantidad.Value = oInventario.Cantidad;
+                dtpFecha.Value = oInventario.Fecha;
+                cmbTipoMovimiento.SelectedItem = oInventario.TipoEntradaSalida;
+
+                txtProducto.ReadOnly = true;
+                btnBuscar.Enabled = false;
+            }
+            catch (SqlException er)
+            {
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(MethodBase.GetCurrentMethod(), er, command));
+                throw new CustomException(msg.ToSqlServerDetailError(er));
+            }
+            catch (Exception er)
+            {
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg);
+                throw;
             }
         }
     }

@@ -105,9 +105,6 @@ namespace TechKMii.Layers.UI.Mantenimientos
             pcbFoto.SizeMode = PictureBoxSizeMode.Zoom;
             pcbFoto.Image = null;
 
-            nudCantStock.Minimum = 0;
-            nudCantStock.Maximum = 100000;
-
             ProductoIdActual = 0;
             fotoBytes = null;
             documentoBytes = null;
@@ -139,10 +136,10 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
             dgvDatosProducto.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "CantidadStock",
-                HeaderText = "Stock",
-                DataPropertyName = "CantidadStock",
-                Width = 70
+                Name = "CodigoBarras",
+                HeaderText = "Código Industria",
+                DataPropertyName = "CodigoBarras",
+                Width = 120
             });
 
             dgvDatosProducto.Columns.Add(new DataGridViewTextBoxColumn
@@ -208,7 +205,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
             {
                 p.ProductoID,
                 p.Nombre,
-                p.CantidadStock,
+                CodigoBarras = p.CodigoBarras,
                 Proveedor = p.Proveedor != null ? p.Proveedor.Nombre : "",
                 Marca = p.Marca != null ? p.Marca.Nombre : "",
                 p.Modelo,
@@ -324,12 +321,6 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     return;
                 }
 
-                if (nudCantStock.Value < 0)
-                {
-                    MessageBox.Show("La cantidad en stock no puede ser negativa",
-                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
 
                 if (string.IsNullOrWhiteSpace(txtColor.Text))
                 {
@@ -398,7 +389,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     Nombre = txtNombre.Text,
                     Modelo = txtModelo.Text,
                     Precio = precio,
-                    CantidadStock = Convert.ToInt32(nudCantStock.Value),
+                    CantidadStock = 0,
                     Color = txtColor.Text,
                     Caracteristicas = txtCaracteristicas.Text,
                     Extras = txtExtras.Text,
@@ -461,7 +452,6 @@ namespace TechKMii.Layers.UI.Mantenimientos
             txtColor.Text = p.Color;
             txtCaracteristicas.Text = p.Caracteristicas;
             txtExtras.Text = p.Extras;
-            nudCantStock.Value = p.CantidadStock;
             cmbTipoDispositivo.SelectedValue = p.Tipo.TipoID;
             cmbProveedor.SelectedValue = p.Proveedor.ProveedorID;
             cmbMarca.SelectedValue = p.Marca.MarcaID;
@@ -531,7 +521,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     MessageBox.Show("Debe seleccionar un producto para editar",
                         "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
-                }               
+                }
 
                 if (listaProductos.Any(p => p.CodigoBarras == txtCodigoIndustria.Text && p.ProductoID != ProductoIdActual))
                 {
@@ -545,20 +535,26 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     return;
                 }
 
+                Producto productoActual = await productoBll.GetById(ProductoIdActual);
+
+                if (productoActual == null)
+                {
+                    MessageBox.Show("No se encontró el producto a editar");
+                    return;
+                }
+
                 Producto oProducto = new Producto
                 {
-                    ProductoID = ProductoIdActual, 
-
+                    ProductoID = ProductoIdActual,
                     Nombre = txtNombre.Text,
                     Modelo = txtModelo.Text,
                     Precio = precio,
-                    CantidadStock = Convert.ToInt32(nudCantStock.Value),
+                    CantidadStock = productoActual.CantidadStock,
                     Color = txtColor.Text,
                     Caracteristicas = txtCaracteristicas.Text,
                     Extras = txtExtras.Text,
                     Estado = (EstadoCatalogos)cmbEstado.SelectedItem,
                     CodigoBarras = txtCodigoIndustria.Text,
-
 
                     Tipo = new TipoDispositivo
                     {
@@ -584,8 +580,8 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 MessageBox.Show("Producto actualizado correctamente",
                     "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                await CargarProductos();   
-                
+                await CargarProductos();
+
                 LimpiarFormulario();
             }
             catch (Exception er)
@@ -690,7 +686,6 @@ namespace TechKMii.Layers.UI.Mantenimientos
             txtExtras.Clear();
             txtCodigoIndustria.Clear();
 
-            nudCantStock.Value = 0;
 
             cmbTipoDispositivo.SelectedIndex = -1;
             cmbProveedor.SelectedIndex = -1;
@@ -725,12 +720,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
-
-
-
         }
-
-
         private void tspBuscarProduto_Click(object sender, EventArgs e)
         {
             try
@@ -766,8 +756,6 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 txtColor.Text = p.Color;
                 txtCaracteristicas.Text = p.Caracteristicas;
                 txtExtras.Text = p.Extras;
-
-                nudCantStock.Value = p.CantidadStock;
 
                 cmbTipoDispositivo.SelectedValue = p.Tipo.TipoID;
                 cmbProveedor.SelectedValue = p.Proveedor.ProveedorID;

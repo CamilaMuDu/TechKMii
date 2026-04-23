@@ -86,6 +86,7 @@
             this.tsbEditar.Name = "tsbEditar";
             this.tsbEditar.Size = new System.Drawing.Size(110, 36);
             this.tsbEditar.Text = "Editar";
+            this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
             // tsbBorrar
             // 
@@ -129,8 +130,10 @@
             this.dgvDatosInventario.Name = "dgvDatosInventario";
             this.dgvDatosInventario.RowHeadersWidth = 82;
             this.dgvDatosInventario.RowTemplate.Height = 33;
-            this.dgvDatosInventario.Size = new System.Drawing.Size(1279, 768);
+            this.dgvDatosInventario.Size = new System.Drawing.Size(1279, 727);
             this.dgvDatosInventario.TabIndex = 4;
+            this.dgvDatosInventario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosInventario_CellClick);
+            this.dgvDatosInventario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatosInventario_CellContentClick);
             // 
             // label2
             // 
@@ -243,7 +246,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1357, 1307);
+            this.ClientSize = new System.Drawing.Size(1357, 1371);
             this.Controls.Add(this.txtStockActual);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtMotivo);

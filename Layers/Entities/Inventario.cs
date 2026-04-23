@@ -14,5 +14,6 @@ namespace TechKMii.Layers.Entities
         public DateTime Fecha { set; get; }
         public string Observaciones { set; get; }
         public EstadoCatalogos Estado { set; get; }
+        public int Cantidad { set; get; }
     }
 }

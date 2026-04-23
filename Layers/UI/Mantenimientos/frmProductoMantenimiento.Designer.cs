@@ -63,13 +63,10 @@
             this.btnCargarFoto = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.txtCodigoIndustria = new System.Windows.Forms.TextBox();
-            this.nudCantStock = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
             this.lblVistaPrevia = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosProducto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantStock)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -85,7 +82,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.Size = new System.Drawing.Size(2068, 50);
+            this.toolStrip1.Size = new System.Drawing.Size(2068, 42);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -94,7 +91,7 @@
             this.tspNuevo.Image = ((System.Drawing.Image)(resources.GetObject("tspNuevo.Image")));
             this.tspNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tspNuevo.Name = "tspNuevo";
-            this.tspNuevo.Size = new System.Drawing.Size(121, 44);
+            this.tspNuevo.Size = new System.Drawing.Size(121, 36);
             this.tspNuevo.Text = "Nuevo";
             this.tspNuevo.Click += new System.EventHandler(this.tspNuevo_Click);
             // 
@@ -394,7 +391,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(703, 90);
+            this.label13.Location = new System.Drawing.Point(498, 90);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(198, 25);
@@ -403,31 +400,11 @@
             // 
             // txtCodigoIndustria
             // 
-            this.txtCodigoIndustria.Location = new System.Drawing.Point(707, 144);
+            this.txtCodigoIndustria.Location = new System.Drawing.Point(502, 144);
             this.txtCodigoIndustria.Margin = new System.Windows.Forms.Padding(4);
             this.txtCodigoIndustria.Name = "txtCodigoIndustria";
             this.txtCodigoIndustria.Size = new System.Drawing.Size(308, 31);
             this.txtCodigoIndustria.TabIndex = 34;
-            // 
-            // nudCantStock
-            // 
-            this.nudCantStock.Enabled = false;
-            this.nudCantStock.Location = new System.Drawing.Point(413, 144);
-            this.nudCantStock.Margin = new System.Windows.Forms.Padding(4);
-            this.nudCantStock.Name = "nudCantStock";
-            this.nudCantStock.Size = new System.Drawing.Size(231, 31);
-            this.nudCantStock.TabIndex = 27;
-            this.nudCantStock.ValueChanged += new System.EventHandler(this.nudCantStock_ValueChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(407, 90);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(188, 25);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Cantidad en Stock";
             // 
             // lblVistaPrevia
             // 
@@ -444,14 +421,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(2068, 1062);
+            this.ClientSize = new System.Drawing.Size(2068, 1087);
             this.Controls.Add(this.lblVistaPrevia);
             this.Controls.Add(this.txtCodigoIndustria);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.btnCargarFoto);
             this.Controls.Add(this.btnAgregarProducto);
             this.Controls.Add(this.btnAdjuntarDocumento);
-            this.Controls.Add(this.nudCantStock);
             this.Controls.Add(this.cmbEstado);
             this.Controls.Add(this.txtExtras);
             this.Controls.Add(this.txtCaracteristicas);
@@ -463,7 +439,6 @@
             this.Controls.Add(this.cmbTipoDispositivo);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.dgvDatosProducto);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -487,7 +462,6 @@
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFoto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatosProducto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantStock)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -529,8 +503,6 @@
         private System.Windows.Forms.ToolStripButton tspBuscarProduto;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtCodigoIndustria;
-        private System.Windows.Forms.NumericUpDown nudCantStock;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblVistaPrevia;
     }
 }
