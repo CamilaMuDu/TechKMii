@@ -40,9 +40,9 @@
             this.cmbTipoGrafico = new System.Windows.Forms.ComboBox();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnMostrarGrafico = new System.Windows.Forms.Button();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartVentas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnGuardarGrafico = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartVentas)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -113,6 +113,7 @@
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnMostrarGrafico
             // 
@@ -125,23 +126,24 @@
             this.btnMostrarGrafico.Text = "Mostrar Grafico";
             this.btnMostrarGrafico.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMostrarGrafico.UseVisualStyleBackColor = false;
+            this.btnMostrarGrafico.Click += new System.EventHandler(this.btnMostrarGrafico_Click);
             // 
-            // chart1
+            // chartVentas
             // 
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            this.chartVentas.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(22, 21);
-            this.chart1.Margin = new System.Windows.Forms.Padding(4);
-            this.chart1.Name = "chart1";
+            this.chartVentas.Legends.Add(legend1);
+            this.chartVentas.Location = new System.Drawing.Point(22, 21);
+            this.chartVentas.Margin = new System.Windows.Forms.Padding(4);
+            this.chartVentas.Name = "chartVentas";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(1620, 658);
-            this.chart1.TabIndex = 21;
-            this.chart1.Text = "chart1";
+            this.chartVentas.Series.Add(series1);
+            this.chartVentas.Size = new System.Drawing.Size(1620, 658);
+            this.chartVentas.TabIndex = 21;
+            this.chartVentas.Text = "chart1";
             // 
             // btnGuardarGrafico
             // 
@@ -162,7 +164,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Plum;
             this.ClientSize = new System.Drawing.Size(1668, 925);
-            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.chartVentas);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dtpFechaFinal);
@@ -177,7 +179,8 @@
             this.Name = "frmReporteGrafico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reporte de Gráfico de Ventas";
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.Load += new System.EventHandler(this.frmReporteGrafico_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.chartVentas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -193,7 +196,7 @@
         private System.Windows.Forms.ComboBox cmbTipoGrafico;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnMostrarGrafico;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartVentas;
         private System.Windows.Forms.Button btnGuardarGrafico;
     }
 }

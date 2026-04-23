@@ -74,7 +74,8 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
                 p.CodigoBarras,
                 p.Modelo,
                 Proveedor = p.Proveedor != null ? p.Proveedor.Nombre : "",
-                Marca = p.Marca != null ? p.Marca.Nombre : ""
+                Marca = p.Marca != null ? p.Marca.Nombre : "",
+                Estado = p.Estado.ToString()
             }).ToList();
 
             dgvBuscar.DataSource = null;
@@ -139,6 +140,14 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
                 HeaderText = "Marca",
                 DataPropertyName = "Marca",
                 Width = 120
+            });
+
+            dgvBuscar.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Estado",
+                HeaderText = "Estado",
+                DataPropertyName = "Estado",
+                Width = 90
             });
 
             dgvBuscar.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

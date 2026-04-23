@@ -186,6 +186,14 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 Width = 90
             });
 
+            dgvDatosProducto.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Estado",
+                HeaderText = "Estado",
+                DataPropertyName = "Estado",
+                Width = 90
+            });
+
             dgvDatosProducto.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDatosProducto.MultiSelect = false;
             dgvDatosProducto.ReadOnly = true;
@@ -205,7 +213,8 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 Marca = p.Marca != null ? p.Marca.Nombre : "",
                 p.Modelo,
                 p.Precio,
-                p.Color
+                p.Color,
+                Estado = p.Estado.ToString()
             }).ToList();
 
             dgvDatosProducto.DataSource = null;
@@ -227,21 +236,29 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
                 int id = Convert.ToInt32(dgvDatosProducto.CurrentRow.Cells["ProductoID"].Value);
 
-                var resp = MessageBox.Show("¿Desea eliminar este producto?",
+                var resp = MessageBox.Show("¿Desea inactivar este producto?",
                     "Confirmación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (resp == DialogResult.Yes)
                 {
-                    await productoBll.Delete(id.ToString());
+                    Producto p = listaProductos.FirstOrDefault(x => x.ProductoID == id);
 
-                    MessageBox.Show("Producto eliminado correctamente",
+                    if (p == null)
+                        return;
+
+                    p.Estado = EstadoCatalogos.Inactivo;
+
+                    await productoBll.Update(p);
+
+                    MessageBox.Show("Producto inactivado correctamente",
                         "Información",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 
                     await CargarProductos();
+                    LimpiarFormulario();
                 }
             }
             catch (Exception er)
@@ -444,14 +461,14 @@ namespace TechKMii.Layers.UI.Mantenimientos
             txtColor.Text = p.Color;
             txtCaracteristicas.Text = p.Caracteristicas;
             txtExtras.Text = p.Extras;
-
             nudCantStock.Value = p.CantidadStock;
-
             cmbTipoDispositivo.SelectedValue = p.Tipo.TipoID;
             cmbProveedor.SelectedValue = p.Proveedor.ProveedorID;
             cmbMarca.SelectedValue = p.Marca.MarcaID;
-
             cmbEstado.SelectedItem = p.Estado;
+            txtCodigoIndustria.Text = p.CodigoBarras;
+
+            txtCodigoIndustria.Enabled = false;
 
             if (p.Fotografia != null)
             {
@@ -486,7 +503,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                         // Mostrar imagen en el PictureBox
                         pcbFoto.Image = Image.FromFile(open.FileName);
 
-                        // Convertir a byte[] 
+                        // Convertir a byte 
                         using (MemoryStream ms = new MemoryStream())
                         {
                             pcbFoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
@@ -542,6 +559,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     Estado = (EstadoCatalogos)cmbEstado.SelectedItem,
                     CodigoBarras = txtCodigoIndustria.Text,
 
+
                     Tipo = new TipoDispositivo
                     {
                         TipoID = (int)cmbTipoDispositivo.SelectedValue
@@ -558,6 +576,8 @@ namespace TechKMii.Layers.UI.Mantenimientos
                     Fotografia = fotoBytes,
                     DocEspecificaciones = documentoBytes
                 };
+
+                txtCodigoIndustria.ReadOnly = true;
 
                 await productoBll.Update(oProducto);
 
@@ -676,6 +696,8 @@ namespace TechKMii.Layers.UI.Mantenimientos
             cmbProveedor.SelectedIndex = -1;
             cmbMarca.SelectedIndex = -1;
 
+            txtCodigoIndustria.Enabled = true;
+
             if (cmbEstado.Items.Count > 0)
                 cmbEstado.SelectedItem = EstadoCatalogos.Activo;
             else
@@ -754,6 +776,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 cmbEstado.SelectedItem = p.Estado;
 
                 txtCodigoIndustria.Text = p.CodigoBarras;
+                txtCodigoIndustria.Enabled = false;
 
                 // Imagen
                 if (p.Fotografia != null)

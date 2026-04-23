@@ -233,5 +233,11 @@ namespace TechKMii
             frmReporteGrafico ReporteGrafico = new frmReporteGrafico();
             ReporteGrafico.ShowDialog();
         }
+
+        private void reporteDeFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmReporteFacturas reporteFacturas = new frmReporteFacturas();
+            reporteFacturas.ShowDialog();
+        }
     }
 }

@@ -216,6 +216,7 @@
             this.reporteDeFacturasToolStripMenuItem.Name = "reporteDeFacturasToolStripMenuItem";
             this.reporteDeFacturasToolStripMenuItem.Size = new System.Drawing.Size(377, 44);
             this.reporteDeFacturasToolStripMenuItem.Text = "Reporte de Facturas";
+            this.reporteDeFacturasToolStripMenuItem.Click += new System.EventHandler(this.reporteDeFacturasToolStripMenuItem_Click);
             // 
             // acercaDeToolStripMenuItem
             // 
