@@ -29,7 +29,29 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
 
         private void frmClienteFiltro_Load(object sender, EventArgs e)
         {
+            try
+            {
+                txtBuscar.Focus();
 
+                var lista = ClienteBll.GetByFilter("")
+                    .Where(c => c.Estado == EstadoCatalogos.Activo)
+                    .ToList();
+
+                dgvBuscar.AutoGenerateColumns = true;
+                dgvBuscar.DataSource = null;
+                dgvBuscar.DataSource = lista;
+
+                ConfigurarColumnasGrid(dgvBuscar);
+            }
+            catch (Exception er)
+            {
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
+
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void tspSalir_Click(object sender, EventArgs e)
@@ -38,36 +60,31 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
             Close();
         }
 
-        //metodo para buscar clientes por filtro
         private void tspBuscarCliente_Click(object sender, EventArgs e)
         {
-            ClienteBll = new ClienteBLL();
-            string filtro = string.Empty;
-
             try
             {
-                if (string.IsNullOrWhiteSpace(txtBuscar.Text))
+                string filtro = txtBuscar.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(filtro))
                 {
-                    MessageBox.Show("Debe digitar un nombre o una cédula.",
-                        "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtBuscar.Focus();
-                    return;
+                    filtro = "";
                 }
 
-                filtro = txtBuscar.Text.Trim();
-                filtro = filtro.Replace(' ', '%');
-                filtro = "%" + filtro + "%";
-
-                var lista = ClienteBll.GetByFilter(filtro);
+                //Codigo que trae solo los clientes activos que coincidan con el filtro
+                var lista = ClienteBll.GetByFilter(filtro)
+                    .Where(c => c.Estado == EstadoCatalogos.Activo)
+                    .ToList();
 
                 dgvBuscar.AutoGenerateColumns = true;
+                dgvBuscar.DataSource = null;
                 dgvBuscar.DataSource = lista;
 
                 ConfigurarColumnasGrid(dgvBuscar);
 
-                if (dgvBuscar.Rows.Count == 0)
+                if (lista.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron clientes con ese filtro.",
+                    MessageBox.Show("No se encontraron clientes.",
                         "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -85,7 +102,17 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
         private void tspNuevo_Click(object sender, EventArgs e)
         {
             txtBuscar.Clear();
+
+            var lista = ClienteBll.GetByFilter("")
+                .Where(c => c.Estado == EstadoCatalogos.Activo)
+                .ToList();
+
+            dgvBuscar.AutoGenerateColumns = true;
             dgvBuscar.DataSource = null;
+            dgvBuscar.DataSource = lista;
+
+            ConfigurarColumnasGrid(dgvBuscar);
+
             txtBuscar.Focus();
         }
 

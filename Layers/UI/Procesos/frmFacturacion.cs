@@ -19,6 +19,7 @@ using TechKMii.Layers.Entities.BCCR;
 using TechKMii.Layers.Interfaces;
 using TechKMii.Util;
 using UTN.Winform.Electronics.Extensions;
+using TechKMii.Layers.UI.Mantenimientos.Filtros;
 
 namespace TechKMii.Layers.UI.Procesos
 {
@@ -42,7 +43,7 @@ namespace TechKMii.Layers.UI.Procesos
         private Graphics graphicsFirma;
 
         private string rutaPdfGlobal = "";
-        private string rutaXmlGlobal = "";  
+        private string rutaXmlGlobal = "";
 
         public frmFacturacion()
         {
@@ -195,29 +196,44 @@ namespace TechKMii.Layers.UI.Procesos
             {
                 string filtro = txtCliente.Text.Trim();
 
-                if (string.IsNullOrEmpty(filtro))
+                if (string.IsNullOrWhiteSpace(filtro))
                 {
-                    MessageBox.Show("Digite el nombre del cliente a buscar.");
+                    using (frmClienteFiltro frm = new frmClienteFiltro())
+                    {
+                        if (frm.ShowDialog() == DialogResult.OK && frm.oCliente != null)
+                        {
+                            Cliente cliente = frm.oCliente;
+
+                            clienteSeleccionado = cliente;
+
+                            txtCliente.Text = cliente.Nombre + " " + cliente.Apellidos;
+                            txtCorreo.Text = cliente.Correo;
+                            txtCliente.Tag = cliente;
+                        }
+                    }
+
                     return;
                 }
 
-                Cliente cliente = clienteBLL.GetByIdentificacion(filtro);
+                Cliente clienteEncontrado = clienteBLL.GetByIdentificacion(filtro);
 
-                if (cliente == null)
+                if (clienteEncontrado == null)
                 {
                     MessageBox.Show("No se encontró el cliente.");
                     return;
                 }
 
-                if (cliente.Estado != EstadoCatalogos.Activo)
+                if (clienteEncontrado.Estado != EstadoCatalogos.Activo)
                 {
                     MessageBox.Show("El cliente está inactivo y no puede ser utilizado en facturación.");
                     return;
-                }              
+                }
 
-                clienteSeleccionado = cliente;
-                txtCliente.Text = cliente.Nombre + " " + cliente.Apellidos;
-                txtCorreo.Text = cliente.Correo;
+                clienteSeleccionado = clienteEncontrado;
+
+                txtCliente.Text = clienteEncontrado.Nombre + " " + clienteEncontrado.Apellidos;
+                txtCorreo.Text = clienteEncontrado.Correo;
+                txtCliente.Tag = clienteEncontrado;
             }
             catch (Exception er)
             {
@@ -311,38 +327,51 @@ namespace TechKMii.Layers.UI.Procesos
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtProducto.Text))
+                string filtro = txtProducto.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(filtro))
                 {
-                    MessageBox.Show("Digite el código del producto.");
+                    using (frmProductoFiltro frm = new frmProductoFiltro())
+                    {
+                        if (frm.ShowDialog() == DialogResult.OK && frm.oProducto != null)
+                        {
+                            Producto producto = frm.oProducto;
+
+                            if (producto.Estado != EstadoCatalogos.Activo)
+                            {
+                                MessageBox.Show("El producto está inactivo y no puede ser facturado.");
+                                return;
+                            }
+
+                            productoSeleccionado = producto;
+
+                            txtProducto.Text = producto.Nombre;
+                            txtPrecio.Text = producto.Precio.ToString("N2");
+                            txtCantidadStock.Text = producto.CantidadStock.ToString();
+                            txtCantidad.Text = "";
+                            txtCantidad.Focus();
+                        }
+                    }
+
                     return;
                 }
 
-                int productoId;
-                if (!int.TryParse(txtProducto.Text.Trim(), out productoId))
+                var lista = await productoBLL.GetByFilter(filtro);
+
+                Producto productoEncontrado = lista
+                    .FirstOrDefault(p => p.Estado == EstadoCatalogos.Activo);
+
+                if (productoEncontrado == null)
                 {
-                    MessageBox.Show("El código del producto debe ser numérico.");
+                    MessageBox.Show("No se encontró un producto activo con ese criterio.");
                     return;
                 }
 
-                Producto producto = await productoBLL.GetById(productoId);
+                productoSeleccionado = productoEncontrado;
 
-                if (producto == null)
-                {
-                    MessageBox.Show("No se encontró el producto.");
-                    return;
-                }
-
-                if (producto.Estado != EstadoCatalogos.Activo)
-                {
-                    MessageBox.Show("El producto está inactivo y no puede ser facturado.");
-                    return;
-                }
-
-                productoSeleccionado = producto;
-
-                txtProducto.Text = producto.Nombre;
-                txtPrecio.Text = producto.Precio.ToString("N2");
-                txtCantidadStock.Text = producto.CantidadStock.ToString();
+                txtProducto.Text = productoEncontrado.Nombre;
+                txtPrecio.Text = productoEncontrado.Precio.ToString("N2");
+                txtCantidadStock.Text = productoEncontrado.CantidadStock.ToString();
                 txtCantidad.Text = "";
                 txtCantidad.Focus();
             }
@@ -355,6 +384,7 @@ namespace TechKMii.Layers.UI.Procesos
                 MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
@@ -652,7 +682,7 @@ namespace TechKMii.Layers.UI.Procesos
                     txtNoFactura.Text
                 );
 
-                string codigoQr = txtNoFactura.Text;             
+                string codigoQr = txtNoFactura.Text;
 
                 rutaPdfGlobal = FacturaDocumento.GenerarPDF(
                     oFactura,
@@ -688,7 +718,7 @@ namespace TechKMii.Layers.UI.Procesos
             txtPrecio.Text = "";
             txtCantidad.Text = "";
             txtCantidadStock.Text = "";
-        }     
+        }
 
         private void tspEnviarPorCorreo_Click(object sender, EventArgs e)
         {
@@ -869,7 +899,7 @@ namespace TechKMii.Layers.UI.Procesos
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
 
-                return 460.00; 
+                return 460.00;
             }
         }
     }

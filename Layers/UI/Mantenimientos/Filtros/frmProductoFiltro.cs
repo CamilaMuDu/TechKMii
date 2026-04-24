@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
 using TechKMii.Layers.BLL;
+using TechKMii.Layers.DAL;
 using TechKMii.Layers.Entities;
 using TechKMii.Layers.Interfaces;
 using UTN.Winform.Electronics.Extensions;
@@ -27,12 +28,30 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
             InitializeComponent();
         }
 
-        private void frmProductoFiltro_Load(object sender, EventArgs e)
+        private async void frmProductoFiltro_Load(object sender, EventArgs e)
         {
             try
             {
                 ConfigurarColumnasGrid();
                 txtBuscar.Focus();
+
+                listaProductos = (await ProductoBll.GetAll())
+                    .Where(p => p.Estado == EstadoCatalogos.Activo)
+                    .ToList();
+
+                var datos = listaProductos.Select(p => new
+                {
+                    p.ProductoID,
+                    p.Nombre,
+                    p.CodigoBarras,
+                    p.Modelo,
+                    Proveedor = p.Proveedor != null ? p.Proveedor.Nombre : "",
+                    Marca = p.Marca != null ? p.Marca.Nombre : "",
+                    Estado = p.Estado.ToString()
+                }).ToList();
+
+                dgvBuscar.DataSource = null;
+                dgvBuscar.DataSource = datos;
             }
             catch (Exception er)
             {
@@ -50,43 +69,41 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
             this.DialogResult = DialogResult.Cancel;
             Close();
         }
-        //metodo para buscar productos por filtro
-        private async Task BuscarProductos()
+        private async void tspNuevo_Click(object sender, EventArgs e)
         {
-            listaProductos = (await ProductoBll.GetByFilter(txtBuscar.Text.Trim())).ToList();
-
-            if (listaProductos.Count == 0)
+            try
             {
+                txtBuscar.Clear();
+
+                listaProductos = (await ProductoBll.GetAll())
+                    .Where(p => p.Estado == EstadoCatalogos.Activo)
+                    .ToList();
+
+                var datos = listaProductos.Select(p => new
+                {
+                    p.ProductoID,
+                    p.Nombre,
+                    p.CodigoBarras,
+                    p.Modelo,
+                    Proveedor = p.Proveedor != null ? p.Proveedor.Nombre : "",
+                    Marca = p.Marca != null ? p.Marca.Nombre : "",
+                    Estado = p.Estado.ToString()
+                }).ToList();
+
                 dgvBuscar.DataSource = null;
+                dgvBuscar.DataSource = datos;
 
-                MessageBox.Show("No se encontraron productos con ese criterio",
-                    "Sin resultados",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                return;
+                txtBuscar.Focus();
             }
-
-            var datos = listaProductos.Select(p => new
+            catch (Exception er)
             {
-                p.ProductoID,
-                p.Nombre,
-                p.CodigoBarras,
-                p.Modelo,
-                Proveedor = p.Proveedor != null ? p.Proveedor.Nombre : "",
-                Marca = p.Marca != null ? p.Marca.Nombre : "",
-                Estado = p.Estado.ToString()
-            }).ToList();
+                string msg = "";
+                _myLogControlEventos.ErrorFormat("Error {0}",
+                    msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod()));
 
-            dgvBuscar.DataSource = null;
-            dgvBuscar.DataSource = datos;
-        }
-
-        private void tspNuevo_Click(object sender, EventArgs e)
-        {
-            txtBuscar.Clear();
-            dgvBuscar.DataSource = null;
-            txtBuscar.Focus();
+                MessageBox.Show("Se ha producido el siguiente error: " + er.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ConfigurarColumnasGrid()
@@ -197,20 +214,45 @@ namespace TechKMii.Layers.UI.Mantenimientos.Filtros
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private async void tspBuscarProducto_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtBuscar.Text))
+                string filtro = txtBuscar.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(filtro))
                 {
-                    MessageBox.Show("Debe ingresar un criterio de búsqueda",
-                        "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtBuscar.Focus();
-                    return;
+                    listaProductos = (await ProductoBll.GetAll())
+                        .Where(p => p.Estado == EstadoCatalogos.Activo)
+                        .ToList();
+                }
+                else
+                {
+                    //Codigo que trae solo los productos activos que coincidan con el filtro
+                    listaProductos = (await ProductoBll.GetByFilter(filtro))
+                        .Where(p => p.Estado == EstadoCatalogos.Activo)
+                        .ToList();
                 }
 
-                await BuscarProductos();
+                var datos = listaProductos.Select(p => new
+                {
+                    p.ProductoID,
+                    p.Nombre,
+                    p.CodigoBarras,
+                    p.Modelo,
+                    Proveedor = p.Proveedor != null ? p.Proveedor.Nombre : "",
+                    Marca = p.Marca != null ? p.Marca.Nombre : "",
+                    Estado = p.Estado.ToString()
+                }).ToList();
+
+                dgvBuscar.DataSource = null;
+                dgvBuscar.DataSource = datos;
+
+                if (listaProductos.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron productos.",
+                        "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception er)
             {
