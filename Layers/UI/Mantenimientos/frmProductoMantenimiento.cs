@@ -168,6 +168,14 @@ namespace TechKMii.Layers.UI.Mantenimientos
 
             dgvDatosProducto.Columns.Add(new DataGridViewTextBoxColumn
             {
+                Name = "CantidadStock",
+                HeaderText = "Stock",
+                DataPropertyName = "CantidadStock",
+                Width = 70
+            });
+
+            dgvDatosProducto.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 Name = "Precio",
                 HeaderText = "Precio",
                 DataPropertyName = "Precio",
@@ -206,6 +214,7 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 p.ProductoID,
                 p.Nombre,
                 CodigoBarras = p.CodigoBarras,
+                p.CantidadStock,
                 Proveedor = p.Proveedor != null ? p.Proveedor.Nombre : "",
                 Marca = p.Marca != null ? p.Marca.Nombre : "",
                 p.Modelo,

@@ -31,6 +31,7 @@ namespace TechKMii.Layers.UI.Procesos
         IFacturaBLL facturaBLL = new FacturaBLL();
         IClienteBLL clienteBLL = new ClienteBLL();
         IProductoBLL productoBLL = new ProductoBLL();
+        IInventarioBLL inventarioBLL = new InventarioBLL();
 
         private Cliente clienteSeleccionado = null;
         private Producto productoSeleccionado = null;
@@ -463,6 +464,7 @@ namespace TechKMii.Layers.UI.Procesos
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void CargarGrid()
         {
             dgvProductos.DataSource = null;
@@ -470,10 +472,23 @@ namespace TechKMii.Layers.UI.Procesos
             dgvProductos.DataSource = listaDetalle.Select(x => new
             {
                 Codigo = x.Producto.ProductoID,
-                Descripcion = x.Producto.Nombre,
+                Nombre = x.Producto.Nombre,
+                CodigoIndustria = x.Producto.CodigoBarras,
+                Modelo = x.Producto.Modelo,
+                Marca = x.Producto.Marca != null ? x.Producto.Marca.Nombre : "",
+                Proveedor = x.Producto.Proveedor != null ? x.Producto.Proveedor.Nombre : "",
+                Color = x.Producto.Color,
+                Caracteristicas = x.Producto.Caracteristicas,
+                Extras = x.Producto.Extras,
                 Cantidad = x.Cantidad,
                 Precio = x.Precio
             }).ToList();
+
+            dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProductos.ReadOnly = true;
+            dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProductos.AllowUserToAddRows = false;
+            dgvProductos.AllowUserToDeleteRows = false;
         }
 
         private void CalcularTotales()
@@ -540,7 +555,7 @@ namespace TechKMii.Layers.UI.Procesos
             }
         }
 
-        private void tspGenerarFactura_Click(object sender, EventArgs e)
+        private async void tspGenerarFactura_Click(object sender, EventArgs e)
         {
             try
             {
@@ -668,6 +683,41 @@ namespace TechKMii.Layers.UI.Procesos
                     MessageBox.Show("No se pudo guardar la factura.");
                     return;
                 }
+
+                // Actualizar stock de productos y registrar movimientos en inventario
+                foreach (FacturaDetalle detalle in listaDetalle)
+                {
+                    Producto productoActual = await productoBLL.GetById(detalle.Producto.ProductoID);
+
+                    if (productoActual == null)
+                    {
+                        MessageBox.Show("No se encontró el producto: " + detalle.Producto.Nombre);
+                        return;
+                    }
+
+                    if (productoActual.CantidadStock < detalle.Cantidad)
+                    {
+                        MessageBox.Show("No hay suficiente stock para el producto: " + productoActual.Nombre);
+                        return;
+                    }
+
+                    productoActual.CantidadStock -= detalle.Cantidad;
+
+                    await productoBLL.Update(productoActual);
+
+                    Inventario movimientoInventario = new Inventario
+                    {
+                        Producto = new Producto { ProductoID = productoActual.ProductoID },
+                        TipoEntradaSalida = TipoEntradaSalida.Salida,
+                        Fecha = DateTime.Now,
+                        Observaciones = "Salida por factura " + txtNoFactura.Text,
+                        Estado = EstadoCatalogos.Activo,
+                        Cantidad = detalle.Cantidad
+                    };
+
+                    await inventarioBLL.Save(movimientoInventario);
+                }
+
 
                 oFactura.FacturaXML = FacturaDocumento.GenerarFacturaXML(
                     oFactura,

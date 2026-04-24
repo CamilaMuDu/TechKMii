@@ -205,6 +205,13 @@ namespace TechKMii.Util
                         // ENCABEZADO SUPERIOR
                         col.Item().Row(row =>
                         {
+                            row.RelativeItem().AlignLeft().Column(c =>
+                            {
+                                c.Item().Text("TechKMii")
+                                    .FontSize(14)
+                                    .Bold();
+                            });
+
                             row.RelativeItem().AlignCenter().Column(c =>
                             {
                                 c.Item().PaddingTop(8).Text("FACTURA ELECTRÓNICA")
@@ -248,33 +255,53 @@ namespace TechKMii.Util
                         {
                             tabla.ColumnsDefinition(columns =>
                             {
-                                columns.ConstantColumn(30);
-                                columns.RelativeColumn(3);
-                                columns.RelativeColumn(1);
-                                columns.RelativeColumn(1.3f);
-                                columns.RelativeColumn(1.3f);
-                                columns.RelativeColumn(2);
+                                columns.ConstantColumn(25);   
+                                columns.ConstantColumn(45);   
+                                columns.RelativeColumn(1.5f); 
+                                columns.RelativeColumn(1.2f); 
+                                columns.RelativeColumn(1);   
+                                columns.RelativeColumn(1);   
+                                columns.RelativeColumn(1);    
+                                columns.RelativeColumn(1);    
+                                columns.RelativeColumn(1.4f); 
+                                columns.RelativeColumn(1);   
+                                columns.ConstantColumn(50);   
+                                columns.ConstantColumn(65);   
                             });
 
                             tabla.Header(header =>
                             {
-                                header.Cell().Element(EstiloHeaderTabla).Text("#").Bold();
-                                header.Cell().Element(EstiloHeaderTabla).Text("Producto").Bold();
-                                header.Cell().Element(EstiloHeaderTabla).Text("Cantidad").Bold();
-                                header.Cell().Element(EstiloHeaderTabla).Text("Precio").Bold();
-                                header.Cell().Element(EstiloHeaderTabla).Text("Total Línea").Bold();
-                                header.Cell().Element(EstiloHeaderTabla).Text("Detalle Compra").Bold();
+                                header.Cell().Element(EstiloHeaderTabla).Text("#").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Código").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Producto").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Cod. Ind.").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Modelo").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Marca").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Proveedor").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Color").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Características").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Extras").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Cant.").Bold().FontSize(8);
+                                header.Cell().Element(EstiloHeaderTabla).Text("Precio").Bold().FontSize(8);
                             });
 
                             int linea = 1;
+
                             foreach (var item in factura.ListaDetalle)
                             {
-                                tabla.Cell().Element(EstiloCeldaTabla).Text(linea.ToString());
-                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto?.Nombre ?? "");
-                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Cantidad.ToString());
-                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Precio.ToString("N2"));
-                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Total.ToString("N2"));
-                                tabla.Cell().Element(EstiloCeldaTabla).Text("Compra");
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(linea.ToString()).FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null ? item.Producto.ProductoID.ToString() : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null ? item.Producto.Nombre : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null ? item.Producto.CodigoBarras : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null ? item.Producto.Modelo : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null && item.Producto.Marca != null ? item.Producto.Marca.Nombre : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null && item.Producto.Proveedor != null ? item.Producto.Proveedor.Nombre : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null ? item.Producto.Color : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null ? item.Producto.Caracteristicas : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Producto != null ? item.Producto.Extras : "").FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Cantidad.ToString()).FontSize(8);
+                                tabla.Cell().Element(EstiloCeldaTabla).Text(item.Precio.ToString("N2")).FontSize(8);
+
                                 linea++;
                             }
                         });
@@ -349,8 +376,6 @@ namespace TechKMii.Util
                     });
                 });
             }).GeneratePdf();
-
-            File.WriteAllBytes(rutaPdf, pdfBytes);
 
             File.WriteAllBytes(rutaPdf, pdfBytes);
             return rutaPdf;

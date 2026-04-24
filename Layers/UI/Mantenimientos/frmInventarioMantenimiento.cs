@@ -538,5 +538,47 @@ namespace TechKMii.Layers.UI.Mantenimientos
                 throw;
             }
         }
+
+        private async void tsbBorrar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvDatosInventario.CurrentRow == null)
+                {
+                    MessageBox.Show("Debe seleccionar un movimiento.");
+                    return;
+                }
+
+                int id = Convert.ToInt32(dgvDatosInventario.CurrentRow.Cells["InventarioID"].Value);
+
+                var resp = MessageBox.Show(
+                    "¿Desea borrar este movimiento?",
+                    "Confirmación",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (resp != DialogResult.Yes)
+                    return;
+
+                bool resultado = await invertarioBLL.Delete(id.ToString());
+
+                if (!resultado)
+                {
+                    MessageBox.Show("No se pudo borrar el movimiento.");
+                    return;
+                }
+
+                MessageBox.Show("Movimiento borrado correctamente.");
+
+                CargarGrid();
+                Limpiar();
+            }
+            catch (Exception er)
+            {
+                msg = msg.ToExceptionDetail(er, MethodBase.GetCurrentMethod());
+                _myLogControlEventos.ErrorFormat("Error {0}", msg);
+                throw;
+            }
+        }
     }
 }

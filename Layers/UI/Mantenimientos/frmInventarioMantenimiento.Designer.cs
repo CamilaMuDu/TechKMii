@@ -95,6 +95,7 @@
             this.tsbBorrar.Name = "tsbBorrar";
             this.tsbBorrar.Size = new System.Drawing.Size(114, 36);
             this.tsbBorrar.Text = "Borrar";
+            this.tsbBorrar.Click += new System.EventHandler(this.tsbBorrar_Click);
             // 
             // tsbSalir
             // 
