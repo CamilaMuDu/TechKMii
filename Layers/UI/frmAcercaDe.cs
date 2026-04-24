@@ -107,6 +107,17 @@ namespace TechKMii.Layers.UI
         private void okButton_Click(object sender, EventArgs e)
         {
             Close();
-        }       
+        }
+
+        private void frmAcercaDe_Load(object sender, EventArgs e)
+        {
+            //Cambios del profesor
+             this.Text = String.Format("Acerca de {0}", AssemblyTitle);
+             this.labelProductName.Text = AssemblyProduct;
+             this.labelVersion.Text = String.Format("Versión {0}", AssemblyVersion);
+             this.labelCopyright.Text = AssemblyCopyright;
+             this.labelCompanyName.Text = AssemblyCompany;
+             this.textBoxDescription.Text = AssemblyDescription;
+        }
     }
 }
