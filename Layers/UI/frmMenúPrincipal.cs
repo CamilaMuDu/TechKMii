@@ -19,6 +19,7 @@ using TechKMii.Layers.UI.Procesos;
 using TechKMii.Layers.UI.Reportes;
 using TechKMii.Properties;
 using UTN.Winform.Electronics.Extensions;
+using System.Diagnostics;
 
 namespace TechKMii
 {
@@ -109,7 +110,8 @@ namespace TechKMii
             }
 
             menus.Add("acercaDeToolStripMenuItem");
-            menus.Add("administraciónToolStripMenuItem"); 
+            menus.Add("administraciónToolStripMenuItem");
+            menus.Add("manualDeUsuarioToolStripMenuItem");
 
             // Rol Administrador
             if (Settings.Default.Rol.Equals("1"))
@@ -238,6 +240,36 @@ namespace TechKMii
         {
             frmReporteFacturas reporteFacturas = new frmReporteFacturas();
             reporteFacturas.ShowDialog();
+        }
+
+        private void manualDeUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string rutaManual = Path.Combine(Application.StartupPath, "Manual de Usuario_TechKMii.pdf");
+
+                if (!File.Exists(rutaManual))
+                {
+                    MessageBox.Show("No se encontró el manual de usuario en la carpeta del programa.",
+                                    "Manual no encontrado",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+
+                Process.Start(new ProcessStartInfo()
+                {
+                    FileName = rutaManual,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir el manual: " + ex.Message,
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
     }
 }

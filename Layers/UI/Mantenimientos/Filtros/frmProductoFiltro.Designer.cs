@@ -108,6 +108,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dgvBuscar);
             this.Controls.Add(this.txtBuscar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmProductoFiltro";
             this.Text = "Filtro de Producto";
             this.Load += new System.EventHandler(this.frmProductoFiltro_Load);

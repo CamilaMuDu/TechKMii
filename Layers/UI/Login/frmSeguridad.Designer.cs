@@ -93,7 +93,7 @@
             this.trvUsuarios.Margin = new System.Windows.Forms.Padding(6);
             this.trvUsuarios.Name = "trvUsuarios";
             this.trvUsuarios.SelectedImageIndex = 0;
-            this.trvUsuarios.Size = new System.Drawing.Size(901, 604);
+            this.trvUsuarios.Size = new System.Drawing.Size(901, 636);
             this.trvUsuarios.TabIndex = 5;
             this.trvUsuarios.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvUsuarios_AfterSelect);
             this.trvUsuarios.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.trvUsuarios_NodeMouseClick);
@@ -192,7 +192,7 @@
             this.spcContenedor.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.spcContenedor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.spcContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spcContenedor.Location = new System.Drawing.Point(0, 74);
+            this.spcContenedor.Location = new System.Drawing.Point(0, 42);
             this.spcContenedor.Margin = new System.Windows.Forms.Padding(6);
             this.spcContenedor.Name = "spcContenedor";
             // 
@@ -204,7 +204,7 @@
             // spcContenedor.Panel2
             // 
             this.spcContenedor.Panel2.Controls.Add(this.trvUsuarios);
-            this.spcContenedor.Size = new System.Drawing.Size(1567, 608);
+            this.spcContenedor.Size = new System.Drawing.Size(1567, 640);
             this.spcContenedor.SplitterDistance = 654;
             this.spcContenedor.SplitterWidth = 8;
             this.spcContenedor.TabIndex = 5;
@@ -239,7 +239,7 @@
             this.toolStripBtnSalir.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnSalir.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnSalir.Name = "toolStripBtnSalir";
-            this.toolStripBtnSalir.Size = new System.Drawing.Size(127, 68);
+            this.toolStripBtnSalir.Size = new System.Drawing.Size(95, 94);
             this.toolStripBtnSalir.Text = "&Salir";
             this.toolStripBtnSalir.Click += new System.EventHandler(this.toolStripBtnSalir_Click);
             // 
@@ -249,7 +249,7 @@
             this.toolStripBtnGuardarUsuario.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnGuardarUsuario.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnGuardarUsuario.Name = "toolStripBtnGuardarUsuario";
-            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(166, 68);
+            this.toolStripBtnGuardarUsuario.Size = new System.Drawing.Size(134, 68);
             this.toolStripBtnGuardarUsuario.Text = "&Guardar";
             this.toolStripBtnGuardarUsuario.Click += new System.EventHandler(this.toolStripBtnGuardarUsuario_Click);
             // 
@@ -259,7 +259,7 @@
             this.toolStripBtnNuevo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripBtnNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnNuevo.Name = "toolStripBtnNuevo";
-            this.toolStripBtnNuevo.Size = new System.Drawing.Size(153, 68);
+            this.toolStripBtnNuevo.Size = new System.Drawing.Size(121, 68);
             this.toolStripBtnNuevo.Text = "&Nuevo";
             this.toolStripBtnNuevo.Click += new System.EventHandler(this.toolStripBtnNuevo_Click);
             // 
@@ -276,7 +276,7 @@
             this.tspBarraPrincipal.Name = "tspBarraPrincipal";
             this.tspBarraPrincipal.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.tspBarraPrincipal.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 74);
+            this.tspBarraPrincipal.Size = new System.Drawing.Size(1567, 42);
             this.tspBarraPrincipal.TabIndex = 4;
             this.tspBarraPrincipal.Text = "toolStrip1";
             // 
@@ -285,7 +285,7 @@
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
             this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Plum;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(98, 68);
+            this.tsbEditar.Size = new System.Drawing.Size(98, 94);
             this.tsbEditar.Text = "&Editar";
             this.tsbEditar.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
